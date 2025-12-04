@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contract Archive | Corporate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script> <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    /* NEO CORPORATE THEME */
+    :root { --primary: #0f172a; --accent: #2563eb; --surface: #ffffff; --bg: #f1f5f9; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--primary); }
+    
+    /* Smooth Transitions */
+    .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+    .fade-enter-from, .fade-leave-to { opacity: 0; }
+    
+    .card { background: var(--surface); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); border-radius: 12px; border: 1px solid #e2e8f0; transition: all 0.2s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border-color: var(--accent); }
+    
+    .btn { padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; transition: 0.2s; display: inline-flex; items-center; gap: 0.5rem; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: #1e293b; }
+    .btn-accent { background: var(--accent); color: white; }
+    .btn-accent:hover { background: #1d4ed8; }
+    
+    .status-badge { padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+    .status-active { background: #dcfce7; color: #166534; }
+    .status-expired { background: #fee2e2; color: #991b1b; }
+    
+    /* Layout */
+    .sidebar { width: 280px; background: white; border-right: 1px solid #e2e8f0; height: 100vh; position: fixed; }
+    .main-content { margin-left: 280px; padding: 2rem; min-height: 100vh; }
+    
+    /* QR Print */
+    @media print {
+      body * { visibility: hidden; }
+      #printArea, #printArea * { visibility: visible; }
+      #printArea { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: flex; justify-content: center; items-center; }
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="app">
+    <div v-if="qrView" class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+       <div v-if="loading" class="text-center"><div class="animate-spin h-10 w-10 border-4 border-blue-600 rounded-full border-t-transparent mx-auto"></div><p class="mt-4 font-bold text-gray-500">Fetching File Details...</p></div>
+       <div v-else-if="qrData" class="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full border-t-8 border-blue-600">
+          <div class="text-center mb-6">
+             <i class="fa-solid fa-file-shield text-5xl text-blue-600 mb-4"></i>
+             <h1 class="text-2xl font-bold text-gray-800">File Verification</h1>
+             <p class="text-sm text-gray-500">Authorized Digital Record</p>
+          </div>
+          <div class="space-y-4">
+             <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <p class="text-xs text-gray-500 uppercase font-bold">Contract Firm</p>
+                <p class="text-lg font-bold text-blue-900">{{ qrData.contract.firm }}</p>
+                <p class="text-sm text-gray-600">{{ qrData.contract.period }}</p>
+             </div>
+             <div class="grid grid-cols-2 gap-4">
+                <div><p class="text-xs text-gray-500 uppercase">File No</p><p class="font-bold">{{ qrData.file.fileNo }}</p></div>
+                <div><p class="text-xs text-gray-500 uppercase">Type</p><p class="font-bold">{{ qrData.file.type }}</p></div>
+                <div><p class="text-xs text-gray-500 uppercase">Location</p><p class="font-bold">{{ qrData.file.loc }}</p></div>
+                <div><p class="text-xs text-gray-500 uppercase">Status</p><span class="px-2 py-1 bg-green-100 text-green-800 rounded text-xs font-bold">{{ qrData.file.status }}</span></div>
+             </div>
+             <div class="pt-4 border-t">
+                <p class="text-xs text-gray-500 uppercase">Description</p>
+                <p class="text-sm text-gray-700 mt-1">{{ qrData.file.desc }}</p>
+             </div>
+             <a v-if="qrData.file.url" :href="qrData.file.url" class="block w-full text-center py-3 bg-blue-600 text-white font-bold rounded-lg shadow hover:bg-blue-700">View Digital Document</a>
+          </div>
+       </div>
+    </div>
+
+    <div v-else class="flex min-h-screen">
+      
+      <div v-if="page === 'login'" class="fixed inset-0 z-50 bg-gray-100 flex items-center justify-center">
+        <div class="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md">
+           <h1 class="text-3xl font-bold text-slate-800 mb-2">Contract FMS</h1>
+           <p class="text-gray-500 mb-8">Secure Login</p>
+           <form @submit.prevent="login" class="space-y-4">
+              <input v-model="auth.email" placeholder="Email" class="w-full p-3 border rounded-lg focus:ring-2 ring-blue-500 outline-none">
+              <input v-model="auth.password" type="password" placeholder="Password" class="w-full p-3 border rounded-lg focus:ring-2 ring-blue-500 outline-none">
+              <button class="w-full bg-slate-900 text-white py-3 rounded-lg font-bold hover:bg-slate-800 transition">Access System</button>
+           </form>
+        </div>
+      </div>
+
+      <template v-else>
+        <aside class="sidebar flex flex-col z-40">
+           <div class="p-6 border-b">
+              <h2 class="text-xl font-bold tracking-tight text-slate-900">ARCHIVE</h2>
+              <p class="text-xs text-slate-500">Logged in as {{ user.name }}</p>
+           </div>
+           <nav class="flex-1 p-4 space-y-1">
+              <a @click="goHome" :class="`block p-3 rounded-lg cursor-pointer ${nav==='home'?'bg-slate-100 font-bold text-slate-900':'text-slate-600 hover:bg-slate-50'}`"><i class="fa-solid fa-layer-group w-6"></i> Categories</a>
+              <a v-if="user.role==='Admin'" @click="fetchAdmin" :class="`block p-3 rounded-lg cursor-pointer ${nav==='admin'?'bg-slate-100 font-bold text-slate-900':'text-slate-600 hover:bg-slate-50'}`"><i class="fa-solid fa-shield-halved w-6"></i> Admin</a>
+           </nav>
+           <div class="p-4 border-t">
+              <button @click="logout" class="w-full p-2 text-red-600 text-sm font-bold hover:bg-red-50 rounded-lg text-left"><i class="fa-solid fa-right-from-bracket w-6"></i> Logout</button>
+           </div>
+        </aside>
+
+        <main class="main-content w-full">
+           
+           <div class="flex justify-between items-center mb-8">
+              <div class="flex items-center gap-2 text-sm text-slate-500">
+                 <span @click="goHome" class="cursor-pointer hover:text-blue-600">Home</span>
+                 <span v-if="selectedCat"><i class="fa-solid fa-chevron-right text-xs"></i> {{ selectedCat.name }}</span>
+                 <span v-if="selectedCon"><i class="fa-solid fa-chevron-right text-xs"></i> {{ selectedCon.firm }}</span>
+              </div>
+              <div v-if="loading" class="text-blue-600 font-bold animate-pulse">SYNCING DATA...</div>
+           </div>
+
+           <div v-if="nav==='home' && !selectedCat" class="animate-fade">
+              <div class="flex justify-between items-end mb-6">
+                 <div><h1 class="text-3xl font-bold text-slate-900">Contract Categories</h1><p class="text-slate-500">Select a department to view contracts</p></div>
+                 <button @click="modals.cat=true" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Category</button>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                 <div v-for="c in categories" @click="selectCategory(c)" class="card p-6 cursor-pointer hover:bg-blue-50/50 group">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition">
+                       <i :class="c.icon || 'fa-solid fa-folder'"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800">{{ c.name }}</h3>
+                    <p class="text-sm text-slate-500 mt-1">View Contracts <i class="fa-solid fa-arrow-right ml-1"></i></p>
+                 </div>
+              </div>
+           </div>
+
+           <div v-if="selectedCat && !selectedCon" class="animate-fade">
+              <div class="flex justify-between items-end mb-6">
+                 <div>
+                    <h1 class="text-3xl font-bold text-slate-900">{{ selectedCat.name }}</h1>
+                    <p class="text-slate-500">Contracts List (Latest First)</p>
+                 </div>
+                 <button @click="modals.con=true" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Contract</button>
+              </div>
+              <div class="space-y-4">
+                 <div v-for="c in filteredContracts" @click="selectContract(c)" class="card p-5 flex justify-between items-center cursor-pointer hover:border-l-4 hover:border-l-blue-600">
+                    <div>
+                       <h3 class="font-bold text-xl text-slate-800">{{ c.firm }}</h3>
+                       <div class="flex gap-4 text-sm text-slate-500 mt-1">
+                          <span><i class="fa-regular fa-calendar"></i> {{ c.start }} - {{ c.end }}</span>
+                          <span><i class="fa-solid fa-file-contract"></i> Agmt: {{ c.agreeNo }}</span>
+                       </div>
+                    </div>
+                    <div class="text-right">
+                       <span :class="`status-badge ${isContractActive(c)?'status-active':'status-expired'}`">{{ isContractActive(c)?'Running':'Expired' }}</span>
+                       <div class="text-xs text-slate-400 mt-2">Click to view files</div>
+                    </div>
+                 </div>
+                 <div v-if="filteredContracts.length===0" class="text-center py-10 text-slate-400">No contracts found in this category.</div>
+              </div>
+           </div>
+
+           <div v-if="selectedCon" class="animate-fade">
+              <div class="bg-slate-900 text-white p-6 rounded-2xl mb-8 shadow-lg">
+                 <div class="flex justify-between items-start">
+                    <div>
+                       <h1 class="text-2xl font-bold">{{ selectedCon.firm }}</h1>
+                       <p class="opacity-80 text-sm mt-1">Agreement No: {{ selectedCon.agreeNo }} | Period: {{ selectedCon.start }} to {{ selectedCon.end }}</p>
+                       <p class="mt-4 text-sm bg-white/10 p-2 rounded inline-block">{{ selectedCon.desc }}</p>
+                    </div>
+                    <span :class="`px-3 py-1 rounded-full text-xs font-bold ${isContractActive(selectedCon)?'bg-green-500 text-black':'bg-red-500 text-white'}`">{{ isContractActive(selectedCon)?'ACTIVE':'EXPIRED' }}</span>
+                 </div>
+              </div>
+
+              <div class="flex justify-between items-center mb-4">
+                 <h2 class="text-xl font-bold text-slate-800">Files & Records</h2>
+                 <button @click="modals.file=true" class="btn btn-accent"><i class="fa-solid fa-file-circle-plus"></i> Create File</button>
+              </div>
+
+              <div class="grid grid-cols-1 gap-4">
+                 <div v-for="f in contractFiles" :key="f.id" class="card p-5 border-l-4" :style="`border-left-color: ${getFileColor(f.type)}`">
+                    <div class="flex justify-between items-start">
+                       <div>
+                          <div class="flex items-center gap-2 mb-1">
+                             <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-mono font-bold">{{ f.fileNo }}</span>
+                             <span class="text-xs text-slate-400 uppercase tracking-wide">{{ f.type }}</span>
+                          </div>
+                          <h3 class="font-bold text-lg text-slate-900">{{ f.name }}</h3>
+                          <p class="text-sm text-slate-500 mt-1">{{ f.desc }}</p>
+                          <div class="flex gap-3 mt-3 text-xs text-slate-400 font-medium">
+                             <span><i class="fa-solid fa-location-dot"></i> {{ f.loc }}</span>
+                             <span><i class="fa-solid fa-copy"></i> {{ f.pages }} Pages</span>
+                             <span :class="f.status==='Active'?'text-green-600':'text-red-400'">● {{ f.status }}</span>
+                          </div>
+                       </div>
+                       <div class="flex gap-2">
+                          <button @click="printQR(f)" class="p-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-600" title="Print QR"><i class="fa-solid fa-qrcode"></i></button>
+                          <a v-if="f.url" :href="f.url" target="_blank" class="p-2 bg-blue-50 hover:bg-blue-100 rounded text-blue-600" title="View Doc"><i class="fa-solid fa-eye"></i></a>
+                       </div>
+                    </div>
+                 </div>
+                 <div v-if="contractFiles.length===0" class="text-center py-10 bg-white rounded-xl border border-dashed border-slate-300">
+                    <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-2"></i>
+                    <p class="text-slate-500">No physical files created for this contract yet.</p>
+                 </div>
+              </div>
+           </div>
+
+           <div v-if="nav==='admin'" class="animate-fade">
+             <h1 class="text-2xl font-bold mb-6">Admin Control</h1>
+             <div class="grid md:grid-cols-2 gap-6">
+               <div class="card p-6">
+                 <h3 class="font-bold mb-4">User Management</h3>
+                 <div class="flex gap-2 mb-4">
+                   <input v-model="newUser.name" placeholder="Name" class="border p-2 rounded w-1/3">
+                   <input v-model="newUser.email" placeholder="Email" class="border p-2 rounded w-1/3">
+                   <select v-model="newUser.role" class="border p-2 rounded"><option>Manager</option><option>Admin</option></select>
+                   <button @click="addUser" class="btn btn-primary text-xs">Add</button>
+                 </div>
+                 <table class="w-full text-sm text-left">
+                   <tr class="border-b"><th class="pb-2">Name</th><th>Role</th><th>Action</th></tr>
+                   <tr v-for="u in adminData.users" class="border-b"><td class="py-2">{{u.name}}</td><td>{{u.role}}</td><td><button @click="delUser(u)" class="text-red-500"><i class="fa-solid fa-trash"></i></button></td></tr>
+                 </table>
+               </div>
+               <div class="card p-6">
+                 <h3 class="font-bold mb-4">Inventory Locations</h3>
+                 <div class="flex gap-2 mb-4">
+                   <input v-model="newLoc.name" placeholder="Rack (A)" class="border p-2 rounded w-1/4">
+                   <input v-model="newLoc.row" placeholder="Row" class="border p-2 rounded w-1/4">
+                   <input v-model="newLoc.col" placeholder="Col" class="border p-2 rounded w-1/4">
+                   <button @click="addLoc" class="btn btn-accent text-xs">Add</button>
+                 </div>
+                 <div class="flex flex-wrap gap-2">
+                   <span v-for="l in adminData.locations" class="bg-slate-100 px-2 py-1 rounded text-xs text-slate-600 border">{{ l }}</span>
+                 </div>
+               </div>
+             </div>
+           </div>
+
+        </main>
+
+        <div v-if="modals.cat" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+           <div class="bg-white p-6 rounded-xl w-96 shadow-xl">
+              <h3 class="font-bold text-lg mb-4">New Category</h3>
+              <input v-model="forms.cat.name" placeholder="Category Name (e.g. Pest Control)" class="w-full p-2 border rounded mb-4">
+              <input v-model="forms.cat.icon" placeholder="FontAwesome Class (fa-solid fa-bug)" class="w-full p-2 border rounded mb-6">
+              <div class="flex justify-end gap-2"><button @click="modals.cat=false" class="btn">Cancel</button><button @click="createCat" class="btn btn-primary">Create</button></div>
+           </div>
+        </div>
+
+        <div v-if="modals.con" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+           <div class="bg-white p-6 rounded-xl w-[500px] shadow-xl">
+              <h3 class="font-bold text-lg mb-4">New Contract</h3>
+              <div class="space-y-3">
+                 <input v-model="forms.con.firm" placeholder="Firm Name" class="w-full p-2 border rounded">
+                 <input v-model="forms.con.agreeNo" placeholder="Agreement No." class="w-full p-2 border rounded">
+                 <div class="flex gap-2">
+                    <input type="date" v-model="forms.con.start" class="w-1/2 p-2 border rounded">
+                    <input type="date" v-model="forms.con.end" class="w-1/2 p-2 border rounded">
+                 </div>
+                 <textarea v-model="forms.con.desc" placeholder="Details..." class="w-full p-2 border rounded h-20"></textarea>
+              </div>
+              <div class="flex justify-end gap-2 mt-6"><button @click="modals.con=false" class="btn">Cancel</button><button @click="createCon" class="btn btn-primary">Create</button></div>
+           </div>
+        </div>
+
+        <div v-if="modals.file" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+           <div class="bg-white p-6 rounded-xl w-[600px] shadow-xl">
+              <h3 class="font-bold text-lg mb-4">Create File for {{ selectedCon.firm }}</h3>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                 <input v-model="forms.file.fileNo" placeholder="File No (Unique)" class="p-2 border rounded">
+                 <input v-model="forms.file.name" placeholder="File Name/Subject" class="p-2 border rounded">
+                 <select v-model="forms.file.type" class="p-2 border rounded"><option>Pink File</option><option>Brown File</option><option>Register</option><option>Sub-File</option></select>
+                 <select v-model="forms.file.loc" class="p-2 border rounded"><option v-for="l in adminData.locations" :value="l">{{ l }}</option></select>
+                 <input v-model="forms.file.pages" type="number" placeholder="Pages" class="p-2 border rounded">
+                 <select v-model="forms.file.status" class="p-2 border rounded"><option>Active</option><option>Archived</option></select>
+              </div>
+              <textarea v-model="forms.file.desc" placeholder="Description..." class="w-full p-2 border rounded h-20 mb-4"></textarea>
+              <input type="file" @change="handleUpload" class="mb-6 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700 font-semibold">
+              <div class="flex justify-end gap-2"><button @click="modals.file=false" class="btn">Cancel</button><button @click="createFile" class="btn btn-primary">Save File</button></div>
+           </div>
+        </div>
+
+        <div id="printArea" class="hidden bg-white p-8 border border-black text-center">
+           <h2 class="text-xl font-bold mb-2">ARCHIVE RECORD</h2>
+           <canvas id="qrCanvas" class="mx-auto mb-4"></canvas>
+           <div class="text-left border-t border-black pt-4 mt-4">
+             <p><strong>Firm:</strong> <span id="pFirm"></span></p>
+             <p><strong>File No:</strong> <span id="pFileNo"></span></p>
+             <p><strong>Type:</strong> <span id="pType"></span></p>
+             <p><strong>Loc:</strong> <span id="pLoc"></span></p>
+           </div>
+           <p class="text-xs mt-6">Property of FMS</p>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <script>
+    /** CONFIG */
+    const API = "https://fms1.clickworld.workers.dev"; 
+
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return {
+          qrView: false, qrData: null, loading: false,
+          page: 'login', nav: 'home', auth: { email: '', password: '' }, user: null,
+          categories: [], contracts: [], contractFiles: [],
+          selectedCat: null, selectedCon: null,
+          modals: { cat: false, con: false, file: false },
+          forms: {
+            cat: { name: '', icon: '' },
+            con: { firm: '', agreeNo: '', start: '', end: '', desc: '', status: 'Active' },
+            file: { fileNo: '', name: '', type: 'Pink File', loc: '', pages: '', status: 'Active', desc: '', fileData: null, mime: '', fileName: '' }
+          },
+          adminData: { users: [], locations: [] }, newUser: {}, newLoc: {}
+        }
+      },
+      computed: {
+        filteredContracts() {
+           return this.contracts.filter(c => c.catId === this.selectedCat.id);
+        }
+      },
+      mounted() {
+        // Check for QR Code Scan in URL
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('view') === 'file' && params.get('id')) {
+           this.qrView = true;
+           this.fetchQRData(params.get('id'));
+        }
+      },
+      methods: {
+        async api(action, payload={}) {
+           this.loading = true;
+           try {
+             const res = await fetch(API, { method: 'POST', body: JSON.stringify({action, payload}) });
+             this.loading = false;
+             return await res.json();
+           } catch(e) { this.loading = false; alert("Connection Error"); return { success:false }; }
+        },
+        async login() {
+           const res = await this.api('login', this.auth);
+           if(res.success) { this.user = res.user; this.page = 'app'; this.refreshData(); this.fetchAdmin(); } 
+           else alert(res.msg);
+        },
+        async refreshData() {
+           const res = await this.api('getStructure');
+           if(res.success) { this.categories = res.data.categories; this.contracts = res.data.contracts; }
+        },
+        
+        // NAVIGATION
+        goHome() { this.selectedCat = null; this.selectedCon = null; this.nav = 'home'; },
+        selectCategory(c) { this.selectedCat = c; },
+        async selectContract(c) {
+           this.selectedCon = c;
+           const res = await this.api('getFiles', { contractId: c.id });
+           if(res.success) this.contractFiles = res.files;
+        },
+        isContractActive(c) {
+           const end = new Date(c.end); const now = new Date();
+           return end >= now;
+        },
+
+        // CREATION
+        async createCat() {
+           const res = await this.api('createCategory', { ...this.forms.cat, user: this.user.name });
+           if(res.success) { this.modals.cat = false; this.refreshData(); }
+        },
+        async createCon() {
+           const res = await this.api('createContract', { ...this.forms.con, catId: this.selectedCat.id, user: this.user.name });
+           if(res.success) { this.modals.con = false; this.refreshData(); }
+        },
+        async createFile() {
+           // Generate QR Content (URL to Public View)
+           const fileId = 'FILE-' + Date.now(); // Optimistic ID for QR, Server handles real ID
+           // NOTE: In production, better to let server generate ID first, but for speed we construct URL here
+           // We will use a placeholder in QR and update it or rely on unique logic
+           const qrUrl = window.location.origin + window.location.pathname + `?view=file&id=${fileId}`; // Self link
+           
+           const payload = { 
+              ...this.forms.file, conId: this.selectedCon.id, user: this.user.name,
+              qrData: qrUrl 
+           };
+           const res = await this.api('createFile', payload);
+           if(res.success) { 
+              this.modals.file = false; 
+              this.selectContract(this.selectedCon); // Refresh Files
+              this.forms.file = { fileNo: '', name: '', type: 'Pink File', loc: '', pages: '', status: 'Active', desc: '' };
+           }
+        },
+        handleUpload(e) { const f=e.target.files[0]; const r=new FileReader(); r.onload=ev=>{this.forms.file.fileData=ev.target.result.split(',')[1]; this.forms.file.mime=f.type; this.forms.file.fileName=f.name;}; r.readAsDataURL(f); },
+
+        // QR PRINTING
+        printQR(file) {
+           const qr = new QRious({ element: document.getElementById('qrCanvas'), value: window.location.href.split('?')[0] + `?view=file&id=${file.id}`, size: 150 });
+           document.getElementById('pFirm').innerText = this.selectedCon.firm;
+           document.getElementById('pFileNo').innerText = file.fileNo;
+           document.getElementById('pType').innerText = file.type;
+           document.getElementById('pLoc').innerText = file.loc;
+           window.print();
+        },
+        async fetchQRData(fid) {
+           const res = await this.api('getFileByQR', { fileId: fid });
+           if(res.success) this.qrData = res;
+           else alert("File not found or access denied.");
+        },
+
+        // ADMIN
+        async fetchAdmin() { if(this.user.role!=='Admin') return; const res = await this.api('getAdminData'); if(res.success) this.adminData = res; },
+        async addUser() { await this.api('manageUser', {type:'create', data: {...this.newUser, password:'123'}}); this.fetchAdmin(); },
+        async delUser(u) { if(confirm('Del?')) { await this.api('manageUser', {type:'delete', row: u.row}); this.fetchAdmin(); } },
+        async addLoc() { await this.api('addLocation', this.newLoc); this.fetchAdmin(); },
+        
+        logout() { this.user = null; this.page = 'login'; },
+        getFileColor(t) { return t==='Pink File'?'#ec4899': t==='Brown File'?'#d97706': '#3b82f6'; }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
