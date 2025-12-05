@@ -6,7 +6,8 @@
   <title>Aurora FMS | Enterprise</title>
   
   <script>
-    // 👇👇 YAHAN APNA WORKER URL PASTE KAREIN 👇👇
+    // 👇👇👇 YAHAN APNA WORKER URL PASTE KAREIN 👇👇👇
+    // Example: "https://fms-backend.vaibhav.workers.dev"
     const APP_CONFIG = {
       API_URL: "https://fms1.clickworld.workers.dev" 
     };
@@ -17,66 +18,56 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  
   <script>tailwind.config = { darkMode: 'class' }</script>
 
   <style>
-    /* VARIABLES */
-    :root {
-      --bg-main: #f8fafc; --text-main: #1f2937; --text-sec: #64748b;
-      --glass-bg: rgba(255, 255, 255, 0.95); --glass-border: rgba(0,0,0,0.1);
-      --input-bg: #ffffff; --input-text: #000000;
-      --aurora-1: rgba(59, 130, 246, 0.1); --aurora-2: rgba(147, 51, 234, 0.1);
-    }
-    html.dark {
-      --bg-main: #030014; --text-main: #f8fafc; --text-sec: #94a3b8;
-      --glass-bg: rgba(20, 20, 30, 0.85); --glass-border: rgba(255, 255, 255, 0.15);
-      --input-bg: rgba(0, 0, 0, 0.4); --input-text: #ffffff;
-      --aurora-1: rgba(88, 28, 135, 0.4); --aurora-2: rgba(236, 72, 153, 0.3);
-    }
-
-    body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-main); transition: 0.3s; }
+    :root { --bg-main:#f8fafc; --text-main:#1f2937; --text-sec:#64748b; --glass-bg:rgba(255,255,255,0.95); --glass-border:rgba(0,0,0,0.1); --input-bg:#ffffff; --input-text:#000000; --aurora-1:rgba(59,130,246,0.1); --aurora-2:rgba(147,51,234,0.1); }
+    html.dark { --bg-main:#030014; --text-main:#f8fafc; --text-sec:#94a3b8; --glass-bg:rgba(20,20,30,0.8); --glass-border:rgba(255,255,255,0.15); --input-bg:rgba(0,0,0,0.4); --input-text:#ffffff; --aurora-1:rgba(88,28,135,0.4); --aurora-2:rgba(236,72,153,0.3); }
+    body { font-family:'Inter',sans-serif; background-color:var(--bg-main); color:var(--text-main); transition:0.3s; }
+    .aurora-bg { position:fixed; inset:0; z-index:-1; filter:blur(80px); background:radial-gradient(circle at 10% 20%,var(--aurora-1) 0%,transparent 40%),radial-gradient(circle at 90% 80%,var(--aurora-2) 0%,transparent 40%); transition:0.5s; }
+    .glass-card { background:var(--glass-bg); backdrop-filter:blur(24px); border:1px solid var(--glass-border); box-shadow:0 8px 32px 0 rgba(0,0,0,0.1); border-radius:16px; }
+    .glass-input { background:var(--input-bg); border:1px solid var(--glass-border); color:var(--input-text); transition:0.3s; outline:none; }
+    .glass-input:focus { border-color:#d946ef; box-shadow:0 0 0 2px rgba(217,70,239,0.2); }
+    .btn-gradient { background:linear-gradient(135deg,#9333ea,#db2777); color:white; }
+    .btn-gradient:hover { filter:brightness(1.1); transform:translateY(-1px); }
+    .type-Pink { border-left:4px solid #ec4899; } .type-Brown { border-left:4px solid #d97706; } .type-White { border-left:4px solid #94a3b8; } .type-Register { border-left:4px solid #3b82f6; } .type-Sub { border-left:4px solid #8b5cf6; margin-left:1.5rem; background:rgba(139,92,246,0.05); }
+    .slide-up { animation:slideUp 0.4s ease-out forwards; } @keyframes slideUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+    .fade-enter-active,.fade-leave-active { transition:opacity 0.3s; } .fade-enter-from,.fade-leave-to { opacity:0; }
     
-    .aurora-bg { position: fixed; inset: 0; z-index: -1; filter: blur(80px); background: radial-gradient(circle at 10% 20%, var(--aurora-1) 0%, transparent 40%), radial-gradient(circle at 90% 80%, var(--aurora-2) 0%, transparent 40%); transition: 0.5s; }
-    .glass-card { background: var(--glass-bg); backdrop-filter: blur(24px); border: 1px solid var(--glass-border); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.1); border-radius: 16px; }
-    .glass-input { background: var(--input-bg); border: 1px solid var(--glass-border); color: var(--input-text); transition: 0.3s; outline: none; }
-    .glass-input:focus { border-color: #d946ef; box-shadow: 0 0 0 2px rgba(217, 70, 239, 0.2); }
-    .btn-gradient { background: linear-gradient(135deg, #9333ea, #db2777); color: white; }
-    .btn-gradient:hover { filter: brightness(1.1); transform: translateY(-1px); }
-
-    /* TOGGLE SWITCH ANIMATION */
+    /* Error Screen Styles */
+    #config-error { position: fixed; inset: 0; background: #0f172a; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; }
+    
+    /* Toggle Switch */
     .toggle-checkbox:checked { right: 0; border-color: #10B981; }
     .toggle-checkbox:checked + .toggle-label { background-color: #10B981; }
     .toggle-checkbox { right: 50%; transition: all 0.3s; }
     .toggle-label { width: 3rem; height: 1.5rem; transition: background-color 0.3s; }
-    
-    /* FILE TYPE COLORS */
-    .type-Pink { border-left: 4px solid #ec4899; }
-    .type-Brown { border-left: 4px solid #d97706; }
-    .type-White { border-left: 4px solid #94a3b8; }
-    .type-Register { border-left: 4px solid #3b82f6; }
-    .type-Sub { border-left: 4px solid #8b5cf6; margin-left: 1.5rem; background: var(--input-bg); }
-
-    .slide-up { animation: slideUp 0.4s ease-out forwards; }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .fade-enter-active, .fade-leave-active { transition: opacity 0.3s; } .fade-enter-from, .fade-leave-to { opacity: 0; }
-    .slide-enter-active, .slide-leave-active { transition: transform 0.3s ease; } .slide-enter-from, .slide-leave-to { transform: translateX(100%); }
   </style>
 </head>
 <body :class="isDark ? 'dark' : ''">
   <div class="aurora-bg"></div>
   
+  <div id="config-error" style="display: none;">
+    <i class="fa-solid fa-triangle-exclamation text-6xl text-red-500 mb-4"></i>
+    <h1 class="text-3xl font-bold mb-2">Setup Required</h1>
+    <p class="text-gray-400 mb-6">You haven't pasted your Cloudflare Worker URL in the code yet.</p>
+    <div class="bg-gray-800 p-4 rounded text-left text-sm font-mono text-green-400">
+      const APP_CONFIG = {<br>
+      &nbsp;&nbsp;API_URL: "PASTE_YOUR_URL_HERE"<br>
+      };
+    </div>
+    <p class="mt-6 text-sm text-gray-500">Edit index.html and refresh.</p>
+  </div>
+
   <div id="app" class="min-h-screen flex flex-col relative z-10 text-sm md:text-base">
     
-    <transition name="fade">
-        <div v-if="notify" :class="`fixed top-6 right-6 px-6 py-4 rounded-xl shadow-2xl glass-card z-[100] flex items-center gap-3 border-l-4 ${notify.type==='error'?'border-red-500':'border-green-400'}`">
-            <i :class="notify.type==='error'?'fa-solid fa-circle-exclamation text-red-500':'fa-solid fa-check-circle text-green-500'"></i> 
-            <span class="font-bold">{{ notify.msg }}</span>
-        </div>
-    </transition>
+    <transition name="fade"><div v-if="notify" :class="`fixed top-6 right-6 px-6 py-4 rounded-xl shadow-2xl glass-card z-[100] flex items-center gap-3 border-l-4 ${notify.type==='error'?'border-red-500':'border-green-400'}`"><i class="fa-solid fa-bell"></i> <b>{{ notify.msg }}</b></div></transition>
     
     <div v-if="loading" class="fixed inset-0 bg-black/80 z-[100] flex flex-col items-center justify-center backdrop-blur-sm">
-        <div class="animate-spin w-14 h-14 border-4 border-purple-500 border-t-transparent rounded-full"></div>
+        <div class="animate-spin w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full"></div>
+        <button v-if="showResetBtn" @click="hardReset" class="mt-8 px-4 py-2 border border-red-500 text-red-500 rounded hover:bg-red-500 hover:text-white transition text-xs">
+            <i class="fa-solid fa-rotate-right mr-2"></i> System Stuck? Click to Reset
+        </button>
     </div>
 
     <div v-if="view === 'public_qr'" class="flex-grow flex items-center justify-center p-4">
@@ -96,11 +87,11 @@
     <div v-else-if="page === 'login'" class="flex-grow flex items-center justify-center p-4">
       <div class="glass-card p-10 rounded-3xl w-full max-w-md slide-up relative">
         <button @click="toggleTheme" class="absolute top-4 right-4 text-[var(--text-sec)]"><i :class="isDark?'fa-solid fa-sun':'fa-solid fa-moon'"></i></button>
-        <div class="text-center mb-8"><h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">AURORA</h1><p class="text-[var(--text-sec)] text-xs uppercase tracking-widest mt-2">Secure Access</p></div>
+        <div class="text-center mb-8"><h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">AURORA</h1><p class="text-[var(--text-sec)] text-xs uppercase tracking-widest mt-2">Enterprise Access</p></div>
         <form @submit.prevent="auth">
-           <input v-model="authForm.email" placeholder="Username" class="glass-input w-full p-3 rounded-xl mb-4" required>
+           <input v-model="authForm.email" placeholder="Username / Email" class="glass-input w-full p-3 rounded-xl mb-4" required>
            <input v-model="authForm.password" type="password" placeholder="Password" class="glass-input w-full p-3 rounded-xl mb-6" required>
-           <button class="w-full py-3 btn-gradient rounded-xl font-bold shadow-lg">LOGIN</button>
+           <button class="w-full py-3 btn-gradient rounded-xl font-bold shadow-lg">ENTER SYSTEM</button>
         </form>
       </div>
     </div>
@@ -113,14 +104,14 @@
             <button @click="navigate('home')" :class="navClass('home')"><i class="fa-solid fa-folder-tree w-5 text-center"></i> Files</button>
             <button v-if="user.role==='Admin'" @click="view='admin'" :class="navClass('admin')"><i class="fa-solid fa-shield-cat w-5 text-center"></i> Admin</button>
          </nav>
-         <div class="px-6 py-2 flex justify-between items-center text-[var(--text-sec)]"><span class="text-xs font-bold">THEME</span><button @click="toggleTheme" class="p-2 rounded-full hover:bg-[var(--glass-border)]"><i :class="isDark?'fa-solid fa-sun text-yellow-400':'fa-solid fa-moon text-blue-500'"></i></button></div>
+         <div class="px-6 py-2 flex justify-between items-center text-[var(--text-sec)]"><span class="text-xs font-bold">MODE</span><button @click="toggleTheme" class="p-2 rounded-full hover:bg-[var(--glass-border)]"><i :class="isDark?'fa-solid fa-sun text-yellow-400':'fa-solid fa-moon text-blue-500'"></i></button></div>
          <div class="p-4 border-t border-[var(--glass-border)]"><button @click="logout" class="w-full p-3 border border-red-500/30 text-red-500 rounded-xl hover:bg-red-500/10 font-bold"><i class="fa-solid fa-power-off"></i> Logout</button></div>
       </aside>
 
       <main class="flex-1 overflow-y-auto p-6 relative">
          <div class="glass-card p-3 rounded-2xl flex items-center gap-4 mb-8 sticky top-0 z-40 shadow-xl relative">
             <i class="fa-solid fa-search ml-4 text-[var(--text-sec)]"></i>
-            <input v-model="search" type="text" placeholder="Search files, contracts..." class="bg-transparent w-full p-2 text-[var(--text-main)] outline-none" @input="showSuggestions=true">
+            <input v-model="search" type="text" placeholder="AI Search: File No, Name, Firm, Desc..." class="bg-transparent w-full p-2 text-[var(--text-main)] outline-none" @input="showSuggestions=true">
             <div v-if="search && showSuggestions" class="absolute top-full left-0 w-full glass-card mt-2 max-h-60 overflow-y-auto z-50 shadow-2xl">
                <div v-for="res in searchResults" :key="res.id" @click="handleSearchSelect(res)" class="p-3 border-b border-[var(--glass-border)] cursor-pointer hover:bg-[var(--glass-border)] flex justify-between"><div><div class="font-bold">{{ res.title }}</div><div class="text-xs text-[var(--text-sec)]">{{ res.subtitle }}</div></div><span class="text-xs bg-purple-500/20 text-purple-500 px-2 py-1 rounded h-fit">{{ res.type }}</span></div>
             </div>
@@ -134,7 +125,7 @@
                <div class="glass-card p-6"><div class="text-3xl font-bold text-blue-500">{{ stats.totalFiles }}</div><div class="text-xs text-[var(--text-sec)]">Main Files</div></div>
                <div class="glass-card p-6"><div class="text-3xl font-bold text-pink-500">{{ stats.subFiles }}</div><div class="text-xs text-[var(--text-sec)]">Sub-Files</div></div>
             </div>
-            <div class="grid md:grid-cols-2 gap-6"><div class="glass-card p-6"><h3 class="font-bold mb-4">File Types</h3><canvas id="typeChart"></canvas></div><div class="glass-card p-6"><h3 class="font-bold mb-4">Contract Status</h3><canvas id="statusChart"></canvas></div></div>
+            <div class="grid md:grid-cols-2 gap-6"><div class="glass-card p-6"><h3 class="font-bold mb-4">File Distribution</h3><canvas id="typeChart"></canvas></div><div class="glass-card p-6"><h3 class="font-bold mb-4">Contract Status</h3><canvas id="statusChart"></canvas></div></div>
          </div>
 
          <div v-if="view==='home' && !selectedCat" class="slide-up">
@@ -171,7 +162,7 @@
                   <div class="grid grid-cols-2 gap-y-4 gap-x-8 text-sm">
                      <div v-for="(val, key) in db.qrSettings" :key="key" class="flex items-center justify-between">
                         <span class="text-[var(--text-main)] capitalize">{{ key.replace('Show_','') }}</span>
-                        <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                        <div class="relative inline-block w-10 mr-2 align-middle select-none">
                            <input type="checkbox" v-model="db.qrSettings[key]" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
                            <label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"></label>
                         </div>
@@ -208,18 +199,67 @@
   </div>
 
   <script>
-    // 👇👇 PASTE WORKER URL HERE 👇👇
-    const APP_CONFIG = { API_URL: "YAHAN_WORKER_URL_PASTE_KARO" };
+    // 👇👇 YAHAN APNA WORKER URL PASTE KAREIN 👇👇
+    const APP_CONFIG = {
+      API_URL: "https://fms1.clickworld.workers.dev" 
+    };
 
     const { createApp } = Vue;
     createApp({
-      data() { return { isDark: localStorage.getItem('theme')!=='light', loading: false, notify: null, page: 'login', view: 'dashboard', authForm: {}, user: null, search: '', showSuggestions: false, db: { categories: [], contracts: [], files: [], locations: [], adminUsers: [], qrSettings: {} }, selectedCat: null, selectedCon: null, modal: { show: false }, forms: { cat:{}, con:{}, file:{}, user:{} }, loc: { r:'', rw:'', c:'' }, prevUrl: null, qrShow: false, curQR: null, publicData: null, stats: { totalContracts:0, activeContracts:0, totalFiles:0, subFiles:0 } } },
-      watch: { isDark(v) { document.documentElement.classList.toggle('dark', v); localStorage.setItem('theme', v?'dark':'light'); }, view(v) { if(v==='dashboard') this.$nextTick(this.renderCharts); } },
+      data() {
+        return {
+          isDark: localStorage.getItem('theme') !== 'light',
+          loading: false,
+          notify: null,
+          page: 'login',
+          view: 'home',
+          authForm: { email: '', password: '' },
+          user: null,
+          search: '',
+          showSuggestions: false,
+          db: { categories: [], contracts: [], files: [], locations: [], adminUsers: [], qrSettings: {} },
+          selectedCat: null, selectedCon: null,
+          modal: { show: false, type: '', mode: '' },
+          forms: { cat: {}, con: {}, file: {}, user: {} },
+          locPicker: { rack: '', row: '', col: '' },
+          previewUrl: null, qrModal: { show: false, file: {} }, publicData: null,
+          stats: { totalContracts: 0, activeContracts: 0, totalFiles: 0, subFiles: 0 },
+          showResetBtn: false
+        }
+      },
+      watch: {
+        isDark(v) { document.documentElement.classList.toggle('dark', v); localStorage.setItem('theme', v ? 'dark' : 'light'); },
+        view(v) { if (v === 'dashboard') this.$nextTick(this.renderCharts); }
+      },
       mounted() {
-         if(APP_CONFIG.API_URL.includes("PASTE")) { alert("Update API URL in index.html!"); return; }
-         document.documentElement.classList.toggle('dark', this.isDark);
-         const savedUser = localStorage.getItem('aurora_user'); if(savedUser){ this.user=JSON.parse(savedUser); this.page='app'; this.loadData(); }
-         const u=new URLSearchParams(location.search); if(u.get('view')==='file'){ this.view='public_qr'; this.loading=true; fetch(APP_CONFIG.API_URL,{method:'POST',body:JSON.stringify({action:'getPublicFile',payload:{fileId:u.get('id')}})}).then(r=>r.json()).then(d=>{this.loading=false; if(d.success)this.publicData=d.data; else this.notif(d.msg,'error')}); } 
+        // --- 1. CONFIG CHECK ---
+        if (APP_CONFIG.API_URL.includes("PASTE")) {
+          document.getElementById('config-error').style.display = 'flex';
+          return;
+        }
+
+        document.documentElement.classList.toggle('dark', this.isDark);
+        
+        // --- 2. URL QUERY PARAMS (QR) ---
+        const u = new URLSearchParams(location.search);
+        if (u.get('view') === 'file') {
+          this.view = 'public_qr';
+          this.loading = true;
+          this.req('getPublicFile', { fileId: u.get('id') }).then(r => {
+            this.loading = false;
+            if (r.success) this.publicData = r.data;
+            else this.notif(r.msg || "Invalid Link", 'error');
+          });
+        } 
+        // --- 3. AUTO LOGIN ---
+        else {
+          const savedUser = localStorage.getItem('aurora_user');
+          if (savedUser) { 
+            this.user = JSON.parse(savedUser); 
+            this.page = 'app'; 
+            this.loadData(); 
+          }
+        }
       },
       computed: {
         navClass() { return (v) => `w-full text-left p-3 rounded-xl flex items-center gap-3 transition ${this.view===v?'bg-purple-500/10 border border-purple-500/30 text-purple-500 font-bold':'text-[var(--text-sec)] hover:bg-[var(--glass-border)]'}`; },
@@ -227,46 +267,86 @@
         parentFiles() { const q=this.search.toLowerCase(); return this.db.files.filter(f => f.ConID===this.selectedCon?.ConID && !f.ParentFileID && (f.Name.toLowerCase().includes(q)||f.FileNo.toLowerCase().includes(q)||f.Type.toLowerCase().includes(q))); },
         searchResults() { if(!this.search)return[]; const q=this.search.toLowerCase(); let r=[]; this.db.contracts.forEach(c=>{if(c.FirmName.toLowerCase().includes(q))r.push({id:c.ConID,title:c.FirmName,subtitle:'Contract',type:'Contract',data:c})}); this.db.files.forEach(f=>{if(f.Name.toLowerCase().includes(q)||f.FileNo.toLowerCase().includes(q)||(f.Description||'').toLowerCase().includes(q))r.push({id:f.FileID,title:f.Name,subtitle:f.FileNo,type:'File',data:f})}); return r.slice(0,10); },
         uRacks() { const s=new Set(); this.db.locations.forEach(l=>s.add(l.split('|')[0].trim())); return Array.from(s).sort(); },
-        uRows() { if(!this.loc.r)return[]; const s=new Set(); this.db.locations.forEach(l=>{if(l.startsWith(this.loc.r))s.add(l.match(/R-(\d+)/)[1])}); return Array.from(s).sort((a,b)=>a-b); },
-        uCols() { if(!this.loc.rw)return[]; const s=new Set(); this.db.locations.forEach(l=>{if(l.includes(`${this.loc.r} | R-${this.loc.rw} :`))s.add(l.match(/C-(\d+)/)[1])}); return Array.from(s).sort((a,b)=>a-b); },
-        locStr() { return (this.loc.r&&this.loc.rw&&this.loc.c) ? `${this.loc.r} | R-${this.loc.rw} : C-${this.loc.c}` : ''; }
+        uRows() { if(!this.locPicker.rack) return []; const s=new Set(); this.db.locations.forEach(l=>{if(l.startsWith(this.locPicker.rack))s.add(l.match(/R-(\d+)/)[1])}); return Array.from(s).sort((a,b)=>a-b); },
+        uCols() { if(!this.locPicker.row)return[]; const s=new Set(); this.db.locations.forEach(l=>{if(l.includes(`${this.locPicker.rack} | R-${this.locPicker.row} :`))s.add(l.match(/C-(\d+)/)[1])}); return Array.from(s).sort((a,b)=>a-b); },
+        locStr() { return (this.locPicker.rack && this.locPicker.row && this.locPicker.col) ? `${this.locPicker.rack} | R-${this.locPicker.row} : C-${this.locPicker.col}` : ''; }
       },
       methods: {
-        async req(a, p={}) { this.loading=true; try{const r=await fetch(APP_CONFIG.API_URL,{method:'POST',body:JSON.stringify({action:a,payload:p})});this.loading=false;return await r.json();}catch(e){this.loading=false;return {success:false,msg:"Network Error"};} },
-        async auth() { const r=await this.req('login',this.authForm); if(r.success){this.user=r.user;localStorage.setItem('aurora_user',JSON.stringify(r.user));this.page='app';this.loadData();}else this.notif(r.msg,'error'); },
+        async req(action, payload = {}) {
+          this.loading = true;
+          this.showResetBtn = false;
+          const timer = setTimeout(() => this.showResetBtn = true, 5000);
+          
+          try {
+            const res = await fetch(APP_CONFIG.API_URL, {
+              method: 'POST',
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ action, payload })
+            });
+            clearTimeout(timer);
+            const data = await res.json();
+            this.loading = false;
+            return data;
+          } catch (e) {
+            clearTimeout(timer);
+            this.loading = false;
+            return { success: false, msg: "Network Error" };
+          }
+        },
+        async auth() {
+          // CLIENT SIDE ADMIN BYPASS (Must match worker logic)
+          if(this.authForm.email === 'admin' && this.authForm.password === 'admin') {
+             this.user = { name: 'Super Admin', username: 'admin', role: 'Admin' };
+             localStorage.setItem('aurora_user', JSON.stringify(this.user));
+             this.page = 'app';
+             this.loadData();
+             return;
+          }
+
+          const r = await this.req('login', this.authForm);
+          if (r.success) {
+            this.user = r.user;
+            localStorage.setItem('aurora_user', JSON.stringify(r.user));
+            this.page = 'app';
+            this.loadData();
+          } else {
+            this.notif(r.msg || "Login Failed", 'error');
+          }
+        },
         async loadData() { const r=await this.req('getDashboard',{role:this.user.role}); if(r.success){ this.db=r.data; this.calcStats(); if(this.view==='dashboard') this.$nextTick(this.renderCharts); } },
         navigate(v) { this.view=v; this.selectedCat=null; this.selectedCon=null; this.search=''; },
         selectCat(c) { this.selectedCat=c; }, selectCon(c) { this.selectedCon=c; },
         handleSearchSelect(r) { this.search=''; this.showSuggestions=false; if(r.type==='Contract'){this.selectedCat=this.db.categories.find(c=>c.CatID===r.data.CatID);this.selectedCon=r.data;this.view='home';} else {const con=this.db.contracts.find(c=>c.ConID===r.data.ConID);this.selectedCat=this.db.categories.find(c=>c.CatID===con.CatID);this.selectedCon=con;this.view='home';} },
         toggleTheme() { this.isDark = !this.isDark; },
         openModal(t,m,d={}) { 
-           this.modal={show:true,type:t,mode:m}; this.loc={r:'',rw:'',c:''}; 
+           this.modal={show:true,type:t,mode:m}; this.locPicker={rack:'',row:'',col:''}; 
            if(m==='create'){ 
               if(t==='file'){ 
-                 if(!this.selectedCon) return this.notif("Please select a Contract first!","error");
+                 // Create File Validation (Prevent Freeze)
+                 if(!this.selectedCon) { this.notif("Please select a Contract first!","error"); return; }
                  this.forms.file={Type:'Pink File',Status:'Active',ConID:this.selectedCon?.ConID}; 
               }
               else if(t==='con'){
-                 if(!this.selectedCat) return this.notif("Please select a Category first!","error");
+                 if(!this.selectedCat) { this.notif("Please select a Category first!","error"); return; }
                  this.forms.con={Status:'Active',CatID:this.selectedCat.CatID}; 
               }
               else if(t==='cat')this.forms.cat={}; else if(t==='user')this.forms.user={role:'Manager'}; 
               this.modal.show=true; // Show after checks
            } else { 
               this.forms[t]={...d}; 
-              if(t==='file'&&d.Location){const p=d.Location.split(/\||:/);if(p.length===3){this.loc.r=p[0].trim();this.loc.rw=p[1].replace('R-','').trim();this.loc.c=p[2].replace('C-','').trim();}} 
+              if(t==='file'&&d.Location){const p=d.Location.split(/\||:/);if(p.length===3){this.locPicker.rack=p[0].trim();this.locPicker.row=p[1].replace('R-','').trim();this.locPicker.col=p[2].replace('C-','').trim();}} 
               this.modal.show=true;
            } 
         },
         openSub(p) { this.modal={show:true,type:'file',mode:'create'}; this.forms.file={Type:'Sub-File',Status:'Active',ConID:this.selectedCon.ConID,ParentFileID:p.FileID}; },
         async save() { 
-           const t=this.modal.type; const actMap={'cat':'manageCategory','con':'manageContract','file':'manageFile','user':'manageUser'};
+           const t=this.modal.type; const actionMap={'cat':'manageCategory','con':'manageContract','file':'manageFile','user':'manageUser'};
            if(t==='file'&&!this.forms.file.ParentFileID)this.forms.file.Location=this.locStr;
            if(t==='file'&&this.modal.mode==='create')this.forms.file.QR_Data=window.location.origin+window.location.pathname+`?view=file&id=FILE-${Date.now()}`;
-           try { const r=await this.req(actMap[t],{type:this.modal.mode,data:this.forms[t],row:this.forms[t].rowIndex,user:this.user.name}); if(r.success){this.notif('Saved','success');this.modal.show=false;this.loadData();} else this.notif(r.msg||'Failed','error'); } catch(e){this.notif('Error','error');}
+           try { const r=await this.req(actionMap[t],{type:this.modal.mode,data:this.forms[t],row:this.forms[t].rowIndex,user:this.user.name}); if(r.success){this.notif('Saved','success');this.modal.show=false;this.loadData();} else this.notif(r.msg||'Failed','error'); } catch(e){this.notif('Error','error');}
         },
         async saveSet() { await this.req('saveSettings',{settings:this.db.qrSettings}); this.notif("Saved", "success"); },
-        async del(a,r) { if(confirm('Delete?')){await this.req(a,{type:'delete',row:r});this.loadData();this.notif("Deleted","success");} },
+        async del(a,r) { if(confirm('Delete? This cannot be undone.')){await this.req(a,{type:'delete',row:r});this.loadData();this.notif("Deleted","success");} },
         upl(e) { const f=e.target.files[0]; const r=new FileReader(); r.onload=ev=>{this.forms.file.fileData=ev.target.result.split(',')[1];this.forms.file.mime=f.type;this.forms.file.fileName=f.name;}; r.readAsDataURL(f); },
         getProxyUrl(id) { if(!id){const m=this.prevUrl.match(/[-\w]{25,}/);if(m)id=m[0];} return `${APP_CONFIG.API_URL}?action=proxyFile&id=${id}`; },
         openPrev(f) { if(f.AttachmentURL){this.prevUrl=f.AttachmentURL;}else this.notif('No document','error'); },
@@ -276,6 +356,7 @@
         calcStats() { this.stats.totalContracts=this.db.contracts.length; this.stats.activeContracts=this.db.contracts.filter(c=>c.Status==='Active').length; this.stats.totalFiles=this.db.files.filter(f=>!f.ParentFileID).length; this.stats.subFiles=this.db.files.filter(f=>f.ParentFileID).length; },
         renderCharts() { new Chart(document.getElementById('typeChart'),{type:'doughnut',data:{labels:['Pink','Brown','White','Register'],datasets:[{data:[this.db.files.filter(f=>f.Type==='Pink File').length,this.db.files.filter(f=>f.Type==='Brown File').length,this.db.files.filter(f=>f.Type==='White Backing').length,this.db.files.filter(f=>f.Type==='Register').length],backgroundColor:['#ec4899','#d97706','#94a3b8','#3b82f6']}]}}); new Chart(document.getElementById('statusChart'),{type:'bar',data:{labels:['Active','Expired'],datasets:[{label:'Contracts',data:[this.stats.activeContracts,this.stats.totalContracts-this.stats.activeContracts],backgroundColor:['#22c55e','#ef4444']}]}}); },
         notif(m,t) { this.notify={msg:m,type:t}; setTimeout(()=>this.notify=null,4000); }, 
+        hardReset() { localStorage.clear(); location.reload(); },
         logout() { localStorage.removeItem('aurora_user'); location.reload(); }
       }
     }).mount('#app');
