@@ -1,69 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aurora FMS | Ultimate</title>
+  <title>Aurora FMS | Intelligent</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
   <script>tailwind.config = { darkMode: 'class' }</script>
+
   <style>
-    /* VARIABLES & THEME */
-    :root { --bg-main: #f3f4f6; --text-main: #1f2937; --text-sec: #64748b; --glass-bg: rgba(255, 255, 255, 0.9); --glass-border: rgba(0,0,0,0.1); --input-bg: #ffffff; }
-    .dark { --bg-main: #030014; --text-main: #f8fafc; --text-sec: #94a3b8; --glass-bg: rgba(20, 20, 30, 0.7); --glass-border: rgba(255, 255, 255, 0.1); --input-bg: rgba(255, 255, 255, 0.05); }
-    body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-main); transition: 0.3s; }
+    /* --- THEME VARIABLES --- */
+    :root {
+      --bg-main: #f8fafc; --text-main: #1f2937; --text-sec: #64748b;
+      --glass-bg: rgba(255, 255, 255, 0.95); --glass-border: rgba(0,0,0,0.1);
+      --input-bg: #ffffff; --input-text: #000000;
+      --aurora-1: rgba(59, 130, 246, 0.1); --aurora-2: rgba(147, 51, 234, 0.1);
+    }
+    html.dark {
+      --bg-main: #030014; --text-main: #f8fafc; --text-sec: #94a3b8;
+      --glass-bg: rgba(20, 20, 30, 0.8); --glass-border: rgba(255, 255, 255, 0.15);
+      --input-bg: rgba(0, 0, 0, 0.4); --input-text: #ffffff;
+      --aurora-1: rgba(88, 28, 135, 0.4); --aurora-2: rgba(236, 72, 153, 0.3);
+    }
+
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-main); transition: background-color 0.3s, color 0.3s; }
     
-    .aurora-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 10% 20%, rgba(88, 28, 135, 0.4) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.3) 0%, transparent 40%); filter: blur(80px); }
-    .glass-card { background: var(--glass-bg); backdrop-filter: blur(24px); border: 1px solid var(--glass-border); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.1); border-radius: 16px; }
-    .glass-input { background: var(--input-bg); border: 1px solid var(--glass-border); color: var(--text-main); transition: 0.3s; outline: none; }
-    .glass-input:focus { border-color: #d946ef; }
+    .aurora-bg { position: fixed; inset: 0; z-index: -1; filter: blur(80px); background: radial-gradient(circle at 10% 20%, var(--aurora-1) 0%, transparent 40%), radial-gradient(circle at 90% 80%, var(--aurora-2) 0%, transparent 40%); transition: 0.5s; }
+    
+    .glass-card { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.1); border-radius: 16px; }
+    
+    /* INPUT VISIBILITY FIX */
+    .glass-input { 
+        background: var(--input-bg); 
+        border: 1px solid var(--glass-border); 
+        color: var(--input-text); /* Force Text Color */
+        transition: 0.3s; outline: none; 
+    }
+    .glass-input:focus { border-color: #d946ef; box-shadow: 0 0 0 2px rgba(217, 70, 239, 0.2); }
+    .glass-input::placeholder { color: var(--text-sec); opacity: 0.7; }
+
     .btn-gradient { background: linear-gradient(135deg, #9333ea, #db2777); color: white; }
-    .btn-gradient:hover { transform: translateY(-1px); filter: brightness(1.1); }
-    
-    /* COLORS */
+    .btn-gradient:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+    /* Colors */
     .type-Pink { border-left: 4px solid #ec4899; }
     .type-Brown { border-left: 4px solid #d97706; }
     .type-White { border-left: 4px solid #94a3b8; }
-    .type-Sub-File { border-left: 4px solid #8b5cf6; margin-left: 1.5rem; }
-    
+    .type-Register { border-left: 4px solid #3b82f6; }
+    .type-Sub { border-left: 4px solid #8b5cf6; margin-left: 1.5rem; background: rgba(139, 92, 246, 0.05); }
+
     .slide-up { animation: slideUp 0.4s ease-out forwards; }
     @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
     .fade-enter-from, .fade-leave-to { opacity: 0; }
   </style>
 </head>
-<body :class="isDark ? 'dark' : ''">
+<body>
   <div class="aurora-bg"></div>
+  
   <div id="app" class="min-h-screen flex flex-col relative z-10 text-sm md:text-base">
     
     <transition name="fade"><div v-if="notify" :class="`fixed top-6 right-6 px-6 py-4 rounded-xl shadow-2xl glass-card z-[100] flex items-center gap-3 border-l-4 ${notify.type==='error'?'border-red-500':'border-green-400'}`"><i class="fa-solid fa-bell"></i> <b>{{ notify.msg }}</b></div></transition>
     <div v-if="loading" class="fixed inset-0 bg-black/80 z-[100] flex flex-col items-center justify-center backdrop-blur-sm"><div class="animate-spin w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full"></div></div>
 
     <div v-if="view === 'public_qr'" class="flex-grow flex items-center justify-center p-4">
-       <div v-if="publicData" class="glass-card p-8 w-full max-w-lg border-t-8 border-purple-600">
-          <div class="text-center mb-8"><i class="fa-solid fa-file-shield text-5xl text-purple-600 mb-4"></i><h1 class="text-3xl font-bold">Official Record</h1><p class="text-[var(--text-sec)]">Verified by Aurora FMS</p></div>
-          <div class="space-y-4">
-             <div class="p-4 bg-[var(--input-bg)] rounded-xl border border-[var(--glass-border)] text-center"><p class="text-xs uppercase font-bold text-[var(--text-sec)]">File No</p><p class="text-2xl font-mono font-bold">{{ publicData.FileNo }}</p></div>
-             <div class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Firm</span> <span class="font-bold">{{ publicData.FirmName }}</span></div>
-             <div v-if="publicData.Location!=='Restricted'" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Location</span> <span class="font-bold text-purple-500">{{ publicData.Location }}</span></div>
-             <div v-if="publicData.Description" class="bg-[var(--input-bg)] p-3 rounded-lg text-sm">{{ publicData.Description }}</div>
+       <div v-if="publicData" class="glass-card p-0 w-full max-w-lg slide-up overflow-hidden border-t-8 border-purple-600 shadow-2xl">
+          <div class="bg-gradient-to-r from-purple-600 to-pink-600 p-6 text-white text-center">
+             <i class="fa-solid fa-certificate text-4xl mb-2"></i>
+             <h1 class="text-2xl font-bold tracking-widest uppercase">Verified Record</h1>
+             <p class="text-xs opacity-80">Aurora Document System</p>
           </div>
-          <a v-if="publicData.DriveID" :href="getProxyUrl(publicData.DriveID)" target="_blank" class="block w-full py-3 mt-6 btn-gradient rounded-xl font-bold text-center">View Document</a>
+          <div class="p-8 space-y-4">
+             <div v-if="publicData.FileNo" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span class="text-[var(--text-sec)]">File Number</span> <span class="font-bold text-xl font-mono">{{ publicData.FileNo }}</span></div>
+             <div v-if="publicData.Name" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span class="text-[var(--text-sec)]">Subject</span> <span class="font-bold text-right">{{ publicData.Name }}</span></div>
+             <div v-if="publicData.FirmName" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span class="text-[var(--text-sec)]">Firm</span> <span class="font-bold text-right">{{ publicData.FirmName }}</span></div>
+             <div v-if="publicData.AgreementNo" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span class="text-[var(--text-sec)]">Agreement</span> <span class="font-bold text-right">{{ publicData.AgreementNo }}</span></div>
+             <div class="grid grid-cols-2 gap-4 pt-2">
+                <div v-if="publicData.Type" class="bg-[var(--input-bg)] p-2 rounded text-center border border-[var(--glass-border)]"><span class="block text-xs text-[var(--text-sec)]">Type</span><span class="font-bold">{{ publicData.Type }}</span></div>
+                <div v-if="publicData.PageCount" class="bg-[var(--input-bg)] p-2 rounded text-center border border-[var(--glass-border)]"><span class="block text-xs text-[var(--text-sec)]">Pages</span><span class="font-bold">{{ publicData.PageCount }}</span></div>
+                <div v-if="publicData.Status" class="bg-[var(--input-bg)] p-2 rounded text-center border border-[var(--glass-border)]"><span class="block text-xs text-[var(--text-sec)]">Status</span><span class="font-bold text-purple-500">{{ publicData.Status }}</span></div>
+                <div v-if="publicData.Location!=='Restricted'" class="bg-[var(--input-bg)] p-2 rounded text-center border border-[var(--glass-border)]"><span class="block text-xs text-[var(--text-sec)]">Location</span><span class="font-bold">{{ publicData.Location }}</span></div>
+             </div>
+             <div v-if="publicData.Description" class="pt-4"><p class="text-xs text-[var(--text-sec)] uppercase mb-1">Description</p><p class="text-sm bg-[var(--input-bg)] p-3 rounded-lg border border-[var(--glass-border)]">{{ publicData.Description }}</p></div>
+          </div>
+          <div class="p-6 pt-0">
+             <a v-if="publicData.DriveID" :href="getProxyUrl(publicData.DriveID)" target="_blank" class="block w-full py-3 btn-gradient rounded-xl font-bold text-center shadow-lg hover:shadow-xl transition transform active:scale-95">View Digital Document</a>
+             <div v-else class="text-center text-xs text-[var(--text-sec)] italic bg-[var(--input-bg)] p-2 rounded">No digital document attached</div>
+          </div>
        </div>
-       <div v-else class="text-center">Authenticating...</div>
+       <div v-else class="text-center font-bold animate-pulse text-[var(--text-main)]">Verifying Link...</div>
     </div>
 
     <div v-else-if="page === 'login'" class="flex-grow flex items-center justify-center p-4">
-      <div class="glass-card p-10 rounded-3xl w-full max-w-md relative">
-        <button @click="isDark=!isDark" class="absolute top-4 right-4"><i :class="isDark?'fa-solid fa-sun':'fa-solid fa-moon'"></i></button>
+      <div class="glass-card p-10 rounded-3xl w-full max-w-md slide-up relative">
+        <button @click="toggleTheme" class="absolute top-4 right-4 text-[var(--text-sec)]"><i :class="isDark?'fa-solid fa-sun':'fa-solid fa-moon'"></i></button>
         <div class="text-center mb-8"><h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">AURORA</h1><p class="text-[var(--text-sec)] text-xs uppercase tracking-widest mt-2">Enterprise Access</p></div>
         <form @submit.prevent="auth">
-           <input v-model="authForm.email" placeholder="User / Email" class="glass-input w-full p-3 rounded-xl mb-4" required>
+           <input v-model="authForm.email" placeholder="Username / Email" class="glass-input w-full p-3 rounded-xl mb-4" required>
            <input v-model="authForm.password" type="password" placeholder="Password" class="glass-input w-full p-3 rounded-xl mb-6" required>
-           <button class="w-full py-3 btn-gradient rounded-xl font-bold">ENTER SYSTEM</button>
+           <button class="w-full py-3 btn-gradient rounded-xl font-bold shadow-lg">ENTER SYSTEM</button>
         </form>
       </div>
     </div>
@@ -71,16 +111,16 @@
     <div v-else class="flex h-screen overflow-hidden">
       <aside class="w-64 glass-card m-4 mr-0 flex flex-col hidden md:flex">
          <div class="p-6 border-b border-[var(--glass-border)]">
-            <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">AURORA</h2>
-            <div class="text-xs text-[var(--text-sec)] mt-1">@{{ user.username }} ({{ user.role }})</div>
+            <h2 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">AURORA</h2>
+            <div class="text-xs text-[var(--text-sec)] mt-1">@{{ user.username }}</div>
          </div>
          <nav class="p-4 space-y-2 flex-1">
-            <button @click="navigate('dashboard')" :class="navClass('dashboard')"><i class="fa-solid fa-chart-pie w-5 text-center"></i> Dashboard</button>
-            <button @click="navigate('home')" :class="navClass('home')"><i class="fa-solid fa-folder-tree w-5 text-center"></i> Files</button>
-            <button v-if="user.role==='Admin'" @click="view='admin'" :class="navClass('admin')"><i class="fa-solid fa-shield-cat w-5 text-center"></i> Admin</button>
+            <button @click="navigate('dashboard')" :class="navClass('dashboard')"><i class="fa-solid fa-chart-pie w-5"></i> Dashboard</button>
+            <button @click="navigate('home')" :class="navClass('home')"><i class="fa-solid fa-folder-tree w-5"></i> Files</button>
+            <button v-if="user.role==='Admin'" @click="view='admin'" :class="navClass('admin')"><i class="fa-solid fa-shield-cat w-5"></i> Admin</button>
          </nav>
-         <div class="px-6 py-2 flex justify-between items-center text-[var(--text-sec)]"><span class="text-xs font-bold">MODE</span><button @click="isDark=!isDark"><i :class="isDark?'fa-solid fa-sun text-yellow-400':'fa-solid fa-moon text-blue-500'"></i></button></div>
-         <div class="p-4 border-t border-[var(--glass-border)]"><button @click="logout" class="w-full p-3 border border-red-500/30 text-red-500 rounded-xl hover:bg-red-500/10"><i class="fa-solid fa-power-off"></i> Logout</button></div>
+         <div class="px-6 py-2 flex justify-between items-center text-[var(--text-sec)]"><span class="text-xs font-bold">MODE</span><button @click="toggleTheme" class="p-2 rounded-full hover:bg-[var(--glass-border)]"><i :class="isDark?'fa-solid fa-sun text-yellow-400':'fa-solid fa-moon text-blue-500'"></i></button></div>
+         <div class="p-4 border-t border-[var(--glass-border)]"><button @click="logout" class="w-full p-3 border border-red-500/30 text-red-500 rounded-xl hover:bg-red-500/10 font-bold"><i class="fa-solid fa-power-off"></i> Logout</button></div>
       </aside>
 
       <main class="flex-1 overflow-y-auto p-6 relative">
@@ -104,7 +144,7 @@
                <div class="glass-card p-6"><div class="text-3xl font-bold text-pink-500">{{ stats.subFiles }}</div><div class="text-xs text-[var(--text-sec)]">Sub-Files</div></div>
             </div>
             <div class="grid md:grid-cols-2 gap-6">
-               <div class="glass-card p-6"><h3 class="font-bold mb-4">File Types</h3><canvas id="typeChart"></canvas></div>
+               <div class="glass-card p-6"><h3 class="font-bold mb-4">File Distribution</h3><canvas id="typeChart"></canvas></div>
                <div class="glass-card p-6"><h3 class="font-bold mb-4">Contract Status</h3><canvas id="statusChart"></canvas></div>
             </div>
          </div>
@@ -142,13 +182,13 @@
                   <div class="flex justify-between items-start">
                      <button @click="f.expand = !f.expand" class="mr-3 mt-1 text-[var(--text-sec)] hover:text-[var(--text-main)]"><i :class="`fa-solid fa-chevron-${f.expand?'down':'right'}`"></i></button>
                      <div class="flex-1 cursor-pointer" @click="f.expand = !f.expand">
-                        <div class="flex items-center gap-3 mb-2"><span class="bg-[var(--glass-border)] px-2 py-1 rounded text-xs font-mono">{{ f.FileNo }}</span><span class="text-xs font-bold text-purple-500 uppercase">{{ f.Type }}</span></div>
+                        <div class="flex items-center gap-3 mb-2"><span class="bg-[var(--glass-border)] px-2 py-1 rounded text-xs font-mono border border-[var(--glass-border)]">{{ f.FileNo }}</span><span class="text-xs font-bold text-purple-500 uppercase">{{ f.Type }}</span></div>
                         <h3 class="font-bold text-lg">{{ f.Name }}</h3>
                         <p class="text-sm text-[var(--text-sec)] line-clamp-1">{{ f.Description }}</p>
                         <div class="mt-3 text-xs text-[var(--text-sec)]"><span class="bg-[var(--glass-border)] px-2 py-1 rounded">{{ f.Location }}</span></div>
                      </div>
                      <div class="flex gap-2">
-                        <button @click="openQR(f)" class="w-8 h-8 rounded-full bg-[var(--glass-border)] hover:bg-white/20 flex items-center justify-center"><i class="fa-solid fa-qrcode"></i></button>
+                        <button @click="openQRModal(f)" class="w-8 h-8 rounded-full bg-[var(--glass-border)] hover:bg-white/20 flex items-center justify-center"><i class="fa-solid fa-qrcode"></i></button>
                         <button v-if="f.AttachmentURL" @click="openPrev(f)" class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-500 hover:bg-blue-500 hover:text-white flex items-center justify-center"><i class="fa-regular fa-eye"></i></button>
                         <div class="flex flex-col gap-2 ml-2 opacity-0 group-hover:opacity-100 transition"><button @click="openModal('file','edit',f)" class="text-blue-400"><i class="fa-solid fa-pen"></i></button><button @click="del('manageFile',f.rowIndex)" class="text-red-400"><i class="fa-solid fa-trash"></i></button></div>
                      </div>
@@ -167,10 +207,20 @@
          <div v-if="view==='admin'" class="slide-up">
             <h2 class="text-2xl font-bold mb-6">Admin Control</h2>
             <div class="grid md:grid-cols-2 gap-6">
-               <div class="glass-card p-6"><h3 class="font-bold mb-4">QR Settings</h3>
-                  <div class="space-y-3"><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Location" @change="saveSet"> <span>Show Location</span></label><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Description" @change="saveSet"> <span>Show Description</span></label></div>
+               <div class="glass-card p-6"><h3 class="font-bold mb-4">QR Public Visibility</h3>
+                  <div class="grid grid-cols-2 gap-3">
+                     <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_FileNo" @change="saveSet"> <span>Show File No</span></label>
+                     <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Name" @change="saveSet"> <span>Show Name</span></label>
+                     <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Firm" @change="saveSet"> <span>Show Firm</span></label>
+                     <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Agreement" @change="saveSet"> <span>Show Agreement</span></label>
+                     <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Type" @change="saveSet"> <span>Show Type</span></label>
+                     <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Pages" @change="saveSet"> <span>Show Pages</span></label>
+                     <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Status" @change="saveSet"> <span>Show Status</span></label>
+                     <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Location" @change="saveSet"> <span>Show Location</span></label>
+                     <label class="flex items-center gap-3 col-span-2"><input type="checkbox" v-model="db.qrSettings.Show_Description" @change="saveSet"> <span>Show Description</span></label>
+                  </div>
                </div>
-               <div class="glass-card p-6"><h3 class="font-bold mb-4">Users</h3><button @click="openModal('user','create')" class="text-xs border border-pink-500 text-pink-500 px-3 py-1 rounded mb-2">Add</button><div class="max-h-40 overflow-y-auto"><div v-for="u in db.adminUsers" class="flex justify-between p-2 border-b border-[var(--glass-border)] text-xs"><span>{{ u.Username }}</span><button @click="del('manageUser',u.rowIndex)" class="text-red-400"><i class="fa-solid fa-trash"></i></button></div></div></div>
+               <div class="glass-card p-6"><h3 class="font-bold mb-4">Users</h3><button @click="openModal('user','create')" class="text-xs border border-pink-500 text-pink-500 px-3 py-1 rounded hover:bg-pink-500 hover:text-white mb-2">Add New</button><div class="max-h-40 overflow-y-auto"><div v-for="u in db.adminUsers" class="flex justify-between p-2 border-b border-[var(--glass-border)] text-xs"><span>{{ u.Username }}</span><button @click="del('manageUser',u.rowIndex)" class="text-red-400"><i class="fa-solid fa-trash"></i></button></div></div></div>
             </div>
          </div>
       </main>
@@ -180,22 +230,18 @@
          <div class="flex-1 p-4 bg-black/5 flex items-center justify-center"><iframe :src="prevUrl" class="w-full h-full rounded-lg border-none bg-white"></iframe></div>
       </div></transition>
 
-      <div v-if="qrShow" class="fixed inset-0 bg-black/90 z-[80] flex items-center justify-center p-4">
-         <div class="glass-card p-8 text-center max-w-sm w-full relative"><button @click="qrShow=false" class="absolute top-4 right-4 text-[var(--text-sec)]"><i class="fa-solid fa-xmark"></i></button><h3 class="text-xl font-bold mb-4">QR Code</h3><div class="bg-white p-4 rounded-xl inline-block mb-6"><canvas id="qrCanvas"></canvas></div><button @click="dlQR" class="w-full py-3 btn-gradient rounded-xl font-bold">Download HD PNG</button></div>
-      </div>
-
       <div v-if="modal.show" class="fixed inset-0 bg-black/80 z-[80] flex items-center justify-center p-4 backdrop-blur-sm">
          <div class="glass-card p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto slide-up">
-            <h3 class="text-xl font-bold mb-6 capitalize border-b border-[var(--glass-border)] pb-4">{{ modal.mode }} {{ modal.type }}</h3>
+            <h3 class="text-xl font-bold mb-6 capitalize border-b border-[var(--glass-border)] pb-4 text-[var(--text-main)]">{{ modal.mode }} {{ modal.type }}</h3>
             <div v-if="modal.type==='file'" class="space-y-4">
-               <div class="grid md:grid-cols-2 gap-4"><div><label class="text-xs font-bold">FILE NO</label><input v-model="forms.file.FileNo" class="glass-input w-full p-3 rounded-xl"></div><div><label class="text-xs font-bold">NAME</label><input v-model="forms.file.Name" class="glass-input w-full p-3 rounded-xl"></div></div>
-               <div class="p-4 bg-[var(--input-bg)] rounded-xl border border-[var(--glass-border)]"><label class="text-xs font-bold block mb-2">LOCATION</label><div class="grid grid-cols-3 gap-2"><select v-model="loc.r" class="glass-input w-full p-2 rounded text-xs"><option value="">Rack</option><option v-for="r in uRacks" :value="r">{{ r }}</option></select><select v-model="loc.rw" class="glass-input w-full p-2 rounded text-xs" :disabled="!loc.r"><option value="">Row</option><option v-for="r in uRows" :value="r">R-{{ r }}</option></select><select v-model="loc.c" class="glass-input w-full p-2 rounded text-xs" :disabled="!loc.rw"><option value="">Col</option><option v-for="c in uCols" :value="c">C-{{ c }}</option></select></div></div>
+               <div class="grid md:grid-cols-2 gap-4"><div><label class="text-xs font-bold text-[var(--text-sec)]">FILE NO</label><input v-model="forms.file.FileNo" class="glass-input w-full p-3 rounded-xl"></div><div><label class="text-xs font-bold text-[var(--text-sec)]">NAME</label><input v-model="forms.file.Name" class="glass-input w-full p-3 rounded-xl"></div></div>
+               <div class="p-4 bg-[var(--input-bg)] rounded-xl border border-[var(--glass-border)]"><label class="text-xs font-bold text-[var(--text-sec)] block mb-2">LOCATION</label><div class="grid grid-cols-3 gap-2"><select v-model="loc.r" class="glass-input w-full p-2 rounded text-xs"><option value="">Rack</option><option v-for="r in uRacks" :value="r">{{ r }}</option></select><select v-model="loc.rw" class="glass-input w-full p-2 rounded text-xs" :disabled="!loc.r"><option value="">Row</option><option v-for="r in uRows" :value="r">R-{{ r }}</option></select><select v-model="loc.c" class="glass-input w-full p-2 rounded text-xs" :disabled="!loc.rw"><option value="">Col</option><option v-for="c in uCols" :value="c">C-{{ c }}</option></select></div><div class="text-xs text-right mt-1 text-purple-500 font-mono">{{ locStr }}</div></div>
                <div class="grid md:grid-cols-2 gap-4"><select v-model="forms.file.Type" class="glass-input w-full p-3 rounded-xl"><option>Pink File</option><option>Brown File</option><option>White Backing</option><option>Register</option><option>Sub-File</option><option>Custom</option></select><input v-model="forms.file.PageCount" placeholder="Pages" class="glass-input w-full p-3 rounded-xl"></div>
-               <textarea v-model="forms.file.Description" class="glass-input w-full p-3 rounded-xl h-20"></textarea>
-               <input v-if="modal.mode==='create'" type="file" @change="upl" class="text-sm">
+               <textarea v-model="forms.file.Description" placeholder="Desc..." class="glass-input w-full p-3 rounded-xl h-20"></textarea>
+               <input v-if="modal.mode==='create'" type="file" @change="upl" class="text-[var(--text-sec)] text-sm">
             </div>
-            <div v-if="modal.type==='con'" class="space-y-4"><input v-model="forms.con.FirmName" placeholder="Firm" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.con.AgreementNo" placeholder="Agmt No" class="glass-input w-full p-3 rounded-xl"><div class="flex gap-4"><input type="date" v-model="forms.con.StartDate" class="glass-input w-1/2 p-3 rounded-xl"><input type="date" v-model="forms.con.EndDate" class="glass-input w-1/2 p-3 rounded-xl"></div><textarea v-model="forms.con.Description" class="glass-input w-full p-3 rounded-xl"></textarea></div>
             <div v-if="modal.type==='cat'" class="space-y-4"><input v-model="forms.cat.Name" placeholder="Name" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.cat.Icon" placeholder="Icon" class="glass-input w-full p-3 rounded-xl"></div>
+            <div v-if="modal.type==='con'" class="space-y-4"><input v-model="forms.con.FirmName" placeholder="Firm" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.con.AgreementNo" placeholder="Agmt" class="glass-input w-full p-3 rounded-xl"><div class="flex gap-4"><input type="date" v-model="forms.con.StartDate" class="glass-input w-1/2 p-3 rounded-xl"><input type="date" v-model="forms.con.EndDate" class="glass-input w-1/2 p-3 rounded-xl"></div><textarea v-model="forms.con.Description" class="glass-input w-full p-3 rounded-xl"></textarea></div>
             <div v-if="modal.type==='user'" class="space-y-4"><input v-model="forms.user.name" placeholder="Name" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.user.username" placeholder="User" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.user.email" placeholder="Email" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.user.password" placeholder="Pass" class="glass-input w-full p-3 rounded-xl"><select v-model="forms.user.role" class="glass-input w-full p-3 rounded-xl"><option>Manager</option><option>Admin</option></select></div>
             <div class="flex justify-end gap-4 mt-8 pt-4 border-t border-[var(--glass-border)]"><button @click="modal.show=false" class="px-6 py-2 rounded-xl text-[var(--text-sec)]">Cancel</button><button @click="save" class="px-8 py-2 btn-gradient rounded-xl font-bold shadow-lg">Save</button></div>
          </div>
@@ -209,8 +255,8 @@
     const { createApp } = Vue;
     createApp({
       data() { return { isDark: localStorage.getItem('theme')!=='light', loading: false, notify: null, page: 'login', view: 'dashboard', authForm: {}, user: null, search: '', showSuggestions: false, db: { categories: [], contracts: [], files: [], locations: [], adminUsers: [], qrSettings: {} }, selectedCat: null, selectedCon: null, modal: { show: false }, forms: { cat:{}, con:{}, file:{}, user:{} }, loc: { r:'', rw:'', c:'' }, prevUrl: null, qrShow: false, curQR: null, publicData: null, stats: { totalContracts:0, activeContracts:0, totalFiles:0, subFiles:0 } } },
-      watch: { isDark(v) { localStorage.setItem('theme', v?'dark':'light'); }, view(v) { if(v==='dashboard') this.$nextTick(this.renderCharts); } },
-      mounted() { const u=new URLSearchParams(location.search); if(u.get('view')==='file'){ this.view='public_qr'; this.loading=true; fetch(API_URL,{method:'POST',body:JSON.stringify({action:'getPublicFile',payload:{fileId:u.get('id')}})}).then(r=>r.json()).then(d=>{this.loading=false; if(d.success)this.publicData=d.data; else alert(d.msg)}); } },
+      watch: { isDark(v) { document.documentElement.classList.toggle('dark', v); localStorage.setItem('theme', v?'dark':'light'); }, view(v) { if(v==='dashboard') this.$nextTick(this.renderCharts); } },
+      mounted() { document.documentElement.classList.toggle('dark', this.isDark); const u=new URLSearchParams(location.search); if(u.get('view')==='file'){ this.view='public_qr'; this.loading=true; fetch(API_URL,{method:'POST',body:JSON.stringify({action:'getPublicFile',payload:{fileId:u.get('id')}})}).then(r=>r.json()).then(d=>{this.loading=false; if(d.success)this.publicData=d.data; else alert(d.msg)}); } },
       computed: {
         navClass() { return (v) => `w-full text-left p-3 rounded-xl flex items-center gap-3 transition ${this.view===v?'bg-purple-500/10 border border-purple-500/30 text-purple-500 font-bold':'text-[var(--text-sec)] hover:bg-[var(--glass-border)]'}`; },
         filteredContracts() { const q=this.search.toLowerCase(); return this.db.contracts.filter(c => c.CatID===this.selectedCat?.CatID && (c.FirmName.toLowerCase().includes(q) || c.AgreementNo.toLowerCase().includes(q))); },
@@ -224,13 +270,11 @@
       methods: {
         async req(a, p={}) { this.loading=true; try{const r=await fetch(API_URL,{method:'POST',body:JSON.stringify({action:a,payload:p})});this.loading=false;return await r.json();}catch(e){this.loading=false;return {success:false};} },
         async auth() { const r=await this.req('login',this.authForm); if(r.success){this.user=r.user;this.page='app';this.loadData();}else this.notif(r.msg,'error'); },
-        async loadData() { 
-           const r=await this.req('getDashboard',{role:this.user.role}); 
-           if(r.success){ this.db=r.data; this.calcStats(); if(this.view==='dashboard') this.$nextTick(this.renderCharts); } 
-        },
+        async loadData() { const r=await this.req('getDashboard',{role:this.user.role}); if(r.success){ this.db=r.data; this.calcStats(); if(this.view==='dashboard') this.$nextTick(this.renderCharts); } },
         navigate(v) { this.view=v; this.selectedCat=null; this.selectedCon=null; this.search=''; },
         selectCat(c) { this.selectedCat=c; }, selectCon(c) { this.selectedCon=c; },
         handleSearchSelect(r) { this.search=''; this.showSuggestions=false; if(r.type==='Contract'){this.selectedCat=this.db.categories.find(c=>c.CatID===r.data.CatID);this.selectedCon=r.data;this.view='home';} else {const con=this.db.contracts.find(c=>c.ConID===r.data.ConID);this.selectedCat=this.db.categories.find(c=>c.CatID===con.CatID);this.selectedCon=con;this.view='home';} },
+        toggleTheme() { this.isDark = !this.isDark; },
         openModal(t,m,d={}) { this.modal={show:true,type:t,mode:m}; this.loc={r:'',rw:'',c:''}; if(m==='create'){ if(t==='file')this.forms.file={Type:'Pink File',Status:'Active',ConID:this.selectedCon?.ConID}; else if(t==='con')this.forms.con={Status:'Active',CatID:this.selectedCat?.CatID}; else if(t==='cat')this.forms.cat={}; else if(t==='user')this.forms.user={role:'Manager'}; } else { this.forms[t]={...d}; if(t==='file'&&d.Location){const p=d.Location.split(/\||:/);if(p.length===3){this.loc.r=p[0].trim();this.loc.rw=p[1].replace('R-','').trim();this.loc.c=p[2].replace('C-','').trim();}} } },
         openSub(p) { this.modal={show:true,type:'file',mode:'create'}; this.forms.file={Type:'Sub-File',Status:'Active',ConID:this.selectedCon.ConID,ParentFileID:p.FileID}; },
         async save() { const t=this.modal.type; if(t==='file'&&!this.forms.file.ParentFileID)this.forms.file.Location=this.locStr; if(t==='file'&&this.modal.mode==='create')this.forms.file.QR_Data=window.location.origin+window.location.pathname+`?view=file&id=FILE-${Date.now()}`; const r=await this.req('manage'+t.charAt(0).toUpperCase()+t.slice(1),{type:this.modal.mode,data:this.forms[t],row:this.forms[t].rowIndex,user:this.user.name}); if(r.success){this.notif('Saved','success');this.modal.show=false;this.loadData();} },
@@ -239,16 +283,12 @@
         upl(e) { const f=e.target.files[0]; const r=new FileReader(); r.onload=ev=>{this.forms.file.fileData=ev.target.result.split(',')[1];this.forms.file.mime=f.type;this.forms.file.fileName=f.name;}; r.readAsDataURL(f); },
         getProxyUrl(id) { if(!id){const m=this.prevUrl.match(/[-\w]{25,}/);if(m)id=m[0];} return `${API_URL}?action=proxyFile&id=${id}`; },
         openPrev(f) { if(f.AttachmentURL){this.prevUrl=f.AttachmentURL;}else this.notif('No File','error'); },
-        openQR(f) { this.curQR=f; this.qrShow=true; this.$nextTick(()=>{new QRious({element:document.getElementById('qrCanvas'),value:f.QR_Data,size:250})}); },
-        dlQR() { const l=document.createElement('a'); l.download=`QR_${this.curQR.FileNo}.png`; l.href=document.getElementById('qrCanvas').toDataURL(); l.click(); },
+        openQRModal(f) { this.qrModal={show:true, file:f}; this.$nextTick(()=>{new QRious({element:document.getElementById('qrCanvas'),value:f.QR_Data,size:250})}); },
+        downloadQR() { const c=document.getElementById('qrCanvas'); const l=document.createElement('a'); l.download='QR.png'; l.href=c.toDataURL(); l.click(); },
         getSubFiles(id) { return this.db.files.filter(f=>f.ParentFileID===id); },
-        notif(m,t) { this.notify={msg:m,type:t}; setTimeout(()=>this.notify=null,3000); },
-        logout() { location.reload(); },
         calcStats() { this.stats.totalContracts=this.db.contracts.length; this.stats.activeContracts=this.db.contracts.filter(c=>c.Status==='Active').length; this.stats.totalFiles=this.db.files.filter(f=>!f.ParentFileID).length; this.stats.subFiles=this.db.files.filter(f=>f.ParentFileID).length; },
-        renderCharts() {
-           new Chart(document.getElementById('typeChart'), {type:'doughnut',data:{labels:['Pink','Brown','White','Register'],datasets:[{data:[this.db.files.filter(f=>f.Type==='Pink File').length,this.db.files.filter(f=>f.Type==='Brown File').length,this.db.files.filter(f=>f.Type==='White Backing').length,this.db.files.filter(f=>f.Type==='Register').length],backgroundColor:['#ec4899','#d97706','#94a3b8','#3b82f6']}]}});
-           new Chart(document.getElementById('statusChart'), {type:'bar',data:{labels:['Active','Expired'],datasets:[{label:'Contracts',data:[this.stats.activeContracts,this.stats.totalContracts-this.stats.activeContracts],backgroundColor:['#22c55e','#ef4444']}]}});
-        }
+        renderCharts() { new Chart(document.getElementById('typeChart'),{type:'doughnut',data:{labels:['Pink','Brown','White','Register'],datasets:[{data:[this.db.files.filter(f=>f.Type==='Pink File').length,this.db.files.filter(f=>f.Type==='Brown File').length,this.db.files.filter(f=>f.Type==='White Backing').length,this.db.files.filter(f=>f.Type==='Register').length],backgroundColor:['#ec4899','#d97706','#94a3b8','#3b82f6']}]}}); new Chart(document.getElementById('statusChart'),{type:'bar',data:{labels:['Active','Expired'],datasets:[{label:'Contracts',data:[this.stats.activeContracts,this.stats.totalContracts-this.stats.activeContracts],backgroundColor:['#22c55e','#ef4444']}]}}); },
+        notif(m,t) { this.notify={msg:m,type:t}; setTimeout(()=>this.notify=null,3000); }, logout() { location.reload(); }
       }
     }).mount('#app');
   </script>
