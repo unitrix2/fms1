@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aurora FMS | Intelligent</title>
+  <title>Aurora FMS | Enterprise</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
@@ -14,9 +14,9 @@
   <script>tailwind.config = { darkMode: 'class' }</script>
 
   <style>
-    /* --- CSS VARIABLES --- */
+    /* CSS VARIABLES */
     :root {
-      --bg-main: #f3f4f6; --text-main: #1f2937; --text-sec: #64748b;
+      --bg-main: #f8fafc; --text-main: #1f2937; --text-sec: #64748b;
       --glass-bg: rgba(255, 255, 255, 0.9); --glass-border: rgba(0,0,0,0.1);
       --input-bg: #ffffff; --input-text: #000000;
       --aurora-1: rgba(59, 130, 246, 0.1); --aurora-2: rgba(147, 51, 234, 0.1);
@@ -33,21 +33,12 @@
     .aurora-bg { position: fixed; inset: 0; z-index: -1; filter: blur(80px); background: radial-gradient(circle at 10% 20%, var(--aurora-1) 0%, transparent 40%), radial-gradient(circle at 90% 80%, var(--aurora-2) 0%, transparent 40%); transition: 0.5s; }
     
     .glass-card { background: var(--glass-bg); backdrop-filter: blur(24px); border: 1px solid var(--glass-border); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.1); border-radius: 16px; }
-    
-    /* INPUT FIX */
-    .glass-input { 
-        background: var(--input-bg); 
-        border: 1px solid var(--glass-border); 
-        color: var(--input-text); /* Force Text Color */
-        transition: 0.3s; outline: none; 
-    }
+    .glass-input { background: var(--input-bg); border: 1px solid var(--glass-border); color: var(--input-text); transition: 0.3s; outline: none; }
     .glass-input:focus { border-color: #d946ef; }
-    .glass-input::placeholder { color: var(--text-sec); opacity: 0.7; }
-
     .btn-gradient { background: linear-gradient(135deg, #9333ea, #db2777); color: white; }
     .btn-gradient:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-    /* FILE COLORS */
+    /* Colors */
     .type-Pink { border-left: 4px solid #ec4899; }
     .type-Brown { border-left: 4px solid #d97706; }
     .type-White { border-left: 4px solid #94a3b8; }
@@ -70,19 +61,14 @@
 
     <div v-if="view === 'public_qr'" class="flex-grow flex items-center justify-center p-4">
        <div v-if="publicData" class="glass-card p-8 w-full max-w-lg slide-up border-t-8 border-purple-600">
-          <div class="text-center mb-8"><i class="fa-solid fa-file-shield text-5xl text-purple-600 mb-4"></i><h1 class="text-3xl font-bold">Official Record</h1><p class="text-[var(--text-sec)]">Verified by Aurora FMS</p></div>
+          <div class="text-center mb-8"><i class="fa-solid fa-file-shield text-5xl text-purple-600 mb-4"></i><h1 class="text-3xl font-bold">Verified Record</h1><p class="text-[var(--text-sec)]">Aurora FMS</p></div>
           <div class="space-y-4">
-             <div v-if="publicData.FileNo" class="p-4 bg-[var(--input-bg)] rounded-xl border border-[var(--glass-border)] text-center"><p class="text-xs uppercase font-bold text-[var(--text-sec)]">File Number</p><p class="text-2xl font-mono font-bold">{{ publicData.FileNo }}</p></div>
+             <div v-if="publicData.FileNo" class="p-4 bg-[var(--input-bg)] rounded-xl border border-[var(--glass-border)] text-center"><p class="text-xs uppercase font-bold text-[var(--text-sec)]">File No</p><p class="text-2xl font-mono font-bold">{{ publicData.FileNo }}</p></div>
              <div v-if="publicData.FirmName" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Firm</span> <span class="font-bold">{{ publicData.FirmName }}</span></div>
-             <div v-if="publicData.AgreementNo" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Agreement</span> <span class="font-bold">{{ publicData.AgreementNo }}</span></div>
-             <div v-if="publicData.Type" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Type</span> <span class="font-bold">{{ publicData.Type }}</span></div>
-             <div v-if="publicData.Pages" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Pages</span> <span class="font-bold">{{ publicData.Pages }}</span></div>
-             <div v-if="publicData.Status" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Status</span> <span class="font-bold text-purple-500">{{ publicData.Status }}</span></div>
-             <div v-if="publicData.Location" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Location</span> <span class="font-bold">{{ publicData.Location }}</span></div>
-             <div v-if="publicData.Description" class="pt-2"><p class="text-xs text-[var(--text-sec)] uppercase mb-1">Description</p><p class="text-sm bg-[var(--input-bg)] p-3 rounded-lg">{{ publicData.Description }}</p></div>
+             <div v-if="publicData.Location!=='Restricted'" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Location</span> <span class="font-bold text-purple-500">{{ publicData.Location }}</span></div>
+             <div v-if="publicData.Description" class="bg-[var(--input-bg)] p-3 rounded-lg text-sm">{{ publicData.Description }}</div>
           </div>
-          <a v-if="publicData.DriveID" :href="getProxyUrl(publicData.DriveID)" target="_blank" class="block w-full py-3 mt-6 btn-gradient rounded-xl font-bold text-center shadow-lg">View Digital Document</a>
-          <div v-else class="text-center mt-6 text-xs text-[var(--text-sec)] italic">No Digital Document Attached</div>
+          <a v-if="publicData.DriveID" :href="getProxyUrl(publicData.DriveID)" target="_blank" class="block w-full py-3 mt-6 btn-gradient rounded-xl font-bold text-center">View Document</a>
        </div>
        <div v-else class="text-center">Authenticating...</div>
     </div>
@@ -92,9 +78,9 @@
         <button @click="toggleTheme" class="absolute top-4 right-4 text-[var(--text-sec)]"><i :class="isDark?'fa-solid fa-sun':'fa-solid fa-moon'"></i></button>
         <div class="text-center mb-8"><h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">AURORA</h1><p class="text-[var(--text-sec)] text-xs uppercase tracking-widest mt-2">Enterprise Access</p></div>
         <form @submit.prevent="auth">
-           <input v-model="authForm.email" placeholder="Username / Email" class="glass-input w-full p-3 rounded-xl mb-4" required>
+           <input v-model="authForm.email" placeholder="User / Email" class="glass-input w-full p-3 rounded-xl mb-4" required>
            <input v-model="authForm.password" type="password" placeholder="Password" class="glass-input w-full p-3 rounded-xl mb-6" required>
-           <button class="w-full py-3 btn-gradient rounded-xl font-bold shadow-lg">ENTER SYSTEM</button>
+           <button class="w-full py-3 btn-gradient rounded-xl font-bold">ENTER SYSTEM</button>
         </form>
       </div>
     </div>
@@ -176,6 +162,7 @@
                         <div class="flex items-center gap-3 mb-2"><span class="bg-[var(--glass-border)] px-2 py-1 rounded text-xs font-mono border border-[var(--glass-border)]">{{ f.FileNo }}</span><span class="text-xs font-bold text-purple-500 uppercase">{{ f.Type }}</span></div>
                         <h3 class="font-bold text-lg">{{ f.Name }}</h3>
                         <p class="text-sm text-[var(--text-sec)] line-clamp-1">{{ f.Description }}</p>
+                        <div class="mt-3 text-xs text-[var(--text-sec)]"><span class="bg-[var(--glass-border)] px-2 py-1 rounded">{{ f.Location }}</span></div>
                      </div>
                      <div class="flex gap-2">
                         <button @click="openQRModal(f)" class="w-8 h-8 rounded-full bg-[var(--glass-border)] hover:bg-white/20 flex items-center justify-center"><i class="fa-solid fa-qrcode"></i></button>
@@ -249,7 +236,8 @@
   </div>
 
   <script>
-    const API_URL = "https://fms1.clickworld.workers.dev"; 
+    // PASTE YOUR WORKER URL HERE
+    const API_URL = "hhttps://fms1.clickworld.workers.dev"; 
 
     const { createApp } = Vue;
     createApp({
