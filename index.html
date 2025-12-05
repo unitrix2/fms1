@@ -4,15 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Aurora FMS | Enterprise</title>
+  
+  <script>
+    // ⚠️⚠️ YAHAN APNA WORKER URL PASTE KAREIN (ZAROORI) ⚠️⚠️
+    const APP_CONFIG = {
+      API_URL: "https://fms1.clickworld.workers.dev" 
+    };
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
   <script>tailwind.config = { darkMode: 'class' }</script>
+
   <style>
-    /* CSS VARIABLES */
     :root { --bg-main:#f8fafc; --text-main:#1f2937; --text-sec:#64748b; --glass-bg:rgba(255,255,255,0.95); --glass-border:rgba(0,0,0,0.1); --input-bg:#ffffff; --input-text:#000000; --aurora-1:rgba(59,130,246,0.1); --aurora-2:rgba(147,51,234,0.1); }
     html.dark { --bg-main:#030014; --text-main:#f8fafc; --text-sec:#94a3b8; --glass-bg:rgba(20,20,30,0.8); --glass-border:rgba(255,255,255,0.15); --input-bg:rgba(0,0,0,0.4); --input-text:#ffffff; --aurora-1:rgba(88,28,135,0.4); --aurora-2:rgba(236,72,153,0.3); }
     body { font-family:'Inter',sans-serif; background-color:var(--bg-main); color:var(--text-main); transition:0.3s; }
@@ -46,7 +54,7 @@
           </div>
           <a v-if="publicData.DriveID" :href="getProxyUrl(publicData.DriveID)" target="_blank" class="block w-full py-3 mt-6 btn-gradient rounded-xl font-bold text-center shadow-lg">View Digital Document</a>
        </div>
-       <div v-else class="text-center font-bold animate-pulse">Retrieving Data...</div>
+       <div v-else class="text-center font-bold animate-pulse">Loading...</div>
     </div>
 
     <div v-else-if="page === 'login'" class="flex-grow flex items-center justify-center p-4">
@@ -65,9 +73,9 @@
       <aside class="w-64 glass-card m-4 mr-0 flex flex-col hidden md:flex">
          <div class="p-6 border-b border-[var(--glass-border)]"><h2 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">AURORA</h2><div class="text-xs text-[var(--text-sec)] mt-1">@{{ user.username }} ({{ user.role }})</div></div>
          <nav class="p-4 space-y-2 flex-1">
-            <button @click="navigate('dashboard')" :class="navClass('dashboard')"><i class="fa-solid fa-chart-pie w-5"></i> Dashboard</button>
-            <button @click="navigate('home')" :class="navClass('home')"><i class="fa-solid fa-folder-tree w-5"></i> Files</button>
-            <button v-if="user.role==='Admin'" @click="view='admin'" :class="navClass('admin')"><i class="fa-solid fa-shield-cat w-5"></i> Admin</button>
+            <button @click="navigate('dashboard')" :class="navClass('dashboard')"><i class="fa-solid fa-chart-pie w-5 text-center"></i> Dashboard</button>
+            <button @click="navigate('home')" :class="navClass('home')"><i class="fa-solid fa-folder-tree w-5 text-center"></i> Files</button>
+            <button v-if="user.role==='Admin'" @click="view='admin'" :class="navClass('admin')"><i class="fa-solid fa-shield-cat w-5 text-center"></i> Admin</button>
          </nav>
          <div class="px-6 py-2 flex justify-between items-center text-[var(--text-sec)]"><span class="text-xs font-bold">MODE</span><button @click="toggleTheme" class="p-2 rounded-full hover:bg-[var(--glass-border)]"><i :class="isDark?'fa-solid fa-sun text-yellow-400':'fa-solid fa-moon text-blue-500'"></i></button></div>
          <div class="p-4 border-t border-[var(--glass-border)]"><button @click="logout" class="w-full p-3 border border-red-500/30 text-red-500 rounded-xl hover:bg-red-500/10 font-bold"><i class="fa-solid fa-power-off"></i> Logout</button></div>
@@ -122,7 +130,7 @@
          <div v-if="view==='admin'" class="slide-up">
             <h2 class="text-2xl font-bold mb-6">Admin Control</h2>
             <div class="grid md:grid-cols-2 gap-6">
-               <div class="glass-card p-6"><h3 class="font-bold mb-4">QR Visibility</h3><div class="grid grid-cols-2 gap-3 text-sm"><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_FileNo" @change="saveSet"> <span>File No</span></label><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Name" @change="saveSet"> <span>Name</span></label><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Location" @change="saveSet"> <span>Location</span></label><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Firm" @change="saveSet"> <span>Firm</span></label><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Description" @change="saveSet"> <span>Description</span></label></div></div>
+               <div class="glass-card p-6"><h3 class="font-bold mb-4">QR Public Settings</h3><div class="grid grid-cols-2 gap-3 text-sm"><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_FileNo" @change="saveSet"> <span>File No</span></label><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Name" @change="saveSet"> <span>Name</span></label><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Firm" @change="saveSet"> <span>Firm</span></label><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Location" @change="saveSet"> <span>Location</span></label><label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Description" @change="saveSet"> <span>Description</span></label></div></div>
                <div class="glass-card p-6"><h3 class="font-bold mb-4">Users</h3><button @click="openModal('user','create')" class="text-xs border border-pink-500 text-pink-500 px-3 py-1 rounded mb-2">Add New</button><div class="max-h-40 overflow-y-auto"><div v-for="u in db.adminUsers" class="flex justify-between p-2 border-b border-[var(--glass-border)] text-xs"><span>{{ u.Username }}</span><button @click="del('manageUser',u.rowIndex)" class="text-red-400"><i class="fa-solid fa-trash"></i></button></div></div></div>
             </div>
          </div>
@@ -152,20 +160,48 @@
   </div>
 
   <script>
-    // 👇👇 UPDATE THIS URL 👇👇
-    const API_URL = "https://fms1.clickworld.workers.dev"; 
+    const APP_CONFIG = {
+      // ⚠️ REPLACE THIS WITH YOUR WORKER URL
+      API_URL: "https://your-worker-url.workers.dev" 
+    };
 
     const { createApp } = Vue;
     createApp({
-      data() { return { isDark: localStorage.getItem('theme')!=='light', loading: false, notify: null, page: 'login', view: 'dashboard', authForm: {}, user: null, search: '', showSuggestions: false, db: { categories: [], contracts: [], files: [], locations: [], adminUsers: [], qrSettings: {} }, selectedCat: null, selectedCon: null, modal: { show: false }, forms: { cat:{}, con:{}, file:{}, user:{} }, loc: { r:'', rw:'', c:'' }, prevUrl: null, qrShow: false, curQR: null, publicData: null, stats: { totalContracts:0, activeContracts:0, totalFiles:0, subFiles:0 } } },
-      watch: { isDark(v) { document.documentElement.classList.toggle('dark', v); localStorage.setItem('theme', v?'dark':'light'); }, view(v) { if(v==='dashboard') this.$nextTick(this.renderCharts); } },
+      data() {
+        return {
+          isDark: localStorage.getItem('theme') !== 'light',
+          loading: false, notify: null, page: 'login', view: 'dashboard',
+          authForm: { email: '', password: '' }, user: null,
+          search: '', showSuggestions: false,
+          db: { categories: [], contracts: [], files: [], locations: [], adminUsers: [], qrSettings: {} },
+          selectedCat: null, selectedCon: null,
+          modal: { show: false, type: '', mode: '' },
+          forms: { cat: {}, con: {}, file: {}, user: {} },
+          locPicker: { rack: '', row: '', col: '' },
+          previewUrl: null, qrModal: { show: false, file: {} }, publicData: null,
+          stats: { totalContracts: 0, activeContracts: 0, totalFiles: 0, subFiles: 0 }
+        }
+      },
+      watch: {
+        isDark(v) { document.documentElement.classList.toggle('dark', v); localStorage.setItem('theme', v ? 'dark' : 'light'); },
+        view(v) { if (v === 'dashboard') this.$nextTick(this.renderCharts); }
+      },
       mounted() {
-         document.documentElement.classList.toggle('dark', this.isDark);
-         // Check session
-         const savedUser = localStorage.getItem('aurora_user');
-         if(savedUser) { this.user = JSON.parse(savedUser); this.page='app'; this.loadData(); }
-         // QR
-         const u=new URLSearchParams(location.search); if(u.get('view')==='file'){ this.view='public_qr'; this.loading=true; fetch(API_URL,{method:'POST',body:JSON.stringify({action:'getPublicFile',payload:{fileId:u.get('id')}})}).then(r=>r.json()).then(d=>{this.loading=false; if(d.success)this.publicData=d.data; else this.notif(d.msg,'error')}); } 
+        document.documentElement.classList.toggle('dark', this.isDark);
+        // Persist Login
+        const savedUser = localStorage.getItem('aurora_user');
+        if (savedUser) { this.user = JSON.parse(savedUser); this.page = 'app'; this.loadData(); }
+        // QR Handler
+        const u = new URLSearchParams(location.search);
+        if (u.get('view') === 'file') {
+          this.view = 'public_qr';
+          this.loading = true;
+          this.req('getPublicFile', { fileId: u.get('id') }).then(r => {
+            this.loading = false;
+            if (r.success) this.publicData = r.data;
+            else this.notif(r.msg || "File not found", 'error');
+          });
+        }
       },
       computed: {
         navClass() { return (v) => `w-full text-left p-3 rounded-xl flex items-center gap-3 transition ${this.view===v?'bg-purple-500/10 border border-purple-500/30 text-purple-500 font-bold':'text-[var(--text-sec)] hover:bg-[var(--glass-border)]'}`; },
@@ -173,24 +209,46 @@
         parentFiles() { const q=this.search.toLowerCase(); return this.db.files.filter(f => f.ConID===this.selectedCon?.ConID && !f.ParentFileID && (f.Name.toLowerCase().includes(q)||f.FileNo.toLowerCase().includes(q)||f.Type.toLowerCase().includes(q))); },
         searchResults() { if(!this.search)return[]; const q=this.search.toLowerCase(); let r=[]; this.db.contracts.forEach(c=>{if(c.FirmName.toLowerCase().includes(q))r.push({id:c.ConID,title:c.FirmName,subtitle:'Contract',type:'Contract',data:c})}); this.db.files.forEach(f=>{if(f.Name.toLowerCase().includes(q)||f.FileNo.toLowerCase().includes(q)||(f.Description||'').toLowerCase().includes(q))r.push({id:f.FileID,title:f.Name,subtitle:f.FileNo,type:'File',data:f})}); return r.slice(0,10); },
         uRacks() { const s=new Set(); this.db.locations.forEach(l=>s.add(l.split('|')[0].trim())); return Array.from(s).sort(); },
-        uRows() { if(!this.loc.r)return[]; const s=new Set(); this.db.locations.forEach(l=>{if(l.startsWith(this.loc.r))s.add(l.match(/R-(\d+)/)[1])}); return Array.from(s).sort((a,b)=>a-b); },
-        uCols() { if(!this.loc.rw)return[]; const s=new Set(); this.db.locations.forEach(l=>{if(l.includes(`${this.loc.r} | R-${this.loc.rw} :`))s.add(l.match(/C-(\d+)/)[1])}); return Array.from(s).sort((a,b)=>a-b); },
-        locStr() { return (this.loc.r&&this.loc.rw&&this.loc.c) ? `${this.loc.r} | R-${this.loc.rw} : C-${this.loc.c}` : ''; }
+        uRows() { if(!this.locPicker.rack) return []; const s=new Set(); this.db.locations.forEach(l=>{if(l.startsWith(this.locPicker.rack))s.add(l.match(/R-(\d+)/)[1])}); return Array.from(s).sort((a,b)=>a-b); },
+        uCols() { if(!this.locPicker.row)return[]; const s=new Set(); this.db.locations.forEach(l=>{if(l.includes(`${this.locPicker.rack} | R-${this.locPicker.row} :`))s.add(l.match(/C-(\d+)/)[1])}); return Array.from(s).sort((a,b)=>a-b); },
+        locStr() { return (this.locPicker.rack && this.locPicker.row && this.locPicker.col) ? `${this.locPicker.rack} | R-${this.locPicker.row} : C-${this.locPicker.col}` : ''; }
       },
       methods: {
-        async req(a, p={}) { this.loading=true; try{const r=await fetch(API_URL,{method:'POST',body:JSON.stringify({action:a,payload:p})});this.loading=false;return await r.json();}catch(e){this.loading=false;return {success:false};} },
-        async auth() { const r=await this.req('login',this.authForm); if(r.success){this.user=r.user;localStorage.setItem('aurora_user',JSON.stringify(r.user));this.page='app';this.loadData();}else this.notif(r.msg,'error'); },
+        async req(action, payload = {}) {
+          if (APP_CONFIG.API_URL.includes("YOUR_NAME")) { alert("Configure API URL in code first!"); return { success: false }; }
+          this.loading = true;
+          try {
+            const res = await fetch(APP_CONFIG.API_URL, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action, payload }) });
+            const data = await res.json();
+            this.loading = false;
+            return data;
+          } catch (e) {
+            this.loading = false;
+            return { success: false, msg: "Network Error" };
+          }
+        },
+        async auth() {
+          const r = await this.req('login', this.authForm);
+          if (r.success) {
+            this.user = r.user;
+            localStorage.setItem('aurora_user', JSON.stringify(r.user));
+            this.page = 'app';
+            this.loadData();
+          } else {
+            this.notif(r.msg || "Login Failed", 'error');
+          }
+        },
         async loadData() { const r=await this.req('getDashboard',{role:this.user.role}); if(r.success){ this.db=r.data; this.calcStats(); if(this.view==='dashboard') this.$nextTick(this.renderCharts); } },
         navigate(v) { this.view=v; this.selectedCat=null; this.selectedCon=null; this.search=''; },
         selectCat(c) { this.selectedCat=c; }, selectCon(c) { this.selectedCon=c; },
         handleSearchSelect(r) { this.search=''; this.showSuggestions=false; if(r.type==='Contract'){this.selectedCat=this.db.categories.find(c=>c.CatID===r.data.CatID);this.selectedCon=r.data;this.view='home';} else {const con=this.db.contracts.find(c=>c.ConID===r.data.ConID);this.selectedCat=this.db.categories.find(c=>c.CatID===con.CatID);this.selectedCon=con;this.view='home';} },
         toggleTheme() { this.isDark = !this.isDark; },
         openModal(t,m,d={}) { 
-           this.modal={show:true,type:t,mode:m}; this.loc={r:'',rw:'',c:''}; 
+           this.modal={show:true,type:t,mode:m}; this.locPicker={rack:'',row:'',col:''}; 
            if(m==='create'){ 
               if(t==='file'){ 
                  if(!this.selectedCon) return this.notif("Select Contract first","error");
-                 this.forms.file={Type:'Pink File',Status:'Active',ConID:this.selectedCon.ConID}; 
+                 this.forms.file={Type:'Pink File',Status:'Active',ConID:this.selectedCon?.ConID}; 
               }
               else if(t==='con'){
                  if(!this.selectedCat) return this.notif("Select Category first","error");
@@ -199,7 +257,7 @@
               else if(t==='cat')this.forms.cat={}; else if(t==='user')this.forms.user={role:'Manager'}; 
            } else { 
               this.forms[t]={...d}; 
-              if(t==='file'&&d.Location){const p=d.Location.split(/\||:/);if(p.length===3){this.loc.r=p[0].trim();this.loc.rw=p[1].replace('R-','').trim();this.loc.c=p[2].replace('C-','').trim();}} 
+              if(t==='file'&&d.Location){const p=d.Location.split(/\||:/);if(p.length===3){this.locPicker.rack=p[0].trim();this.locPicker.row=p[1].replace('R-','').trim();this.locPicker.col=p[2].replace('C-','').trim();}} 
            } 
         },
         openSub(p) { this.modal={show:true,type:'file',mode:'create'}; this.forms.file={Type:'Sub-File',Status:'Active',ConID:this.selectedCon.ConID,ParentFileID:p.FileID}; },
@@ -207,16 +265,15 @@
            const t=this.modal.type; const actionMap={'cat':'manageCategory','con':'manageContract','file':'manageFile','user':'manageUser'};
            if(t==='file'&&!this.forms.file.ParentFileID)this.forms.file.Location=this.locStr;
            if(t==='file'&&this.modal.mode==='create')this.forms.file.QR_Data=window.location.origin+window.location.pathname+`?view=file&id=FILE-${Date.now()}`;
-           try {
+           try { 
              const r=await this.req(actionMap[t],{type:this.modal.mode,data:this.forms[t],row:this.forms[t].rowIndex,user:this.user.name}); 
-             if(r.success){this.notif('Saved','success');this.modal.show=false;this.loadData();} else this.notif(r.msg||'Save Failed','error');
-           } catch(e){this.notif('System Error','error');} 
-           finally{this.loading=false;}
+             if(r.success){this.notif('Saved','success');this.modal.show=false;this.loadData();} else this.notif(r.msg||'Failed','error');
+           } catch(e){this.notif('Error','error');}
         },
-        async saveSet() { await this.req('saveSettings',{settings:this.db.qrSettings}); this.notif("Settings Saved", "success"); },
+        async saveSet() { await this.req('saveSettings',{settings:this.db.qrSettings}); this.notif("Saved", "success"); },
         async del(a,r) { if(confirm('Delete?')){await this.req(a,{type:'delete',row:r});this.loadData();this.notif("Deleted","success");} },
         upl(e) { const f=e.target.files[0]; const r=new FileReader(); r.onload=ev=>{this.forms.file.fileData=ev.target.result.split(',')[1];this.forms.file.mime=f.type;this.forms.file.fileName=f.name;}; r.readAsDataURL(f); },
-        getProxyUrl(id) { if(!id){const m=this.prevUrl.match(/[-\w]{25,}/);if(m)id=m[0];} return `${API_URL}?action=proxyFile&id=${id}`; },
+        getProxyUrl(id) { if(!id){const m=this.prevUrl.match(/[-\w]{25,}/);if(m)id=m[0];} return `${APP_CONFIG.API_URL}?action=proxyFile&id=${id}`; },
         openPrev(f) { if(f.AttachmentURL){this.prevUrl=f.AttachmentURL;}else this.notif('No document','error'); },
         openQRModal(f) { this.qrModal={show:true, file:f}; this.$nextTick(()=>{new QRious({element:document.getElementById('qrCanvas'),value:f.QR_Data,size:250})}); },
         downloadQR() { const c=document.getElementById('qrCanvas'); const l=document.createElement('a'); l.download='QR.png'; l.href=c.toDataURL(); l.click(); },
