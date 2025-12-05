@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,7 +60,7 @@
     .fade-enter-from, .fade-leave-to { opacity: 0; }
   </style>
 </head>
-<body>
+<body :class="isDark ? 'dark' : ''">
   <div class="aurora-bg"></div>
   
   <div id="app" class="min-h-screen flex flex-col relative z-10 text-sm md:text-base">
@@ -208,7 +208,7 @@
             <h2 class="text-2xl font-bold mb-6">Admin Control</h2>
             <div class="grid md:grid-cols-2 gap-6">
                <div class="glass-card p-6"><h3 class="font-bold mb-4">QR Public Visibility</h3>
-                  <div class="grid grid-cols-2 gap-3">
+                  <div class="grid grid-cols-2 gap-3 text-sm">
                      <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_FileNo" @change="saveSet"> <span>Show File No</span></label>
                      <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Name" @change="saveSet"> <span>Show Name</span></label>
                      <label class="flex items-center gap-3"><input type="checkbox" v-model="db.qrSettings.Show_Firm" @change="saveSet"> <span>Show Firm</span></label>
@@ -229,6 +229,15 @@
          <div class="p-4 border-b border-[var(--glass-border)] flex justify-between items-center"><h3 class="font-bold">Preview</h3><div class="flex gap-2"><a :href="prevUrl" download class="p-2 bg-blue-500 rounded text-white text-xs font-bold">Download</a><button @click="prevUrl=null" class="p-2 hover:text-red-500"><i class="fa-solid fa-xmark"></i></button></div></div>
          <div class="flex-1 p-4 bg-black/5 flex items-center justify-center"><iframe :src="prevUrl" class="w-full h-full rounded-lg border-none bg-white"></iframe></div>
       </div></transition>
+
+      <div v-if="qrModal.show" class="fixed inset-0 bg-black/90 z-[80] flex items-center justify-center p-4">
+         <div class="glass-card p-8 text-center max-w-sm w-full relative">
+            <button @click="qrModal.show=false" class="absolute top-4 right-4 text-[var(--text-sec)] hover:text-red-500"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-xl font-bold mb-4">QR Code</h3>
+            <div class="bg-white p-4 rounded-xl inline-block mb-6"><canvas id="qrCanvas"></canvas></div>
+            <button @click="downloadQR" class="w-full py-3 btn-gradient rounded-xl font-bold">Download HD PNG</button>
+         </div>
+      </div>
 
       <div v-if="modal.show" class="fixed inset-0 bg-black/80 z-[80] flex items-center justify-center p-4 backdrop-blur-sm">
          <div class="glass-card p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto slide-up">
@@ -277,7 +286,17 @@
         toggleTheme() { this.isDark = !this.isDark; },
         openModal(t,m,d={}) { this.modal={show:true,type:t,mode:m}; this.loc={r:'',rw:'',c:''}; if(m==='create'){ if(t==='file')this.forms.file={Type:'Pink File',Status:'Active',ConID:this.selectedCon?.ConID}; else if(t==='con')this.forms.con={Status:'Active',CatID:this.selectedCat?.CatID}; else if(t==='cat')this.forms.cat={}; else if(t==='user')this.forms.user={role:'Manager'}; } else { this.forms[t]={...d}; if(t==='file'&&d.Location){const p=d.Location.split(/\||:/);if(p.length===3){this.loc.r=p[0].trim();this.loc.rw=p[1].replace('R-','').trim();this.loc.c=p[2].replace('C-','').trim();}} } },
         openSub(p) { this.modal={show:true,type:'file',mode:'create'}; this.forms.file={Type:'Sub-File',Status:'Active',ConID:this.selectedCon.ConID,ParentFileID:p.FileID}; },
-        async save() { const t=this.modal.type; if(t==='file'&&!this.forms.file.ParentFileID)this.forms.file.Location=this.locStr; if(t==='file'&&this.modal.mode==='create')this.forms.file.QR_Data=window.location.origin+window.location.pathname+`?view=file&id=FILE-${Date.now()}`; const r=await this.req('manage'+t.charAt(0).toUpperCase()+t.slice(1),{type:this.modal.mode,data:this.forms[t],row:this.forms[t].rowIndex,user:this.user.name}); if(r.success){this.notif('Saved','success');this.modal.show=false;this.loadData();} },
+        async save() { 
+           // FILE CREATION FIX: Explicit Action Mapping
+           const t=this.modal.type; 
+           const actionMap = {'cat':'manageCategory', 'con':'manageContract', 'file':'manageFile', 'user':'manageUser'};
+           
+           if(t==='file'&&!this.forms.file.ParentFileID)this.forms.file.Location=this.locStr; 
+           if(t==='file'&&this.modal.mode==='create')this.forms.file.QR_Data=window.location.origin+window.location.pathname+`?view=file&id=FILE-${Date.now()}`; 
+           
+           const r=await this.req(actionMap[t],{type:this.modal.mode,data:this.forms[t],row:this.forms[t].rowIndex,user:this.user.name}); 
+           if(r.success){this.notif('Saved','success');this.modal.show=false;this.loadData();} else this.notif('Save Failed','error');
+        },
         async saveSet() { await this.req('saveSettings',{settings:this.db.qrSettings}); },
         async del(a,r) { if(confirm('Delete?')){await this.req(a,{type:'delete',row:r});this.loadData();} },
         upl(e) { const f=e.target.files[0]; const r=new FileReader(); r.onload=ev=>{this.forms.file.fileData=ev.target.result.split(',')[1];this.forms.file.mime=f.type;this.forms.file.fileName=f.name;}; r.readAsDataURL(f); },
