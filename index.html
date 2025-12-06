@@ -119,4 +119,424 @@
         return (
           <div className={`min-h-screen flex items-center justify-center p-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+              <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div><div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+              <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+            </div>
+            
+            <div className="relative w-full max-w-md">
+              <div className={`backdrop-blur-2xl ${theme === 'dark' ? 'bg-gray-800/40' : 'bg-white/40'} rounded-3xl shadow-2xl border ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'} p-8`}>
+                <div className="flex justify-between items-center mb-6">
+                  <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">Contract Management</h1>
+                  <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 rounded-lg hover:bg-gray-700/30 transition-all">
+                    <Icon name={theme === 'dark' ? 'sun' : 'moon'} className="w-5 h-5" />
+                  </button>
+                </div>
+                
+                <div className="flex gap-2 mb-6">
+                  <button onClick={() => setIsLogin(true)} className={`flex-1 py-2 rounded-lg transition-all ${isLogin ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-gray-700/30 text-gray-400'}`}>Login</button>
+                  <button onClick={() => setIsLogin(false)} className={`flex-1 py-2 rounded-lg transition-all ${!isLogin ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-gray-700/30 text-gray-400'}`}>Sign Up</button>
+                </div>
+                
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {!isLogin && <input type="text" placeholder="Full Name" value={fullName} onChange={(e) => setFullName(e.target.value)} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-purple-500`} required />}
+                  <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-purple-500`} required />
+                  <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-purple-500`} required />
+                  <button type="submit" className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 text-white font-semibold hover:shadow-lg hover:scale-105 transition-all">{isLogin ? 'Login' : 'Request Access'}</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        );
+      };
+      
+      // Dashboard
+      const Dashboard = () => (
+        <div className="space-y-6">
+          <h2 className="text-3xl font-bold">Dashboard</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <StatCard icon="file" title="Total Contracts" value={stats?.contracts || 0} color="from-purple-500 to-pink-500" />
+            <StatCard icon="folder" title="Total Firms" value={stats?.firms || 0} color="from-blue-500 to-cyan-500" />
+            <StatCard icon="file" title="Total Files" value={stats?.files || 0} color="from-green-500 to-teal-500" />
+            <StatCard icon="file" title="Documents" value={stats?.documents || 0} color="from-orange-500 to-red-500" />
+          </div>
+          
+          <div className={`backdrop-blur-2xl ${theme === 'dark' ? 'bg-gray-800/40' : 'bg-white/40'} rounded-3xl p-6 border ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'}`}>
+            <h3 className="text-xl font-semibold mb-4 flex items-center gap-2"><Icon name="trending" />Recent Activity</h3>
+            <div className="space-y-3">
+              <ActivityItem icon="plus" text="New file created: Pest Control Agreement" time="2 hours ago" />
+              <ActivityItem icon="upload" text="Document uploaded to Brown File #123" time="5 hours ago" />
+              <ActivityItem icon="file" text="Contract updated: M/s ABC Firm" time="1 day ago" />
+            </div>
+          </div>
+        </div>
+      );
+      
+      const StatCard = ({icon, title, value, color}) => (
+        <div className={`backdrop-blur-2xl ${theme === 'dark' ? 'bg-gray-800/40' : 'bg-white/40'} rounded-2xl p-6 border ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'} hover:scale-105 transition-all cursor-pointer group`}>
+          <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${color} flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform`}>
+            <Icon name={icon} className="w-6 h-6 text-white" />
+          </div>
+          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-1`}>{title}</p>
+          <p className="text-3xl font-bold">{value}</p>
+        </div>
+      );
+      
+      const ActivityItem = ({icon, text, time}) => (
+        <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-700/20 transition-all">
+          <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
+            <Icon name={icon} className="w-4 h-4 text-purple-400" />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm">{text}</p>
+            <p className="text-xs text-gray-500">{time}</p>
+          </div>
+        </div>
+      );
+      
+      // Files Manager
+      const FilesManager = () => {
+        const [viewMode, setViewMode] = useState('contracts');
+        const [showModal, setShowModal] = useState(false);
+        const [formData, setFormData] = useState({});
+        
+        const createItem = async () => {
+          if (viewMode === 'contracts') {
+            await api('/api/contracts/create', 'POST', {...formData, user: user.email});
+          } else if (viewMode === 'firms') {
+            await api('/api/firms/create', 'POST', {...formData, user: user.email});
+          } else if (viewMode === 'files') {
+            await api('/api/files/create', 'POST', {...formData, user: user.email});
+          }
+          setShowModal(false);
+          alert('Created successfully!');
+        };
+        
+        return (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-3xl font-bold">Files Manager</h2>
+              <button onClick={() => setShowModal(true)} className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:shadow-lg transition-all flex items-center gap-2">
+                <Icon name="plus" />Create New
+              </button>
+            </div>
+            
+            <div className="flex gap-2">
+              <button onClick={() => setViewMode('contracts')} className={`px-4 py-2 rounded-lg transition-all ${viewMode === 'contracts' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-gray-700/30 text-gray-400'}`}>Contracts</button>
+              <button onClick={() => setViewMode('firms')} className={`px-4 py-2 rounded-lg transition-all ${viewMode === 'firms' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-gray-700/30 text-gray-400'}`}>Firms</button>
+              <button onClick={() => setViewMode('files')} className={`px-4 py-2 rounded-lg transition-all ${viewMode === 'files' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-gray-700/30 text-gray-400'}`}>Files</button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[1, 2, 3].map(i => (
+                <div key={i} className={`backdrop-blur-2xl ${theme === 'dark' ? 'bg-gray-800/40' : 'bg-white/40'} rounded-2xl p-6 border-l-4 border-pink-500 hover:scale-105 transition-all cursor-pointer group`}>
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center group-hover:rotate-12 transition-transform">
+                      <Icon name="file" className="w-6 h-6 text-white" />
+                    </div>
+                    <button onClick={() => setShowQR({fileNumber: `PF-${i}00`, fileName: 'Sample File', category: 'Pink File'})} className="p-2 rounded-lg hover:bg-gray-700/30 transition-all">
+                      <Icon name="qr" />
+                    </button>
+                  </div>
+                  <h3 className="font-semibold mb-2">Pink File #{i * 100}</h3>
+                  <p className="text-sm text-gray-500 mb-3">Pest & Rodent Control</p>
+                  <div className="flex gap-2">
+                    <button className="flex-1 px-3 py-1.5 rounded-lg bg-gray-700/30 hover:bg-gray-700/50 text-sm transition-all flex items-center justify-center gap-1">
+                      <Icon name="eye" className="w-4 h-4" />View
+                    </button>
+                    <button className="px-3 py-1.5 rounded-lg bg-gray-700/30 hover:bg-gray-700/50 transition-all">
+                      <Icon name="chevronRight" className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {showModal && (
+              <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                <div className={`backdrop-blur-2xl ${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white/90'} rounded-3xl max-w-2xl w-full p-8`}>
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-2xl font-bold">Create {viewMode.slice(0, -1)}</h3>
+                    <button onClick={() => setShowModal(false)} className="p-2 hover:bg-gray-700/50 rounded-lg">
+                      <Icon name="x" />
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {viewMode === 'contracts' && (
+                      <>
+                        <input type="text" placeholder="Contract Name" onChange={(e) => setFormData({...formData, name: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                        <input type="text" placeholder="Contract Type" onChange={(e) => setFormData({...formData, type: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                      </>
+                    )}
+                    {viewMode === 'firms' && (
+                      <>
+                        <input type="text" placeholder="Firm Name" onChange={(e) => setFormData({...formData, firmName: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                        <input type="text" placeholder="Agreement Number" onChange={(e) => setFormData({...formData, agreementNo: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                        <div className="grid grid-cols-2 gap-4">
+                          <input type="date" placeholder="Start Date" onChange={(e) => setFormData({...formData, startDate: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                          <input type="date" placeholder="End Date" onChange={(e) => setFormData({...formData, endDate: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                        </div>
+                        <input type="number" placeholder="Contract Value" onChange={(e) => setFormData({...formData, value: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                      </>
+                    )}
+                    {viewMode === 'files' && (
+                      <>
+                        <input type="text" placeholder="File Number" onChange={(e) => setFormData({...formData, fileNumber: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                        <input type="text" placeholder="File Name" onChange={(e) => setFormData({...formData, fileName: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                        <select onChange={(e) => setFormData({...formData, fileType: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`}>
+                          <option value="">Select File Type</option>
+                          <option value="File">File</option>
+                          <option value="Sub-File">Sub-File</option>
+                        </select>
+                        <select onChange={(e) => setFormData({...formData, category: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`}>
+                          <option value="">Select Category</option>
+                          <option value="Pink File">Pink File</option>
+                          <option value="Brown File">Brown File</option>
+                          <option value="White Backing">White Backing</option>
+                          <option value="Register">Register</option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <input type="text" placeholder="Physical Location (Almirah:Row:Column)" onChange={(e) => setFormData({...formData, location: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                        <textarea placeholder="Description" onChange={(e) => setFormData({...formData, description: e.target.value})} className={`w-full px-4 py-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50 text-white' : 'bg-white/50 text-gray-900'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} rows="3"></textarea>
+                      </>
+                    )}
+                    <button onClick={createItem} className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:shadow-lg transition-all">Create</button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      };
+      
+      // Admin Panel
+      const AdminPanel = () => {
+        const [tab, setTab] = useState('users');
+        const [qrSettings, setQrSettings] = useState([
+          {field: 'File Number', show: true},
+          {field: 'File Name', show: true},
+          {field: 'Category', show: true},
+          {field: 'Supervisor', show: true},
+          {field: 'Physical Location', show: true}
+        ]);
+        
+        return (
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold">Admin Panel</h2>
+            
+            <div className="flex gap-2 overflow-x-auto">
+              <TabBtn active={tab === 'users'} onClick={() => setTab('users')} icon="users" text="Users" />
+              <TabBtn active={tab === 'qr'} onClick={() => setTab('qr')} icon="qr" text="QR Settings" />
+              <TabBtn active={tab === 'logs'} onClick={() => setTab('logs')} icon="clock" text="Audit Logs" />
+              <TabBtn active={tab === 'theme'} onClick={() => setTab('theme')} icon="settings" text="Theme" />
+            </div>
+            
+            <div className={`backdrop-blur-2xl ${theme === 'dark' ? 'bg-gray-800/40' : 'bg-white/40'} rounded-2xl p-6 border ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'}`}>
+              {tab === 'users' && (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold">Pending Signup Requests</h3>
+                  {[1, 2].map(i => (
+                    <div key={i} className="flex items-center justify-between p-4 rounded-lg bg-gray-700/20">
+                      <div>
+                        <p className="font-semibold">User {i}</p>
+                        <p className="text-sm text-gray-500">user{i}@example.com</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <button className="px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition-all flex items-center gap-2">
+                          <Icon name="check" className="w-4 h-4" />Approve
+                        </button>
+                        <button className="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all flex items-center gap-2">
+                          <Icon name="xCircle" className="w-4 h-4" />Decline
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              {tab === 'qr' && (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold mb-4">QR Code Display Settings</h3>
+                  {qrSettings.map((s, i) => (
+                    <div key={i} className="flex items-center justify-between p-4 rounded-lg bg-gray-700/20 hover:bg-gray-700/30 transition-all">
+                      <span>{s.field}</span>
+                      <button onClick={() => {
+                        const newSettings = [...qrSettings];
+                        newSettings[i].show = !newSettings[i].show;
+                        setQrSettings(newSettings);
+                      }} className={`w-14 h-7 rounded-full transition-all duration-300 ${s.show ? 'bg-gradient-to-r from-purple-500 to-pink-500' : 'bg-gray-600'}`}>
+                        <div className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ${s.show ? 'translate-x-8' : 'translate-x-1'}`}></div>
+                      </button>
+                    </div>
+                  ))}
+                  <button className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:shadow-lg transition-all">Save Changes</button>
+                </div>
+              )}
+              
+              {tab === 'logs' && (
+                <div className="space-y-3 max-h-96 overflow-y-auto">
+                  {[1, 2, 3, 4, 5].map(i => (
+                    <div key={i} className="p-4 rounded-lg bg-gray-700/20 hover:bg-gray-700/30 transition-all">
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="font-semibold">User Login</span>
+                        <span className="text-sm text-gray-500">{i} hours ago</span>
+                      </div>
+                      <p className="text-sm text-gray-400">admin@example.com logged in</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              {tab === 'theme' && (
+                <div className="space-y-6">
+                  <h3 className="text-xl font-semibold">Theme Customization</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {[
+                      {name: 'Purple Dream', colors: 'from-purple-500 via-pink-500 to-blue-500'},
+                      {name: 'Ocean Breeze', colors: 'from-blue-500 via-cyan-500 to-teal-500'},
+                      {name: 'Sunset Glow', colors: 'from-orange-500 via-red-500 to-pink-500'},
+                      {name: 'Forest Night', colors: 'from-green-500 via-teal-500 to-blue-500'},
+                      {name: 'Royal Gold', colors: 'from-yellow-500 via-orange-500 to-red-500'},
+                      {name: 'Aurora', colors: 'from-indigo-500 via-purple-500 to-pink-500'}
+                    ].map(t => (
+                      <div key={t.name} className="cursor-pointer group">
+                        <div className={`h-32 rounded-2xl bg-gradient-to-r ${t.colors} group-hover:scale-105 transition-all mb-2`}></div>
+                        <p className="text-sm text-center">{t.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      };
+      
+      const TabBtn = ({active, onClick, icon, text}) => (
+        <button onClick={onClick} className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 whitespace-nowrap ${active ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' : 'bg-gray-700/30 text-gray-400 hover:bg-gray-700/50'}`}>
+          <Icon name={icon} className="w-4 h-4" />{text}
+        </button>
+      );
+      
+      // QR Preview Modal
+      const QRPreview = ({data, onClose}) => (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className={`backdrop-blur-2xl ${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white/90'} rounded-3xl max-w-2xl w-full p-8`}>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">QR Code Preview</h2>
+              <button onClick={onClose} className="p-2 hover:bg-gray-700/50 rounded-lg transition-all">
+                <Icon name="x" />
+              </button>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="flex flex-col items-center justify-center bg-white p-6 rounded-2xl">
+                <img src={`https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(JSON.stringify(data))}`} alt="QR Code" className="w-full max-w-sm shadow-2xl rounded-lg" />
+                <button onClick={() => {
+                  const a = document.createElement('a');
+                  a.href = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(JSON.stringify(data))}`;
+                  a.download = `QR_${data.fileNumber}.png`;
+                  a.click();
+                }} className="mt-4 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center gap-2">
+                  <Icon name="download" />Download 500×500
+                </button>
+              </div>
+              
+              <div className="space-y-3">
+                <h3 className="text-lg font-semibold mb-4">QR Code Information</h3>
+                <div className="p-3 bg-gray-700/30 rounded-lg">
+                  <p className="text-sm text-gray-400">File Number</p>
+                  <p className="font-semibold">{data.fileNumber}</p>
+                </div>
+                <div className="p-3 bg-gray-700/30 rounded-lg">
+                  <p className="text-sm text-gray-400">File Name</p>
+                  <p className="font-semibold">{data.fileName}</p>
+                </div>
+                <div className="p-3 bg-gray-700/30 rounded-lg">
+                  <p className="text-sm text-gray-400">Category</p>
+                  <p className="font-semibold">{data.category}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+      
+      // Main Layout
+      const MainLayout = () => (
+        <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+            <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+            <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
+          </div>
+          
+          <nav className={`fixed top-0 left-0 right-0 backdrop-blur-2xl ${theme === 'dark' ? 'bg-gray-800/40' : 'bg-white/40'} border-b ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'} z-50`}>
+            <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 rounded-lg hover:bg-gray-700/30 transition-all">
+                  <Icon name={sidebarOpen ? 'x' : 'menu'} />
+                </button>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">Contract Management Cell</h1>
+              </div>
+              
+              <div className="flex-1 max-w-2xl mx-8 relative">
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2"><Icon name="search" className="w-5 h-5 text-gray-400" /></div>
+                <input type="text" placeholder="Search contracts, files, documents..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className={`w-full pl-10 pr-4 py-2 rounded-lg ${theme === 'dark' ? 'bg-gray-700/50' : 'bg-white/50'} border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all`} />
+                {searchResults.length > 0 && (
+                  <div className={`absolute top-full mt-2 w-full backdrop-blur-2xl ${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white/90'} rounded-lg shadow-2xl border ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'} max-h-96 overflow-y-auto`}>
+                    {searchResults.map((r, i) => (
+                      <div key={i} className="p-3 hover:bg-gray-700/30 cursor-pointer transition-all border-b border-gray-700/30">
+                        <p className="font-semibold">{r.type}: {r.data[1]}</p>
+                        <p className="text-sm text-gray-500">{r.data[2]}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 rounded-lg hover:bg-gray-700/30 transition-all">
+                  <Icon name={theme === 'dark' ? 'sun' : 'moon'} className="w-5 h-5" />
+                </button>
+                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center font-semibold cursor-pointer">{user?.name?.charAt(0) || 'U'}</div>
+              </div>
+            </div>
+          </nav>
+          
+          <div className="flex pt-20">
+            {sidebarOpen && (
+              <aside className={`fixed left-0 top-20 bottom-0 w-64 backdrop-blur-2xl ${theme === 'dark' ? 'bg-gray-800/40' : 'bg-white/40'} border-r ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'} p-4 z-40 transition-all`}>
+                <nav className="space-y-2">
+                  <NavItem icon="dashboard" text="Dashboard" active={page === 'dashboard'} onClick={() => setPage('dashboard')} />
+                  <NavItem icon="folder" text="Files Manager" active={page === 'files'} onClick={() => setPage('files')} />
+                  <NavItem icon="settings" text="Admin Panel" active={page === 'admin'} onClick={() => setPage('admin')} />
+                </nav>
+              </aside>
+            )}
+            
+            <main className={`flex-1 p-8 ${sidebarOpen ? 'ml-64' : 'ml-0'} transition-all relative z-10`}>
+              {page === 'dashboard' && <Dashboard />}
+              {page === 'files' && <FilesManager />}
+              {page === 'admin' && <AdminPanel />}
+            </main>
+          </div>
+          
+          {showQR && <QRPreview data={showQR} onClose={() => setShowQR(null)} />}
+        </div>
+      );
+      
+      const NavItem = ({icon, text, active, onClick}) => (
+        <button onClick={onClick} className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${active ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg' : 'hover:bg-gray-700/30'}`}>
+          <Icon name={icon} /><span className="font-medium">{text}</span>
+        </button>
+      );
+      
+      if (!user) return <LoginPage />;
+      return <MainLayout />;
+    };
+    
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
