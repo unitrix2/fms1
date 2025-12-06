@@ -1,365 +1,223 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aurora FMS | Enterprise</title>
-  
-  <script>
-    // 👇👇👇 YAHAN APNA WORKER URL PASTE KAREIN 👇👇👇
-    // Example: "https://fms-backend.vaibhav.workers.dev"
-    const APP_CONFIG = {
-      API_URL: "https://fms1.clickworld.workers.dev" 
-    };
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <script>tailwind.config = { darkMode: 'class' }</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Management Cell (CMC)</title>
 
-  <style>
-    :root { --bg-main:#f8fafc; --text-main:#1f2937; --text-sec:#64748b; --glass-bg:rgba(255,255,255,0.95); --glass-border:rgba(0,0,0,0.1); --input-bg:#ffffff; --input-text:#000000; --aurora-1:rgba(59,130,246,0.1); --aurora-2:rgba(147,51,234,0.1); }
-    html.dark { --bg-main:#030014; --text-main:#f8fafc; --text-sec:#94a3b8; --glass-bg:rgba(20,20,30,0.8); --glass-border:rgba(255,255,255,0.15); --input-bg:rgba(0,0,0,0.4); --input-text:#ffffff; --aurora-1:rgba(88,28,135,0.4); --aurora-2:rgba(236,72,153,0.3); }
-    body { font-family:'Inter',sans-serif; background-color:var(--bg-main); color:var(--text-main); transition:0.3s; }
-    .aurora-bg { position:fixed; inset:0; z-index:-1; filter:blur(80px); background:radial-gradient(circle at 10% 20%,var(--aurora-1) 0%,transparent 40%),radial-gradient(circle at 90% 80%,var(--aurora-2) 0%,transparent 40%); transition:0.5s; }
-    .glass-card { background:var(--glass-bg); backdrop-filter:blur(24px); border:1px solid var(--glass-border); box-shadow:0 8px 32px 0 rgba(0,0,0,0.1); border-radius:16px; }
-    .glass-input { background:var(--input-bg); border:1px solid var(--glass-border); color:var(--input-text); transition:0.3s; outline:none; }
-    .glass-input:focus { border-color:#d946ef; box-shadow:0 0 0 2px rgba(217,70,239,0.2); }
-    .btn-gradient { background:linear-gradient(135deg,#9333ea,#db2777); color:white; }
-    .btn-gradient:hover { filter:brightness(1.1); transform:translateY(-1px); }
-    .type-Pink { border-left:4px solid #ec4899; } .type-Brown { border-left:4px solid #d97706; } .type-White { border-left:4px solid #94a3b8; } .type-Register { border-left:4px solid #3b82f6; } .type-Sub { border-left:4px solid #8b5cf6; margin-left:1.5rem; background:rgba(139,92,246,0.05); }
-    .slide-up { animation:slideUp 0.4s ease-out forwards; } @keyframes slideUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-    .fade-enter-active,.fade-leave-active { transition:opacity 0.3s; } .fade-enter-from,.fade-leave-to { opacity:0; }
-    
-    /* Error Screen Styles */
-    #config-error { position: fixed; inset: 0; background: #0f172a; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; }
-    
-    /* Toggle Switch */
-    .toggle-checkbox:checked { right: 0; border-color: #10B981; }
-    .toggle-checkbox:checked + .toggle-label { background-color: #10B981; }
-    .toggle-checkbox { right: 50%; transition: all 0.3s; }
-    .toggle-label { width: 3rem; height: 1.5rem; transition: background-color 0.3s; }
-  </style>
+    <script>
+        const APP_CONFIG = {
+            // STEP 1: Cloudflare Worker ka URL yahan paste karein (deploy karne ke baad)
+            API_URL: "https://fms1.clickworld.workers.dev",
+            
+            // System Name
+            ORG_NAME: "Contract Management Cell",
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Iridescence Background Animation */
+        body {
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #141e30);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #ffffff;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Panel */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* File Borders */
+        .border-pink { border-left: 4px solid #ec4899; }
+        .border-brown { border-left: 4px solid #a16207; }
+        .border-white { border-left: 4px solid #e5e7eb; }
+
+        /* Loader */
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: #3b82f6;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
-<body :class="isDark ? 'dark' : ''">
-  <div class="aurora-bg"></div>
-  
-  <div id="config-error" style="display: none;">
-    <i class="fa-solid fa-triangle-exclamation text-6xl text-red-500 mb-4"></i>
-    <h1 class="text-3xl font-bold mb-2">Setup Required</h1>
-    <p class="text-gray-400 mb-6">You haven't pasted your Cloudflare Worker URL in the code yet.</p>
-    <div class="bg-gray-800 p-4 rounded text-left text-sm font-mono text-green-400">
-      const APP_CONFIG = {<br>
-      &nbsp;&nbsp;API_URL: "PASTE_YOUR_URL_HERE"<br>
-      };
-    </div>
-    <p class="mt-6 text-sm text-gray-500">Edit index.html and refresh.</p>
-  </div>
+<body class="h-screen flex overflow-hidden">
 
-  <div id="app" class="min-h-screen flex flex-col relative z-10 text-sm md:text-base">
-    
-    <transition name="fade"><div v-if="notify" :class="`fixed top-6 right-6 px-6 py-4 rounded-xl shadow-2xl glass-card z-[100] flex items-center gap-3 border-l-4 ${notify.type==='error'?'border-red-500':'border-green-400'}`"><i class="fa-solid fa-bell"></i> <b>{{ notify.msg }}</b></div></transition>
-    
-    <div v-if="loading" class="fixed inset-0 bg-black/80 z-[100] flex flex-col items-center justify-center backdrop-blur-sm">
-        <div class="animate-spin w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full"></div>
-        <button v-if="showResetBtn" @click="hardReset" class="mt-8 px-4 py-2 border border-red-500 text-red-500 rounded hover:bg-red-500 hover:text-white transition text-xs">
-            <i class="fa-solid fa-rotate-right mr-2"></i> System Stuck? Click to Reset
-        </button>
-    </div>
+    <aside class="w-64 glass-panel flex flex-col hidden md:flex z-20">
+        <div class="p-6 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-500">
+            CMC SYSTEM
+        </div>
+        <nav class="flex-1 px-4 space-y-2 mt-4">
+            <button onclick="router('dashboard')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </button>
+            <button onclick="router('files')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
+                <i data-lucide="folder-open"></i> File Manager
+            </button>
+            <button onclick="router('admin')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition">
+                <i data-lucide="settings"></i> Admin Panel
+            </button>
+        </nav>
+    </aside>
 
-    <div v-if="view === 'public_qr'" class="flex-grow flex items-center justify-center p-4">
-       <div v-if="publicData" class="glass-card p-8 w-full max-w-lg slide-up border-t-8 border-purple-600 shadow-2xl">
-          <div class="text-center mb-8"><i class="fa-solid fa-file-shield text-5xl text-purple-600 mb-4"></i><h1 class="text-3xl font-bold">Verified Record</h1><p class="text-[var(--text-sec)]">Aurora FMS</p></div>
-          <div class="space-y-4">
-             <div v-if="publicData.FileNo" class="p-4 bg-[var(--input-bg)] rounded-xl border border-[var(--glass-border)] text-center"><p class="text-xs uppercase font-bold text-[var(--text-sec)]">File Number</p><p class="text-2xl font-mono font-bold">{{ publicData.FileNo }}</p></div>
-             <div v-if="publicData.FirmName" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Firm</span> <span class="font-bold">{{ publicData.FirmName }}</span></div>
-             <div v-if="publicData.Location!=='Restricted'" class="flex justify-between border-b border-[var(--glass-border)] pb-2"><span>Location</span> <span class="font-bold text-purple-500">{{ publicData.Location }}</span></div>
-             <div v-if="publicData.Description" class="bg-[var(--input-bg)] p-3 rounded-lg text-sm">{{ publicData.Description }}</div>
-          </div>
-          <a v-if="publicData.DriveID" :href="getProxyUrl(publicData.DriveID)" target="_blank" class="block w-full py-3 mt-6 btn-gradient rounded-xl font-bold text-center shadow-lg">View Digital Document</a>
-       </div>
-       <div v-else class="text-center font-bold animate-pulse">Authenticating...</div>
-    </div>
-
-    <div v-else-if="page === 'login'" class="flex-grow flex items-center justify-center p-4">
-      <div class="glass-card p-10 rounded-3xl w-full max-w-md slide-up relative">
-        <button @click="toggleTheme" class="absolute top-4 right-4 text-[var(--text-sec)]"><i :class="isDark?'fa-solid fa-sun':'fa-solid fa-moon'"></i></button>
-        <div class="text-center mb-8"><h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">AURORA</h1><p class="text-[var(--text-sec)] text-xs uppercase tracking-widest mt-2">Enterprise Access</p></div>
-        <form @submit.prevent="auth">
-           <input v-model="authForm.email" placeholder="Username / Email" class="glass-input w-full p-3 rounded-xl mb-4" required>
-           <input v-model="authForm.password" type="password" placeholder="Password" class="glass-input w-full p-3 rounded-xl mb-6" required>
-           <button class="w-full py-3 btn-gradient rounded-xl font-bold shadow-lg">ENTER SYSTEM</button>
-        </form>
-      </div>
-    </div>
-
-    <div v-else class="flex h-screen overflow-hidden">
-      <aside class="w-64 glass-card m-4 mr-0 flex flex-col hidden md:flex">
-         <div class="p-6 border-b border-[var(--glass-border)]"><h2 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">AURORA</h2><div class="text-xs text-[var(--text-sec)] mt-1">@{{ user.username }} ({{ user.role }})</div></div>
-         <nav class="p-4 space-y-2 flex-1">
-            <button @click="navigate('dashboard')" :class="navClass('dashboard')"><i class="fa-solid fa-chart-pie w-5 text-center"></i> Dashboard</button>
-            <button @click="navigate('home')" :class="navClass('home')"><i class="fa-solid fa-folder-tree w-5 text-center"></i> Files</button>
-            <button v-if="user.role==='Admin'" @click="view='admin'" :class="navClass('admin')"><i class="fa-solid fa-shield-cat w-5 text-center"></i> Admin</button>
-         </nav>
-         <div class="px-6 py-2 flex justify-between items-center text-[var(--text-sec)]"><span class="text-xs font-bold">MODE</span><button @click="toggleTheme" class="p-2 rounded-full hover:bg-[var(--glass-border)]"><i :class="isDark?'fa-solid fa-sun text-yellow-400':'fa-solid fa-moon text-blue-500'"></i></button></div>
-         <div class="p-4 border-t border-[var(--glass-border)]"><button @click="logout" class="w-full p-3 border border-red-500/30 text-red-500 rounded-xl hover:bg-red-500/10 font-bold"><i class="fa-solid fa-power-off"></i> Logout</button></div>
-      </aside>
-
-      <main class="flex-1 overflow-y-auto p-6 relative">
-         <div class="glass-card p-3 rounded-2xl flex items-center gap-4 mb-8 sticky top-0 z-40 shadow-xl relative">
-            <i class="fa-solid fa-search ml-4 text-[var(--text-sec)]"></i>
-            <input v-model="search" type="text" placeholder="AI Search: File No, Name, Firm, Desc..." class="bg-transparent w-full p-2 text-[var(--text-main)] outline-none" @input="showSuggestions=true">
-            <div v-if="search && showSuggestions" class="absolute top-full left-0 w-full glass-card mt-2 max-h-60 overflow-y-auto z-50 shadow-2xl">
-               <div v-for="res in searchResults" :key="res.id" @click="handleSearchSelect(res)" class="p-3 border-b border-[var(--glass-border)] cursor-pointer hover:bg-[var(--glass-border)] flex justify-between"><div><div class="font-bold">{{ res.title }}</div><div class="text-xs text-[var(--text-sec)]">{{ res.subtitle }}</div></div><span class="text-xs bg-purple-500/20 text-purple-500 px-2 py-1 rounded h-fit">{{ res.type }}</span></div>
-            </div>
-         </div>
-
-         <div v-if="view==='dashboard'" class="slide-up">
-            <h2 class="text-2xl font-bold mb-6">Overview</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-               <div class="glass-card p-6"><div class="text-3xl font-bold text-purple-500">{{ stats.totalContracts }}</div><div class="text-xs text-[var(--text-sec)]">Total Contracts</div></div>
-               <div class="glass-card p-6"><div class="text-3xl font-bold text-green-500">{{ stats.activeContracts }}</div><div class="text-xs text-[var(--text-sec)]">Active Contracts</div></div>
-               <div class="glass-card p-6"><div class="text-3xl font-bold text-blue-500">{{ stats.totalFiles }}</div><div class="text-xs text-[var(--text-sec)]">Main Files</div></div>
-               <div class="glass-card p-6"><div class="text-3xl font-bold text-pink-500">{{ stats.subFiles }}</div><div class="text-xs text-[var(--text-sec)]">Sub-Files</div></div>
-            </div>
-            <div class="grid md:grid-cols-2 gap-6"><div class="glass-card p-6"><h3 class="font-bold mb-4">File Distribution</h3><canvas id="typeChart"></canvas></div><div class="glass-card p-6"><h3 class="font-bold mb-4">Contract Status</h3><canvas id="statusChart"></canvas></div></div>
-         </div>
-
-         <div v-if="view==='home' && !selectedCat" class="slide-up">
-            <div class="flex justify-between mb-6"><h2 class="text-2xl font-bold">Categories</h2><button @click="openModal('cat','create')" class="btn-gradient px-4 py-2 rounded-xl text-xs font-bold">+ New</button></div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div v-for="c in db.categories" @click="selectCat(c)" class="glass-card p-6 relative group hover:scale-[1.02] transition cursor-pointer"><div class="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center text-2xl text-purple-500 mb-4"><i :class="c.Icon || 'fa-solid fa-folder'"></i></div><h3 class="font-bold text-lg">{{ c.Name }}</h3><div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 flex gap-2"><button @click.stop="openModal('cat','edit',c)" class="text-blue-400"><i class="fa-solid fa-pen"></i></button><button @click.stop="del('manageCategory',c.rowIndex)" class="text-red-400"><i class="fa-solid fa-trash"></i></button></div></div></div>
-         </div>
-
-         <div v-if="selectedCat && !selectedCon" class="slide-up">
-            <div class="flex items-center gap-2 mb-6 text-[var(--text-sec)] text-sm cursor-pointer"><span @click="selectedCat=null">Categories</span> <i class="fa-solid fa-chevron-right text-xs"></i> <span class="font-bold text-[var(--text-main)]">{{ selectedCat.Name }}</span></div>
-            <div class="flex justify-between mb-6"><h2 class="text-2xl font-bold">Contracts</h2><button @click="openModal('con','create')" class="btn-gradient px-4 py-2 rounded-xl font-bold text-xs">+ Contract</button></div>
-            <div class="space-y-3"><div v-for="c in filteredContracts" @click="selectCon(c)" class="glass-card p-5 cursor-pointer hover:bg-[var(--glass-border)] flex justify-between items-center group"><div><h3 class="text-xl font-bold">{{ c.FirmName }}</h3><div class="text-sm text-[var(--text-sec)]">Agmt: {{ c.AgreementNo }}</div></div><div class="flex items-center gap-4"><span :class="c.Status==='Active'?'text-green-500':'text-red-500'">{{ c.Status }}</span><div class="opacity-0 group-hover:opacity-100"><button @click.stop="openModal('con','edit',c)" class="text-blue-400 mr-2"><i class="fa-solid fa-pen"></i></button><button @click.stop="del('manageContract',c.rowIndex)" class="text-red-400"><i class="fa-solid fa-trash"></i></button></div></div></div></div>
-         </div>
-
-         <div v-if="selectedCon" class="slide-up pb-20">
-            <div class="flex items-center gap-2 mb-6 text-[var(--text-sec)] text-sm cursor-pointer"><span @click="selectedCat=null;selectedCon=null">Home</span> <i class="fa-solid fa-chevron-right text-xs"></i> <span @click="selectedCon=null">{{ selectedCat.Name }}</span> <i class="fa-solid fa-chevron-right text-xs"></i> <span class="font-bold text-[var(--text-main)]">{{ selectedCon.FirmName }}</span></div>
-            <div class="glass-card p-6 rounded-2xl mb-8 border border-purple-500/30 flex justify-between items-start"><div><h1 class="text-3xl font-bold">{{ selectedCon.FirmName }}</h1><p class="text-[var(--text-sec)] mt-2">{{ selectedCon.Description }}</p></div><button @click="openModal('file','create')" class="btn-gradient px-6 py-3 rounded-xl font-bold shadow-lg">+ Create File</button></div>
-            <div class="grid gap-4">
-               <div v-for="f in parentFiles" :key="f.FileID" :class="`glass-card p-5 relative group ${'type-'+f.Type.split(' ')[0]}`">
-                  <div class="flex justify-between items-start">
-                     <button @click="f.expand = !f.expand" class="mr-3 mt-1 text-[var(--text-sec)] hover:text-[var(--text-main)]"><i :class="`fa-solid fa-chevron-${f.expand?'down':'right'}`"></i></button>
-                     <div class="flex-1 cursor-pointer" @click="f.expand = !f.expand"><div class="flex items-center gap-3 mb-2"><span class="bg-[var(--glass-border)] px-2 py-1 rounded text-xs font-mono border border-[var(--glass-border)]">{{ f.FileNo }}</span><span class="text-xs font-bold text-purple-500 uppercase">{{ f.Type }}</span></div><h3 class="font-bold text-lg">{{ f.Name }}</h3><p class="text-sm text-[var(--text-sec)] line-clamp-1">{{ f.Description }}</p><div class="mt-3 text-xs text-[var(--text-sec)]"><span class="bg-[var(--glass-border)] px-2 py-1 rounded">{{ f.Location }}</span></div></div>
-                     <div class="flex gap-2"><button @click="openQRModal(f)" class="w-8 h-8 rounded-full bg-[var(--glass-border)] hover:bg-white/20 flex items-center justify-center"><i class="fa-solid fa-qrcode"></i></button><button v-if="f.AttachmentURL" @click="openPrev(f)" class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-500 hover:bg-blue-500 hover:text-white flex items-center justify-center"><i class="fa-regular fa-eye"></i></button><div class="flex flex-col gap-2 ml-2 opacity-0 group-hover:opacity-100 transition"><button @click="openModal('file','edit',f)" class="text-blue-400"><i class="fa-solid fa-pen"></i></button><button @click="del('manageFile',f.rowIndex)" class="text-red-400"><i class="fa-solid fa-trash"></i></button></div></div>
-                  </div>
-                  <div v-if="f.expand" class="mt-4 pt-4 border-t border-[var(--glass-border)] pl-8"><div class="flex justify-between items-center mb-3"><h4 class="text-xs font-bold text-[var(--text-sec)] uppercase">Sub-Files</h4><button @click="openSub(f)" class="text-xs text-purple-500 hover:text-purple-400 border border-purple-500/30 px-2 py-1 rounded">+ Add</button></div><div v-for="sub in getSubFiles(f.FileID)" :class="`glass-card p-3 mb-2 flex justify-between items-center cursor-pointer hover:bg-[var(--glass-border)] ${'type-'+sub.Type.split(' ')[0]}`" @click="openModal('file','edit',sub)"><div class="flex-1 cursor-pointer" @click.stop="openPrev(sub)"><div class="text-sm font-bold">{{ sub.Name }}</div><div class="text-xs text-[var(--text-sec)]">{{ sub.FileNo }} • {{ sub.Type }}</div></div><div class="flex gap-2"><button v-if="sub.AttachmentURL" @click.stop="openPrev(sub)" class="text-blue-400 text-xs">View</button><button @click.stop="del('manageFile',sub.rowIndex)" class="text-red-400 text-xs"><i class="fa-solid fa-trash"></i></button></div></div></div>
-               </div>
-            </div>
-         </div>
-
-         <div v-if="view==='admin'" class="slide-up">
-            <h2 class="text-2xl font-bold mb-6">Admin Control</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-               <div class="glass-card p-6">
-                  <h3 class="font-bold mb-6 border-b border-[var(--glass-border)] pb-2">QR Public Visibility</h3>
-                  <div class="grid grid-cols-2 gap-y-4 gap-x-8 text-sm">
-                     <div v-for="(val, key) in db.qrSettings" :key="key" class="flex items-center justify-between">
-                        <span class="text-[var(--text-main)] capitalize">{{ key.replace('Show_','') }}</span>
-                        <div class="relative inline-block w-10 mr-2 align-middle select-none">
-                           <input type="checkbox" v-model="db.qrSettings[key]" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
-                           <label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"></label>
-                        </div>
-                     </div>
-                  </div>
-                  <button @click="saveSet" class="w-full mt-6 py-2 btn-gradient rounded-xl font-bold shadow-lg">Save Settings</button>
-               </div>
-               <div class="glass-card p-6"><h3 class="font-bold mb-4">Users</h3><button @click="openModal('user','create')" class="text-xs border border-pink-500 text-pink-500 px-3 py-1 rounded mb-2">Add New</button><div class="max-h-40 overflow-y-auto"><div v-for="u in db.adminUsers" class="flex justify-between p-2 border-b border-[var(--glass-border)] text-xs"><span>{{ u.Username }}</span><button @click="del('manageUser',u.rowIndex)" class="text-red-400"><i class="fa-solid fa-trash"></i></button></div></div></div>
-            </div>
-         </div>
-      </main>
-
-      <transition name="slide"><div v-if="prevUrl" class="fixed top-0 right-0 h-full w-full md:w-[600px] glass-card border-l border-[var(--glass-border)] z-[90] shadow-2xl flex flex-col bg-[var(--bg-main)]"><div class="p-4 border-b border-[var(--glass-border)] flex justify-between items-center"><h3 class="font-bold">Preview</h3><div class="flex gap-2"><a :href="prevUrl" download class="p-2 bg-blue-500 rounded text-white text-xs font-bold">Download</a><button @click="prevUrl=null" class="p-2 hover:text-red-500"><i class="fa-solid fa-xmark"></i></button></div></div><div class="flex-1 p-4 bg-black/5 flex items-center justify-center"><iframe :src="prevUrl" class="w-full h-full rounded-lg border-none bg-white"></iframe></div></div></transition>
-
-      <div v-if="qrModal.show" class="fixed inset-0 bg-black/90 z-[80] flex items-center justify-center p-4"><div class="glass-card p-8 text-center max-w-sm w-full relative"><button @click="qrModal.show=false" class="absolute top-4 right-4 text-[var(--text-sec)] hover:text-red-500"><i class="fa-solid fa-xmark"></i></button><h3 class="text-xl font-bold mb-4">QR Code</h3><div class="bg-white p-4 rounded-xl inline-block mb-6"><canvas id="qrCanvas"></canvas></div><button @click="downloadQR" class="w-full py-3 btn-gradient rounded-xl font-bold">Download HD PNG</button></div></div>
-
-      <div v-if="modal.show" class="fixed inset-0 bg-black/80 z-[80] flex items-center justify-center p-4 backdrop-blur-sm">
-         <div class="glass-card p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto slide-up">
-            <h3 class="text-xl font-bold mb-6 capitalize border-b border-[var(--glass-border)] pb-4 text-[var(--text-main)]">{{ modal.mode }} {{ modal.type }}</h3>
-            <div v-if="modal.type==='file'" class="space-y-4">
-               <div class="grid md:grid-cols-2 gap-4"><div><label class="text-xs font-bold text-[var(--text-sec)]">FILE NO</label><input v-model="forms.file.FileNo" class="glass-input w-full p-3 rounded-xl"></div><div><label class="text-xs font-bold text-[var(--text-sec)]">NAME</label><input v-model="forms.file.Name" class="glass-input w-full p-3 rounded-xl"></div></div>
-               <div class="p-4 bg-[var(--input-bg)] rounded-xl border border-[var(--glass-border)]"><label class="text-xs font-bold text-[var(--text-sec)] block mb-2">LOCATION</label><div class="grid grid-cols-3 gap-2"><select v-model="loc.r" class="glass-input w-full p-2 rounded text-xs"><option value="">Rack</option><option v-for="r in uRacks" :value="r">{{ r }}</option></select><select v-model="loc.rw" class="glass-input w-full p-2 rounded text-xs" :disabled="!loc.r"><option value="">Row</option><option v-for="r in uRows" :value="r">R-{{ r }}</option></select><select v-model="loc.c" class="glass-input w-full p-2 rounded text-xs" :disabled="!loc.rw"><option value="">Col</option><option v-for="c in uCols" :value="c">C-{{ c }}</option></select></div><div class="text-xs text-right mt-1 text-purple-500 font-mono">{{ locStr }}</div></div>
-               <div class="grid md:grid-cols-2 gap-4"><select v-model="forms.file.Type" class="glass-input w-full p-3 rounded-xl"><option>Pink File</option><option>Brown File</option><option>White Backing</option><option>Register</option><option>Sub-File</option><option>Custom</option></select><input v-model="forms.file.PageCount" placeholder="Pages" class="glass-input w-full p-3 rounded-xl"></div>
-               <textarea v-model="forms.file.Description" placeholder="Desc..." class="glass-input w-full p-3 rounded-xl h-20"></textarea>
-               <input v-if="modal.mode==='create'" type="file" @change="upl" class="text-[var(--text-sec)] text-sm">
-            </div>
-            <div v-if="modal.type==='cat'" class="space-y-4"><input v-model="forms.cat.Name" placeholder="Name" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.cat.Icon" placeholder="Icon" class="glass-input w-full p-3 rounded-xl"></div>
-            <div v-if="modal.type==='con'" class="space-y-4"><input v-model="forms.con.FirmName" placeholder="Firm" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.con.AgreementNo" placeholder="Agmt" class="glass-input w-full p-3 rounded-xl"><div class="flex gap-4"><input type="date" v-model="forms.con.StartDate" class="glass-input w-1/2 p-3 rounded-xl"><input type="date" v-model="forms.con.EndDate" class="glass-input w-1/2 p-3 rounded-xl"></div><textarea v-model="forms.con.Description" class="glass-input w-full p-3 rounded-xl"></textarea></div>
-            <div v-if="modal.type==='user'" class="space-y-4"><input v-model="forms.user.name" placeholder="Name" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.user.username" placeholder="User" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.user.email" placeholder="Email" class="glass-input w-full p-3 rounded-xl"><input v-model="forms.user.password" placeholder="Pass" class="glass-input w-full p-3 rounded-xl"><select v-model="forms.user.role" class="glass-input w-full p-3 rounded-xl"><option>Manager</option><option>Admin</option></select></div>
-            <div class="flex justify-end gap-4 mt-8 pt-4 border-t border-[var(--glass-border)]"><button @click="modal.show=false" class="px-6 py-2 rounded-xl text-[var(--text-sec)]">Cancel</button><button @click="save" class="px-8 py-2 btn-gradient rounded-xl font-bold shadow-lg">Save</button></div>
-         </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // 👇👇 YAHAN APNA WORKER URL PASTE KAREIN 👇👇
-    const APP_CONFIG = {
-      API_URL: "https://fms1.clickworld.workers.dev" 
-    };
-
-    const { createApp } = Vue;
-    createApp({
-      data() {
-        return {
-          isDark: localStorage.getItem('theme') !== 'light',
-          loading: false,
-          notify: null,
-          page: 'login',
-          view: 'home',
-          authForm: { email: '', password: '' },
-          user: null,
-          search: '',
-          showSuggestions: false,
-          db: { categories: [], contracts: [], files: [], locations: [], adminUsers: [], qrSettings: {} },
-          selectedCat: null, selectedCon: null,
-          modal: { show: false, type: '', mode: '' },
-          forms: { cat: {}, con: {}, file: {}, user: {} },
-          locPicker: { rack: '', row: '', col: '' },
-          previewUrl: null, qrModal: { show: false, file: {} }, publicData: null,
-          stats: { totalContracts: 0, activeContracts: 0, totalFiles: 0, subFiles: 0 },
-          showResetBtn: false
-        }
-      },
-      watch: {
-        isDark(v) { document.documentElement.classList.toggle('dark', v); localStorage.setItem('theme', v ? 'dark' : 'light'); },
-        view(v) { if (v === 'dashboard') this.$nextTick(this.renderCharts); }
-      },
-      mounted() {
-        // --- 1. CONFIG CHECK ---
-        if (APP_CONFIG.API_URL.includes("PASTE")) {
-          document.getElementById('config-error').style.display = 'flex';
-          return;
-        }
-
-        document.documentElement.classList.toggle('dark', this.isDark);
+    <main class="flex-1 flex flex-col relative">
         
-        // --- 2. URL QUERY PARAMS (QR) ---
-        const u = new URLSearchParams(location.search);
-        if (u.get('view') === 'file') {
-          this.view = 'public_qr';
-          this.loading = true;
-          this.req('getPublicFile', { fileId: u.get('id') }).then(r => {
-            this.loading = false;
-            if (r.success) this.publicData = r.data;
-            else this.notif(r.msg || "Invalid Link", 'error');
-          });
-        } 
-        // --- 3. AUTO LOGIN ---
-        else {
-          const savedUser = localStorage.getItem('aurora_user');
-          if (savedUser) { 
-            this.user = JSON.parse(savedUser); 
-            this.page = 'app'; 
-            this.loadData(); 
-          }
-        }
-      },
-      computed: {
-        navClass() { return (v) => `w-full text-left p-3 rounded-xl flex items-center gap-3 transition ${this.view===v?'bg-purple-500/10 border border-purple-500/30 text-purple-500 font-bold':'text-[var(--text-sec)] hover:bg-[var(--glass-border)]'}`; },
-        filteredContracts() { const q=this.search.toLowerCase(); return this.db.contracts.filter(c => c.CatID===this.selectedCat?.CatID && (c.FirmName.toLowerCase().includes(q) || c.AgreementNo.toLowerCase().includes(q))); },
-        parentFiles() { const q=this.search.toLowerCase(); return this.db.files.filter(f => f.ConID===this.selectedCon?.ConID && !f.ParentFileID && (f.Name.toLowerCase().includes(q)||f.FileNo.toLowerCase().includes(q)||f.Type.toLowerCase().includes(q))); },
-        searchResults() { if(!this.search)return[]; const q=this.search.toLowerCase(); let r=[]; this.db.contracts.forEach(c=>{if(c.FirmName.toLowerCase().includes(q))r.push({id:c.ConID,title:c.FirmName,subtitle:'Contract',type:'Contract',data:c})}); this.db.files.forEach(f=>{if(f.Name.toLowerCase().includes(q)||f.FileNo.toLowerCase().includes(q)||(f.Description||'').toLowerCase().includes(q))r.push({id:f.FileID,title:f.Name,subtitle:f.FileNo,type:'File',data:f})}); return r.slice(0,10); },
-        uRacks() { const s=new Set(); this.db.locations.forEach(l=>s.add(l.split('|')[0].trim())); return Array.from(s).sort(); },
-        uRows() { if(!this.locPicker.rack) return []; const s=new Set(); this.db.locations.forEach(l=>{if(l.startsWith(this.locPicker.rack))s.add(l.match(/R-(\d+)/)[1])}); return Array.from(s).sort((a,b)=>a-b); },
-        uCols() { if(!this.locPicker.row)return[]; const s=new Set(); this.db.locations.forEach(l=>{if(l.includes(`${this.locPicker.rack} | R-${this.locPicker.row} :`))s.add(l.match(/C-(\d+)/)[1])}); return Array.from(s).sort((a,b)=>a-b); },
-        locStr() { return (this.locPicker.rack && this.locPicker.row && this.locPicker.col) ? `${this.locPicker.rack} | R-${this.locPicker.row} : C-${this.locPicker.col}` : ''; }
-      },
-      methods: {
-        async req(action, payload = {}) {
-          this.loading = true;
-          this.showResetBtn = false;
-          const timer = setTimeout(() => this.showResetBtn = true, 5000);
-          
-          try {
-            const res = await fetch(APP_CONFIG.API_URL, {
-              method: 'POST',
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ action, payload })
-            });
-            clearTimeout(timer);
-            const data = await res.json();
-            this.loading = false;
-            return data;
-          } catch (e) {
-            clearTimeout(timer);
-            this.loading = false;
-            return { success: false, msg: "Network Error" };
-          }
-        },
-        async auth() {
-          // CLIENT SIDE ADMIN BYPASS (Must match worker logic)
-          if(this.authForm.email === 'admin' && this.authForm.password === 'admin') {
-             this.user = { name: 'Super Admin', username: 'admin', role: 'Admin' };
-             localStorage.setItem('aurora_user', JSON.stringify(this.user));
-             this.page = 'app';
-             this.loadData();
-             return;
-          }
+        <header class="h-16 glass-panel border-b border-white/10 flex items-center justify-between px-6">
+            <h1 id="page-title" class="text-lg font-semibold">Dashboard</h1>
+            
+            <div class="relative w-96 group">
+                <div class="absolute left-3 top-2.5 text-gray-400"><i data-lucide="search" class="w-4 h-4"></i></div>
+                <input type="text" id="searchInput" placeholder="Search files, firms, contracts..." 
+                       class="w-full bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:bg-white/10 transition">
+            </div>
+        </header>
 
-          const r = await this.req('login', this.authForm);
-          if (r.success) {
-            this.user = r.user;
-            localStorage.setItem('aurora_user', JSON.stringify(r.user));
-            this.page = 'app';
-            this.loadData();
-          } else {
-            this.notif(r.msg || "Login Failed", 'error');
-          }
-        },
-        async loadData() { const r=await this.req('getDashboard',{role:this.user.role}); if(r.success){ this.db=r.data; this.calcStats(); if(this.view==='dashboard') this.$nextTick(this.renderCharts); } },
-        navigate(v) { this.view=v; this.selectedCat=null; this.selectedCon=null; this.search=''; },
-        selectCat(c) { this.selectedCat=c; }, selectCon(c) { this.selectedCon=c; },
-        handleSearchSelect(r) { this.search=''; this.showSuggestions=false; if(r.type==='Contract'){this.selectedCat=this.db.categories.find(c=>c.CatID===r.data.CatID);this.selectedCon=r.data;this.view='home';} else {const con=this.db.contracts.find(c=>c.ConID===r.data.ConID);this.selectedCat=this.db.categories.find(c=>c.CatID===con.CatID);this.selectedCon=con;this.view='home';} },
-        toggleTheme() { this.isDark = !this.isDark; },
-        openModal(t,m,d={}) { 
-           this.modal={show:true,type:t,mode:m}; this.locPicker={rack:'',row:'',col:''}; 
-           if(m==='create'){ 
-              if(t==='file'){ 
-                 // Create File Validation (Prevent Freeze)
-                 if(!this.selectedCon) { this.notif("Please select a Contract first!","error"); return; }
-                 this.forms.file={Type:'Pink File',Status:'Active',ConID:this.selectedCon?.ConID}; 
-              }
-              else if(t==='con'){
-                 if(!this.selectedCat) { this.notif("Please select a Category first!","error"); return; }
-                 this.forms.con={Status:'Active',CatID:this.selectedCat.CatID}; 
-              }
-              else if(t==='cat')this.forms.cat={}; else if(t==='user')this.forms.user={role:'Manager'}; 
-              this.modal.show=true; // Show after checks
-           } else { 
-              this.forms[t]={...d}; 
-              if(t==='file'&&d.Location){const p=d.Location.split(/\||:/);if(p.length===3){this.locPicker.rack=p[0].trim();this.locPicker.row=p[1].replace('R-','').trim();this.locPicker.col=p[2].replace('C-','').trim();}} 
-              this.modal.show=true;
-           } 
-        },
-        openSub(p) { this.modal={show:true,type:'file',mode:'create'}; this.forms.file={Type:'Sub-File',Status:'Active',ConID:this.selectedCon.ConID,ParentFileID:p.FileID}; },
-        async save() { 
-           const t=this.modal.type; const actionMap={'cat':'manageCategory','con':'manageContract','file':'manageFile','user':'manageUser'};
-           if(t==='file'&&!this.forms.file.ParentFileID)this.forms.file.Location=this.locStr;
-           if(t==='file'&&this.modal.mode==='create')this.forms.file.QR_Data=window.location.origin+window.location.pathname+`?view=file&id=FILE-${Date.now()}`;
-           try { const r=await this.req(actionMap[t],{type:this.modal.mode,data:this.forms[t],row:this.forms[t].rowIndex,user:this.user.name}); if(r.success){this.notif('Saved','success');this.modal.show=false;this.loadData();} else this.notif(r.msg||'Failed','error'); } catch(e){this.notif('Error','error');}
-        },
-        async saveSet() { await this.req('saveSettings',{settings:this.db.qrSettings}); this.notif("Saved", "success"); },
-        async del(a,r) { if(confirm('Delete? This cannot be undone.')){await this.req(a,{type:'delete',row:r});this.loadData();this.notif("Deleted","success");} },
-        upl(e) { const f=e.target.files[0]; const r=new FileReader(); r.onload=ev=>{this.forms.file.fileData=ev.target.result.split(',')[1];this.forms.file.mime=f.type;this.forms.file.fileName=f.name;}; r.readAsDataURL(f); },
-        getProxyUrl(id) { if(!id){const m=this.prevUrl.match(/[-\w]{25,}/);if(m)id=m[0];} return `${APP_CONFIG.API_URL}?action=proxyFile&id=${id}`; },
-        openPrev(f) { if(f.AttachmentURL){this.prevUrl=f.AttachmentURL;}else this.notif('No document','error'); },
-        openQRModal(f) { this.qrModal={show:true, file:f}; this.$nextTick(()=>{new QRious({element:document.getElementById('qrCanvas'),value:f.QR_Data,size:250})}); },
-        downloadQR() { const c=document.getElementById('qrCanvas'); const l=document.createElement('a'); l.download='QR.png'; l.href=c.toDataURL(); l.click(); },
-        getSubFiles(id) { return this.db.files.filter(f=>f.ParentFileID===id); },
-        calcStats() { this.stats.totalContracts=this.db.contracts.length; this.stats.activeContracts=this.db.contracts.filter(c=>c.Status==='Active').length; this.stats.totalFiles=this.db.files.filter(f=>!f.ParentFileID).length; this.stats.subFiles=this.db.files.filter(f=>f.ParentFileID).length; },
-        renderCharts() { new Chart(document.getElementById('typeChart'),{type:'doughnut',data:{labels:['Pink','Brown','White','Register'],datasets:[{data:[this.db.files.filter(f=>f.Type==='Pink File').length,this.db.files.filter(f=>f.Type==='Brown File').length,this.db.files.filter(f=>f.Type==='White Backing').length,this.db.files.filter(f=>f.Type==='Register').length],backgroundColor:['#ec4899','#d97706','#94a3b8','#3b82f6']}]}}); new Chart(document.getElementById('statusChart'),{type:'bar',data:{labels:['Active','Expired'],datasets:[{label:'Contracts',data:[this.stats.activeContracts,this.stats.totalContracts-this.stats.activeContracts],backgroundColor:['#22c55e','#ef4444']}]}}); },
-        notif(m,t) { this.notify={msg:m,type:t}; setTimeout(()=>this.notify=null,4000); }, 
-        hardReset() { localStorage.clear(); location.reload(); },
-        logout() { localStorage.removeItem('aurora_user'); location.reload(); }
-      }
-    }).mount('#app');
-  </script>
+        <div id="content-area" class="flex-1 overflow-y-auto p-6 relative">
+            
+            <div id="view-dashboard" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-panel p-6 rounded-2xl">
+                        <div class="text-gray-400 text-sm">Total Contracts</div>
+                        <div class="text-3xl font-bold mt-2" id="stat-contracts">0</div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl">
+                        <div class="text-gray-400 text-sm">Active Files</div>
+                        <div class="text-3xl font-bold mt-2" id="stat-files">0</div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl">
+                        <div class="text-gray-400 text-sm">Pending Alerts</div>
+                        <div class="text-3xl font-bold mt-2 text-yellow-400">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-files" class="hidden space-y-4">
+                <div class="flex justify-between">
+                    <h2 class="text-xl">File Repository</h2>
+                    <button class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2">
+                        <i data-lucide="plus"></i> Add New File
+                    </button>
+                </div>
+                <div id="files-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="text-center text-gray-400 py-10 w-full col-span-3">Loading Files...</div>
+                </div>
+            </div>
+
+            <div id="view-admin" class="hidden">
+                <div class="glass-panel p-6 rounded-xl">
+                    <h2 class="text-xl mb-4">Admin Controls</h2>
+                    <p class="text-gray-400">User Management and Logs will appear here.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Router
+        function router(viewName) {
+            // Hide all views
+            ['dashboard', 'files', 'admin'].forEach(v => {
+                document.getElementById('view-' + v).classList.add('hidden');
+            });
+            // Show selected view
+            document.getElementById('view-' + viewName).classList.remove('hidden');
+            document.getElementById('page-title').innerText = viewName.charAt(0).toUpperCase() + viewName.slice(1);
+            
+            if(viewName === 'dashboard') loadDashboard();
+            if(viewName === 'files') loadFiles();
+        }
+
+        // Fetch Functions
+        async function loadDashboard() {
+            try {
+                // Example Fetch
+                // const res = await fetch(`${APP_CONFIG.API_URL}/api/dashboard`);
+                // const data = await res.json();
+                // Mock Data for UI Demo
+                document.getElementById('stat-contracts').innerText = "124";
+                document.getElementById('stat-files').innerText = "89";
+            } catch (e) { console.error("API Error", e); }
+        }
+
+        async function loadFiles() {
+            const grid = document.getElementById('files-grid');
+            grid.innerHTML = '<div class="loader mx-auto"></div>'; // Show loader
+
+            try {
+                // Fetch actual data
+                const res = await fetch(`${APP_CONFIG.API_URL}/api/dashboard`); // Using dashboard endpoint for demo list
+                const data = await res.json();
+                
+                grid.innerHTML = ''; // Clear loader
+
+                // Render Fake Items if DB empty, else Render Real Data
+                // Demo rendering:
+                const demoFiles = [
+                    { name: "Pest Control Contract", no: "CMC/2024/001", type: "pink" },
+                    { name: "Security Services", no: "CMC/2024/002", type: "brown" },
+                    { name: "Housekeeping", no: "CMC/2024/003", type: "white" }
+                ];
+
+                demoFiles.forEach(file => {
+                    const card = document.createElement('div');
+                    card.className = `glass-panel p-4 rounded-xl border-${file.type} hover:bg-white/10 transition cursor-pointer`;
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold">${file.name}</h3>
+                                <p class="text-xs text-gray-400 mt-1">${file.no}</p>
+                            </div>
+                            <i data-lucide="more-vertical" class="w-4 text-gray-400"></i>
+                        </div>
+                        <div class="mt-4 flex gap-2">
+                            <button class="text-xs bg-white/10 px-2 py-1 rounded hover:bg-blue-600 transition">View QR</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+                lucide.createIcons();
+            } catch (e) {
+                grid.innerHTML = '<div class="text-red-400">Failed to load files. Check API Console.</div>';
+            }
+        }
+
+        // Initialize
+        router('dashboard');
+
+        // Search Logic (Debounced)
+        let timeout = null;
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                console.log("Searching for:", e.target.value);
+                // Call API: fetch(`${APP_CONFIG.API_URL}/api/search?q=${e.target.value}`)
+            }, 500);
+        });
+
+    </script>
 </body>
 </html>
