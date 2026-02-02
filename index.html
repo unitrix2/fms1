@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indian Railways - JE Mock Test (Secured)</title>
+    <title>Indian Railways - JE Mock Test (Secure Portal)</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
@@ -13,8 +13,6 @@
             --primary: #b71c1c; 
             --primary-dark: #7f0000;
             --primary-light: #ffcdd2;
-            --primary-fade: rgba(183, 28, 28, 0.1);
-            
             --secondary: #eceff1; 
             --text: #263238; 
             --correct: #2e7d32; 
@@ -24,72 +22,101 @@
             --header-bg: #fff;
         }
         
-        body { font-family: 'Segoe UI', 'Roboto', sans-serif; margin: 0; background: var(--secondary); color: var(--text); display: flex; flex-direction: column; height: 100vh; overflow: hidden; transition: background 0.3s; }
+        body { font-family: 'Segoe UI', 'Roboto', sans-serif; margin: 0; background: var(--secondary); color: var(--text); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
         /* =========================================
-           1. STYLISH LOGIN PAGE CSS (New Added)
+           1. IRIDESCENT LOGIN PAGE (New Stylish UI)
            ========================================= */
         #login-page {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #8E0E00 0%, #1F1C18 100%); /* Premium Red-Black Gradient */
+            /* Iridescent / Aurora Effect Gradient */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: iridescent 15s ease infinite;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 10000;
         }
 
-        .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px); /* Frosted Glass Effect */
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            width: 90%; max-width: 380px;
-            text-align: center;
-            animation: floatIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        @keyframes iridescent {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        @keyframes floatIn {
-            from { opacity: 0; transform: translateY(40px); }
+        .login-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px); /* Frosted Glass */
+            -webkit-backdrop-filter: blur(15px);
+            padding: 50px 40px;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            width: 90%; max-width: 400px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .login-logo-circle {
-            width: 90px; height: 90px; margin: -60px auto 20px auto;
-            background: white; border-radius: 50%;
-            padding: 10px;
+            width: 120px; /* Bada Logo Size */
+            height: 120px; 
+            margin: -90px auto 25px auto; /* Card ke upar float karega */
+            background: white; 
+            border-radius: 50%;
+            padding: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             display: flex; align-items: center; justify-content: center;
-            border: 4px solid var(--secondary);
+            border: 5px solid rgba(255, 255, 255, 0.8);
         }
         
         .login-logo-img { width: 100%; height: auto; }
 
-        .login-title { font-size: 1.8rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; letter-spacing: -0.5px; text-transform: uppercase; }
-        .login-subtitle { font-size: 0.9rem; color: #555; margin-bottom: 30px; font-weight: 500; letter-spacing: 0.5px; }
+        .login-title { 
+            font-size: 2rem; font-weight: 800; color: #333; 
+            margin-bottom: 5px; letter-spacing: -0.5px; 
+            text-transform: uppercase;
+            background: -webkit-linear-gradient(#b71c1c, #d32f2f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .login-subtitle { font-size: 0.95rem; color: #555; margin-bottom: 35px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; opacity: 0.8; }
 
         .google-btn {
-            width: 100%; padding: 14px;
+            width: 100%; padding: 15px;
             border: none; border-radius: 50px;
-            background-color: #1a73e8; color: white;
-            font-size: 1rem; font-weight: 600;
-            display: flex; align-items: center; justify-content: center; gap: 12px;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(26, 115, 232, 0.4);
-            transition: all 0.3s ease;
+            background: #1a73e8; color: white;
+            font-size: 1.1rem; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4);
+            transition: all 0.3s ease; position: relative; overflow: hidden;
         }
-        .google-btn:hover { background-color: #1557b0; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26, 115, 232, 0.6); }
-        .google-btn img { background: white; border-radius: 50%; padding: 2px; width: 24px; height: 24px; }
+        
+        .google-btn::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .google-btn:hover { background-color: #1557b0; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(26, 115, 232, 0.6); }
+        .google-btn:hover::after { left: 100%; }
+        .google-btn img { background: white; border-radius: 50%; padding: 2px; width: 28px; height: 28px; }
 
         .error-message { 
             color: #d32f2f; font-size: 0.85rem; margin-top: 20px; 
-            background: #ffcdd2; padding: 10px; border-radius: 8px; border: 1px solid #e57373;
+            background: #ffebee; padding: 12px; border-radius: 10px; border: 1px solid #ffcdd2;
             display: none; animation: shake 0.5s;
         }
         @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } 100% { transform: translateX(0); } }
 
-        .railway-watermark { position: absolute; bottom: 20px; color: rgba(255,255,255,0.3); font-size: 0.8rem; letter-spacing: 1px; }
+        .railway-watermark { position: absolute; bottom: 20px; color: rgba(255,255,255,0.6); font-size: 0.75rem; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
 
         /* =========================================
-           2. MAIN APP CSS (Existing Code)
+           2. MAIN APP CSS (Existing Working Code)
            ========================================= */
         #app-content { display: none; height: 100%; flex-direction: column; }
 
@@ -101,14 +128,18 @@
         .header-left { display: flex; align-items: center; gap: 15px; }
         .header-controls { display: flex; align-items: center; gap: 15px; }
 
-        .railway-logo { width: 45px; height: 45px; background: url('https://upload.wikimedia.org/wikipedia/commons/8/83/Indian_Railways.svg') no-repeat center center; background-size: contain; flex-shrink: 0; }
+        .railway-logo { width: 45px; height: 45px; background: url('https://images.seeklogo.com/logo-png/31/1/indian-railways-logo-png_seeklogo-310214.png') no-repeat center center; background-size: contain; flex-shrink: 0; }
         .title-group h2 { margin: 0; font-size: 1.3rem; color: var(--primary); line-height: 1.2; font-weight: 700; }
         .title-group p { margin: 0; font-size: 0.75rem; color: #666; font-weight: 500; }
 
         /* User Profile in Header */
-        .user-profile { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold; color: var(--primary); background: #f5f5f5; padding: 5px 12px; border-radius: 20px; border: 1px solid #ddd; }
-        .logout-btn { background: none; border: none; color: var(--wrong); font-weight: bold; cursor: pointer; font-size: 0.8rem; margin-left: 5px; text-transform: uppercase; }
-        .logout-btn:hover { text-decoration: underline; }
+        .user-profile { display: flex; align-items: center; gap: 12px; background: #f8f9fa; padding: 6px 15px 6px 8px; border-radius: 30px; border: 1px solid #e0e0e0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .profile-pic { width: 35px; height: 35px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .user-details { display: flex; flex-direction: column; line-height: 1.2; align-items: flex-start; }
+        .u-name { font-size: 0.9rem; font-weight: 700; color: var(--primary); }
+        .u-email { font-size: 0.7rem; color: #757575; max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .logout-btn { background: #ffebee; border: none; color: var(--wrong); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; margin-left: 5px; }
+        .logout-btn:hover { background: var(--wrong); color: white; transform: scale(1.1); }
 
         /* Custom Dropdown */
         .selector-group { display: flex; align-items: center; gap: 10px; position: relative; }
@@ -220,6 +251,8 @@
             .tools-group { padding: 4px; }
             .timer-input { display: none; }
             .tool-btn { width: 28px; height: 28px; }
+            .u-email { display: none; }
+            .user-profile { padding: 5px 10px; }
         }
     </style>
 </head>
@@ -228,10 +261,10 @@
 <div id="login-page">
     <div class="login-card">
         <div class="login-logo-circle">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Indian_Railways.svg" alt="Railway Logo" class="login-logo-img">
+            <img src="https://images.seeklogo.com/logo-png/31/1/indian-railways-logo-png_seeklogo-310214.png" alt="Railway Logo" class="login-logo-img">
         </div>
         <h2 class="login-title">JE Exam Portal</h2>
-        <p class="login-subtitle">Departmental Selection (LDCE)</p>
+        <p class="login-subtitle">Restricted Access • Authorized Only</p>
         
         <button class="google-btn" onclick="signIn()">
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
@@ -258,8 +291,14 @@
         
         <div class="header-controls">
             <div class="user-profile">
-                <span id="display-user-name">User</span>
-                <button class="logout-btn" onclick="logout()">Logout</button>
+                <img id="user-photo" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/person.svg" alt="User" class="profile-pic">
+                <div class="user-details">
+                    <span id="display-user-name" class="u-name">User</span>
+                    <span id="display-user-email" class="u-email">...</span>
+                </div>
+                <button class="logout-btn" onclick="logout()" title="Sign Out">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                </button>
             </div>
 
             <div class="palette-wrapper">
@@ -339,7 +378,7 @@
     const GH_REPO = 'fms1';     
     const FOLDER_PATH = 'tests';     
     
-    // ⚠️ IMPORTANT: PASTE YOUR FIREBASE CONFIG HERE ⚠️
+    // ⚠️ PASTE YOUR FIREBASE CONFIG HERE ⚠️
     // (Go to Firebase Console -> Project Settings -> General -> Your Apps -> Config)
     const firebaseConfig = {
         apiKey: "AIzaSyCxCLczt1L01qr3DmdvAv_EU3IsWhgxs0w",
@@ -370,18 +409,27 @@
     }
 
     function checkPermission(user) {
-        // Fetch allowed emails list from JSON file
-        fetch('allowed_users.json')
+        // Fetch allowed emails list from JSON file (with cache busting)
+        fetch('allowed_users.json?v=' + new Date().getTime())
             .then(res => {
                 if(!res.ok) throw new Error("Permission list missing (allowed_users.json)");
                 return res.json();
             })
             .then(allowedList => {
-                if (allowedList.includes(user.email)) {
-                    // Success
+                // Ensure case-insensitive match & trim spaces
+                const cleanList = allowedList.map(e => e.trim().toLowerCase());
+                const userEmail = user.email.trim().toLowerCase();
+
+                if (cleanList.includes(userEmail)) {
+                    // Success: Show App
                     document.getElementById('login-page').style.display = 'none';
                     document.getElementById('app-content').style.display = 'flex';
-                    document.getElementById('display-user-name').innerText = user.displayName.split(" ")[0];
+                    
+                    // Update Profile Info
+                    document.getElementById('display-user-name').innerText = user.displayName || "User";
+                    document.getElementById('display-user-email').innerText = user.email;
+                    if(user.photoURL) document.getElementById('user-photo').src = user.photoURL;
+
                     startApp(); // Start the Quiz Logic
                 } else {
                     // Fail
