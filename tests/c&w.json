@@ -1,0 +1,4314 @@
+[
+  {
+    "q": "The standard wheel gauge of passenger BG coaching stock is",
+    "h": "यात्री बीजी कोचिंग स्टॉक का मानक व्हील गेज है",
+    "o": [
+      "1602 mm",
+      "1601 mm",
+      "1600 mm",
+      "1598 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Length over body of ICF BG coaches is",
+    "h": "ICF BG कोचों के बॉडी की लंबाई है",
+    "o": [
+      "2334 mm",
+      "2310 mm",
+      "21337 mm",
+      "22132 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Rigid wheelbase of ICF BG trolley is",
+    "h": "ICF BG ट्रॉली का रिजिड व्हीलबेस है",
+    "o": [
+      "2896 mm",
+      "2803 mm",
+      "2990 mm",
+      "2837 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "At what interval, the intensive cleaning of any coach is done?",
+    "h": "किसी भी कोच की गहन सफाई (Intensive Cleaning) कितने अंतराल पर की जाती है?",
+    "o": [
+      "Three months / तीन महीने",
+      "One month / एक महीना",
+      "Six months / छह महीने",
+      "Eight months / आठ महीने"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is the interval for cleaning coach water tank?",
+    "h": "कोच पानी की टंकी की सफाई का अंतराल क्या है?",
+    "o": [
+      "15 days / 15 दिन",
+      "25 days / 25 दिन",
+      "One month / एक महीना",
+      "Two months / दो महीने"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the period for the POH of any OCV attached to a passenger train?",
+    "h": "यात्री ट्रेन से जुड़े किसी भी OCV के POH की अवधि क्या है?",
+    "o": [
+      "9 months / 9 महीने",
+      "12 months / 12 महीने",
+      "18 months / 18 महीने",
+      "24 months / 24 महीने"
+    ],
+    "c": 3
+  },
+  {
+    "q": "What shall be the period for POH for a coach attached to Mail/Express train?",
+    "h": "मेल/एक्सप्रेस ट्रेन से जुड़े कोच के POH की अवधि क्या होगी?",
+    "o": [
+      "9 months / 9 महीने",
+      "12 months / 12 महीने",
+      "18 months / 18 महीने",
+      "24 months / 24 महीने"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What shall be the period for POH of PCV attached with any other train other than mail/ Express train?",
+    "h": "मेल/एक्सप्रेस ट्रेन के अलावा किसी अन्य ट्रेन से जुड़े PCV के POH की अवधि क्या होगी?",
+    "o": [
+      "9 months / 9 महीने",
+      "12 months / 12 महीने",
+      "18 months / 18 महीने",
+      "24 months / 24 महीने"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The other name of pilot valve is",
+    "h": "पायलट वाल्व का दूसरा नाम है",
+    "o": [
+      "PESAD",
+      "PEASD",
+      "PDEAS",
+      "EPASD"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is the period for POH of departmental coach?",
+    "h": "विभागीय कोच (Departmental Coach) के POH की अवधि क्या है?",
+    "o": [
+      "24 months / 24 महीने",
+      "36 months / 36 महीने",
+      "42 months / 42 महीने",
+      "60 months / 60 महीने"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the Transportation code of inspection carriage (Administrative)?",
+    "h": "निरीक्षण कैरिज (प्रशासनिक) का परिवहन कोड क्या है?",
+    "o": [
+      "AR",
+      "CR",
+      "IC",
+      "RA"
+    ],
+    "c": 3
+  },
+  {
+    "q": "As per policy circular No-4 secondary examination of mail/express has been skipped on round trip upto?",
+    "h": "पॉलिसी सर्कुलर नंबर-4 के अनुसार मेल/एक्सप्रेस की राउंड ट्रिप पर सेकेंडरी जांच को कितने किमी तक छोड़ दिया गया है?",
+    "o": [
+      "800 Km",
+      "1500 Km",
+      "2500 Km",
+      "1800 Km"
+    ],
+    "c": 2
+  },
+  {
+    "q": "In coach, the load transmission takes place through",
+    "h": "कोच में, लोड ट्रांसमिशन किसके माध्यम से होता है?",
+    "o": [
+      "Center pivot / सेंटर पिवट",
+      "Bogie / बोगी",
+      "Side bearer / साइड बियरर",
+      "Wheel / व्हील"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The 'L' type composite brake block should be changed, if worn out beyond",
+    "h": "'L' प्रकार के कम्पोजिट ब्रेक ब्लॉक को बदल दिया जाना चाहिए, यदि वह इससे अधिक घिस गया हो",
+    "o": [
+      "10 mm",
+      "15 mm",
+      "20 mm",
+      "22 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The 'K' type composite brake block should be changed, if worn out beyond",
+    "h": "'K' प्रकार के कम्पोजिट ब्रेक ब्लॉक को बदल दिया जाना चाहिए, यदि वह इससे अधिक घिस गया हो",
+    "o": [
+      "10 mm",
+      "12 mm",
+      "20 mm",
+      "22 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Std. packing pieces of ICF coach is",
+    "h": "ICF कोच के मानक पैकिंग टुकड़े (Packing pieces) हैं",
+    "o": [
+      "13, 14, 26 mm",
+      "13, 22, 28 mm",
+      "13, 26, 38, 48 mm",
+      "22, 26, 32 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Coaching stock accident involving human life enquiry by",
+    "h": "कोचिंग स्टॉक दुर्घटना जिसमें मानव जीवन शामिल हो, उसकी जांच किसके द्वारा की जाती है?",
+    "o": [
+      "CME",
+      "CRS",
+      "Sr. DME",
+      "ADRM"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Yellow strips on end body of ICF indicate is",
+    "h": "ICF की एंड बॉडी पर पीली पट्टियां क्या दर्शाती हैं?",
+    "o": [
+      "Antitelescopic / एंटी-टेलीस्कोपिक",
+      "Dual brake / डुअल ब्रेक",
+      "In built air brake / इन-बिल्ट एयर ब्रेक",
+      "Non-Antitelescopic / नॉन-एंटी-टेलीस्कोपिक"
+    ],
+    "c": 0
+  },
+  {
+    "q": "For finding what defect UST is done?",
+    "h": "किस दोष का पता लगाने के लिए UST किया जाता है?",
+    "o": [
+      "Internal crack / आंतरिक दरार",
+      "External crack / बाहरी दरार",
+      "Air flow crack / वायु प्रवाह दरार",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is Codal life of steel bodied coaches (Including dining / pantry cars)?",
+    "h": "स्टील बॉडी वाले कोच (डाइनिंग/पैंट्री कारों सहित) का कोडल जीवन क्या है?",
+    "o": [
+      "40 years / 40 साल",
+      "30 years / 30 साल",
+      "25 years / 25 साल",
+      "22 years / 22 साल"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Caudal life of light utilization categories of coaches is",
+    "h": "लाइट यूटिलाइजेशन श्रेणी के कोचों का कोडल जीवन है",
+    "o": [
+      "40 years / 40 साल",
+      "30 years / 30 साल",
+      "25 years / 25 साल",
+      "20 years / 20 साल"
+    ],
+    "c": 0
+  },
+  {
+    "q": "All newly built coaches shall be given IOH after",
+    "h": "सभी नवनिर्मित कोचों का IOH कितने समय बाद किया जाएगा?",
+    "o": [
+      "One month / एक महीना",
+      "Six month / छह महीने",
+      "One year / एक साल",
+      "Two year / दो साल"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The length over buffer of ICF/ RCF coach is",
+    "h": "ICF/RCF कोच की बफर के ऊपर लंबाई है",
+    "o": [
+      "22297 mm",
+      "22299 mm",
+      "21996 mm",
+      "21030 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Over all width of ICF/ RCF coach is",
+    "h": "ICF/RCF कोच की कुल चौड़ाई है",
+    "o": [
+      "3251 mm",
+      "3250 mm",
+      "3245 mm",
+      "3991 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The height from rail level of ICF/ RCF coach is",
+    "h": "ICF/RCF कोच की रेल स्तर से ऊँचाई है",
+    "o": [
+      "3886 mm",
+      "4025 mm",
+      "3991 mm",
+      "3251 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Rehabilitation of coaching stock is carried out between",
+    "h": "कोचिंग स्टॉक का पुनर्वास (Rehabilitation) किसके बीच किया जाता है?",
+    "o": [
+      "10 to 12 year / 10 से 12 साल",
+      "12 to 15 year / 12 से 15 साल",
+      "15 to 18 year / 15 से 18 साल",
+      "18 to 20 year / 18 से 20 साल"
+    ],
+    "c": 1
+  },
+  {
+    "q": "How many emergency windows provided in AC ICF/RCF coaches are",
+    "h": "AC ICF/RCF कोचों में कितनी आपातकालीन खिड़कियाँ प्रदान की गई हैं?",
+    "o": [
+      "Two / दो",
+      "Three / तीन",
+      "Four / चार",
+      "Five / पांच"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Rehabilitation cost of coaching stock is",
+    "h": "कोचिंग स्टॉक की पुनर्वास लागत (Rehabilitation cost) है",
+    "o": [
+      "15% of total cost / कुल लागत का 15%",
+      "20% of total cost / कुल लागत का 20%",
+      "25% of total cost / कुल लागत का 25%",
+      "35% of total cost / कुल लागत का 35%"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the interval of schedule 'A' examination of a coach?",
+    "h": "कोच की अनुसूची 'A' जांच का अंतराल क्या है?",
+    "o": [
+      "One month +/- 3 days / एक महीना +/- 3 दिन",
+      "Two months +/- 3 days / दो महीने +/- 3 दिन",
+      "Three months +/- 6 days / तीन महीने +/- 6 दिन",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the interval of schedule 'B' examination of a coach?",
+    "h": "कोच की अनुसूची 'B' जांच का अंतराल क्या है?",
+    "o": [
+      "One month +/- 3 days / एक महीना +/- 3 दिन",
+      "Two months +/- 3 days / दो महीने +/- 3 दिन",
+      "Three months +/- 7 days / तीन महीने +/- 7 दिन",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the purpose of manipulator?",
+    "h": "मैनिपुलेटर (Manipulator) का उद्देश्य क्या है?",
+    "o": [
+      "For testing roller bearing / रोलर बियरिंग के परीक्षण के लिए",
+      "For down hand welding / डाउन हैंड वेल्डिंग के लिए",
+      "For ROH / ROH के लिए",
+      "For brake rigging adjustment / ब्रेक रिगिंग समायोजन के लिए"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What do you mean by FRP?",
+    "h": "FRP का क्या अर्थ है?",
+    "o": [
+      "Fibre recalling panel",
+      "Fibre reinforced plastic",
+      "First reduction plastic",
+      "Fine reinforced panel"
+    ],
+    "c": 1
+  },
+  {
+    "q": "At what interval, the IOH of Shatabdi coaches is done?",
+    "h": "शताब्दी कोचों का IOH कितने अंतराल पर किया जाता है?",
+    "o": [
+      "12 months at workshop / वर्कशॉप में 12 महीने",
+      "9 months at workshop / वर्कशॉप में 9 महीने",
+      "9 months at PM depot / पीएम डिपो में 9 महीने",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is the periodicity for IOH of ICF coaches?",
+    "h": "ICF कोचों के IOH की आवधिकता क्या है?",
+    "o": [
+      "9 months / 9 महीने",
+      "12 months / 12 महीने",
+      "6 months / 6 महीने",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Where has been distraction tube provided in ICF/RCF coaches?",
+    "h": "ICF/RCF कोचों में डिस्ट्रैक्शन ट्यूब (Distraction tube) कहाँ प्रदान की गई है?",
+    "o": [
+      "Between main head stock and auxiliary head stock / मुख्य हेड स्टॉक और सहायक हेड स्टॉक के बीच",
+      "Outer main head stock / बाहरी मुख्य हेड स्टॉक",
+      "With auxiliary head stock / सहायक हेड स्टॉक के साथ",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The maximum standard buffer height above rail level to center of buffer is",
+    "h": "रेल स्तर से बफर के केंद्र तक अधिकतम मानक बफर ऊंचाई है",
+    "o": [
+      "1085 mm",
+      "1100 mm",
+      "1105 mm",
+      "1030 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The minimum permissible buffer height above rail level to center of buffer is",
+    "h": "रेल स्तर से बफर के केंद्र तक न्यूनतम स्वीकार्य बफर ऊंचाई है",
+    "o": [
+      "1105 mm",
+      "1145 mm",
+      "1115 mm",
+      "1030 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Standard buffer projection from Headstock is",
+    "h": "हेडस्टॉक से मानक बफर प्रोजेक्शन है",
+    "o": [
+      "650 mm",
+      "635 mm",
+      "620 mm",
+      "660 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Minimum Permissible buffer projection from Headstock is",
+    "h": "हेडस्टॉक से न्यूनतम स्वीकार्य बफर प्रोजेक्शन है",
+    "o": [
+      "635 mm",
+      "605 mm",
+      "590 mm",
+      "584 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "The diameter of buffer plunger face of ICF coaches is",
+    "h": "ICF कोचों के बफर प्लंजर फेस का व्यास है",
+    "o": [
+      "552 mm",
+      "457 mm",
+      "493 mm",
+      "510 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is the distance between two buffers at one end?",
+    "h": "एक छोर पर दो बफ़र्स के बीच की दूरी क्या है?",
+    "o": [
+      "1952 mm",
+      "1976 mm",
+      "1956 mm",
+      "1992 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the maximum buffer plunger stroke?",
+    "h": "अधिकतम बफर प्लंजर स्ट्रोक क्या है?",
+    "o": [
+      "127.0 mm",
+      "129.0 mm",
+      "131.0 mm",
+      "133.0 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "How the weight of the body is transferred on trolley in ICF coach?",
+    "h": "ICF कोच में ट्रॉली पर बॉडी का वजन कैसे स्थानांतरित किया जाता है?",
+    "o": [
+      "Journal / जर्नल",
+      "Wheel / पहिया",
+      "Side bearer / साइड बियरर",
+      "Dashpot / डैशपॉट"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The ICF buffer plunger is made of",
+    "h": "ICF बफर प्लंजर किसका बना होता है?",
+    "o": [
+      "Mild steel / माइल्ड स्टील",
+      "Cast iron / कास्ट आयरन",
+      "Cast steel / कास्ट स्टील",
+      "Aluminum Alloy / एल्यूमीनियम मिश्र धातु"
+    ],
+    "c": 2
+  },
+  {
+    "q": "In loaded condition, the minimum permissible height of buffer in ICF coach is",
+    "h": "लोडेड स्थिति में, ICF कोच में बफर की न्यूनतम स्वीकार्य ऊंचाई है",
+    "o": [
+      "1090 mm",
+      "1105 mm",
+      "1030 mm",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The draw & buffing force transmission in coach is through",
+    "h": "कोच में ड्रॉ और बफरिंग फोर्स ट्रांसमिशन किसके माध्यम से होता है?",
+    "o": [
+      "Centre pivot / सेंटर पिवट",
+      "Bogie / बोगी",
+      "Side bearer / साइड बियरर",
+      "Wheel / पहिया"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Hauling capacity of H type CBC is",
+    "h": "H टाइप CBC की हॉलिंग क्षमता (Hauling capacity) है",
+    "o": [
+      "7000 ton",
+      "8000 ton",
+      "9000 ton",
+      "10000 ton"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the weakest link of the 'H' type tight lock center buffer coupler?",
+    "h": "'H' टाइप टाइट लॉक सेंटर बफर कपलर की सबसे कमजोर कड़ी क्या है?",
+    "o": [
+      "Draft gear / ड्राफ्ट गियर",
+      "Knuckle / नकल",
+      "Lock / लॉक",
+      "Yoke pin / योक पिन"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Capacity of air reservoir (AR) of the coach is",
+    "h": "कोच के एयर रिज़र्वयर (AR) की क्षमता है",
+    "o": [
+      "150 Lit.",
+      "200 Lit.",
+      "250 Lit.",
+      "300 Lit."
+    ],
+    "c": 1
+  },
+  {
+    "q": "'A' dimension of a passenger train (Non AC coach) is",
+    "h": "यात्री ट्रेन (नॉन एसी कोच) का 'A' आयाम है",
+    "o": [
+      "14 +/- 2 mm",
+      "16 +2/-0 mm",
+      "16 +/- 4 mm",
+      "18 +/- 2 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In an AC coach, 'A' dimension should be",
+    "h": "एसी कोच में, 'A' आयाम होना चाहिए",
+    "o": [
+      "18 +/- 2 mm",
+      "20 +/- 2 mm",
+      "22 +/- 2 mm",
+      "22 +2/-0 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "In a passenger train 'e' dimension is",
+    "h": "यात्री ट्रेन में 'e' आयाम है",
+    "o": [
+      "378 +/- 20 mm",
+      "375 +/- 25 mm",
+      "370 +/- 10 mm",
+      "380 +/- 20 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In the passenger train, the diameter of brake pipe & feed pipe is",
+    "h": "यात्री ट्रेन में, ब्रेक पाइप और फीड पाइप का व्यास है",
+    "o": [
+      "20.0 mm",
+      "25.0 mm",
+      "28.0 mm",
+      "30.0 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In the passenger train, the diameter of branch pipe is",
+    "h": "यात्री ट्रेन में, ब्रांच पाइप का व्यास है",
+    "o": [
+      "15.0 mm",
+      "18.0 mm",
+      "20.0 mm",
+      "22.0 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the diameter of branch pipe in between PEAV to PEASD?",
+    "h": "PEAV से PEASD के बीच ब्रांच पाइप का व्यास क्या है?",
+    "o": [
+      "10.0 mm",
+      "25.0 mm",
+      "30.0 mm",
+      "20.0 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "During full service application, Brake pipe pressure is dropped to",
+    "h": "पूर्ण सेवा आवेदन (Full Service Application) के दौरान, ब्रेक पाइप का दबाव कितना गिराया जाता है?",
+    "o": [
+      "2.0 Kg/cm2",
+      "1.0 Kg/cm2",
+      "3.0 Kg/cm2",
+      "1.5 Kg/cm2"
+    ],
+    "c": 3
+  },
+  {
+    "q": "At originating station the brake power percentage for mail/express train should be",
+    "h": "प्रारंभिक स्टेशन पर मेल/एक्सप्रेस ट्रेन के लिए ब्रेक पावर प्रतिशत होना चाहिए",
+    "o": [
+      "85%",
+      "90%",
+      "100%",
+      "75%"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Cut off angle cock can be fitted to",
+    "h": "कट ऑफ एंगल कॉक किसमें लगाया जा सकता है?",
+    "o": [
+      "FP",
+      "BP",
+      "BP & FP both / बीपी और एफपी दोनों",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the piston stroke of air brake coaching train fitted with modified horizontal lever?",
+    "h": "संशोधित क्षैतिज लीवर (modified horizontal lever) के साथ फिट एयर ब्रेक कोचिंग ट्रेन का पिस्टन स्ट्रोक क्या है?",
+    "o": [
+      "60 +/- 10 mm",
+      "80 +/- 10 mm",
+      "85 +/- 15 mm",
+      "85 +/- 5 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the diameter of bogie mounted brake cylinder?",
+    "h": "बोगी माउंटेड ब्रेक सिलेंडर का व्यास क्या है?",
+    "o": [
+      "220 mm",
+      "210 mm",
+      "203 mm",
+      "200 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The brake cylinder diameter of conventional air brake system is",
+    "h": "पारंपरिक एयर ब्रेक सिस्टम का ब्रेक सिलेंडर व्यास है",
+    "o": [
+      "205 mm",
+      "355 mm",
+      "325 mm",
+      "305 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The rate of air leakage in single car testing should not be more then",
+    "h": "सिंगल कार परीक्षण में हवा के रिसाव की दर इससे अधिक नहीं होनी चाहिए",
+    "o": [
+      "0.02 Kg/cm2/min",
+      "1.0 Kg/cm2/min",
+      "0.2 Kg/cm2/min",
+      "0.1 Kg/cm2/min"
+    ],
+    "c": 2
+  },
+  {
+    "q": "In emergency application the brake cylinder pressure rises from 0-3.6 kg/cm2 in",
+    "h": "आपातकालीन आवेदन में ब्रेक सिलेंडर का दबाव 0-3.6 kg/cm2 तक कितने समय में बढ़ता है?",
+    "o": [
+      "15-20 sec",
+      "5-10 sec",
+      "3-5 sec",
+      "8-10 sec"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Check valve with choke allows air from",
+    "h": "चोक वाला चेक वाल्व हवा को कहाँ से कहाँ जाने देता है?",
+    "o": [
+      "BP to FP",
+      "FP to CR",
+      "FP to AR",
+      "AR to BC"
+    ],
+    "c": 2
+  },
+  {
+    "q": "When brake is manually released by QRV, which pressure will be vent out?",
+    "h": "जब QRV द्वारा ब्रेक मैन्युअल रूप से जारी किया जाता है, तो कौन सा दबाव बाहर निकल जाएगा?",
+    "o": [
+      "BC pressure",
+      "AR pressure",
+      "BP pressure",
+      "CR pressure"
+    ],
+    "c": 3
+  },
+  {
+    "q": "What is the pressure of control reservoir in coaching trains?",
+    "h": "कोचिंग ट्रेनों में कंट्रोल रिज़र्वयर का दबाव क्या है?",
+    "o": [
+      "6.0 Kg/cm2",
+      "5.0 Kg/cm2",
+      "6.0 to 6.2 Kg/cm2",
+      "4.8 Kg/cm2"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In coaching trains, auxiliary reservoir is charged to",
+    "h": "कोचिंग ट्रेनों में, सहायक रिज़र्वयर (Auxiliary Reservoir) को चार्ज किया जाता है",
+    "o": [
+      "5.0 Kg/cm2",
+      "6.0 Kg/cm2",
+      "4.8 Kg/cm2",
+      "5.5 Kg/cm2"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Reduction in BP pressure for minimum application is",
+    "h": "न्यूनतम आवेदन (minimum application) के लिए BP दबाव में कमी है",
+    "o": [
+      "1.0 to 1.5 Kg/cm2",
+      "0.8 to 1.0 Kg/cm2",
+      "0.5 to 0.8 Kg/cm2",
+      "0.1 to 0.5 Kg/cm2"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Reduction in BP pressure for service application is",
+    "h": "सेवा आवेदन (Service application) के लिए BP दबाव में कमी है",
+    "o": [
+      "1.0 to 0.5 Kg/cm2",
+      "1.0 to 1.5 Kg/cm2",
+      "0.5 to 0.8 Kg/cm2",
+      "0.8 to 1.0 Kg/cm2"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Reduction in BP pressure for full service application is",
+    "h": "पूर्ण सेवा आवेदन (Full service application) के लिए BP दबाव में कमी है",
+    "o": [
+      "1.0 to 1.5 Kg/cm2",
+      "0.8 to 1.0 Kg/cm2",
+      "0.5 to 0.8 Kg/cm2",
+      "0.1 to 0.5 Kg/cm2"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Reduction in BP pressure for emergency application is",
+    "h": "आपातकालीन आवेदन (Emergency application) के लिए BP दबाव में कमी है",
+    "o": [
+      "1.0 to 1.5 Kg/cm2",
+      "1.5 to 3.8 Kg/cm2",
+      "0.5 to 0.8 Kg/cm2",
+      "3.8 to 5.0 Kg/cm2"
+    ],
+    "c": 3
+  },
+  {
+    "q": "How many dirt collectors are fitted with under frame mounted air brake system on every coach?",
+    "h": "प्रत्येक कोच पर अंडर फ्रेम माउंटेड एयर ब्रेक सिस्टम के साथ कितने डर्ट कलेक्टर लगाए गए हैं?",
+    "o": [
+      "Two / दो",
+      "One / एक",
+      "Three / तीन",
+      "None / कोई नहीं"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the choke diameter of guard's emergency brake valve?",
+    "h": "गार्ड के इमरजेंसी ब्रेक वाल्व का चोक व्यास क्या है?",
+    "o": [
+      "4.0 mm",
+      "5.0 mm",
+      "6.0 mm",
+      "8.0 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "What type of slack adjuster is used in passenger coaches?",
+    "h": "यात्री डिब्बों में किस प्रकार के स्लैक एडजस्टर का उपयोग किया जाता है?",
+    "o": [
+      "DRV-600",
+      "None",
+      "IRSA-450",
+      "IRSA-600"
+    ],
+    "c": 3
+  },
+  {
+    "q": "For testing C3W DV, the AR charging time from 0 to 4.8 kg/cm2 is",
+    "h": "C3W DV के परीक्षण के लिए, 0 से 4.8 kg/cm2 तक AR चार्जिंग समय है",
+    "o": [
+      "170 +/- 10 sec",
+      "175 +/- 30 sec",
+      "280 +/- 30 sec",
+      "210 +/- 20 sec"
+    ],
+    "c": 1
+  },
+  {
+    "q": "For testing KE type DV, the AR charging time from 0 to 4.8 kg/cm2 is",
+    "h": "KE प्रकार के DV के परीक्षण के लिए, 0 से 4.8 kg/cm2 तक AR चार्जिंग समय है",
+    "o": [
+      "160 to 210 sec",
+      "210 to 260 sec",
+      "260 to 280 sec",
+      "180 to 200 sec"
+    ],
+    "c": 0
+  },
+  {
+    "q": "For testing C3W DV, the CR charging time from 0 to 4.8 kg/cm2 is",
+    "h": "C3W DV के परीक्षण के लिए, 0 से 4.8 kg/cm2 तक CR चार्जिंग समय है",
+    "o": [
+      "170 +/- 10 sec",
+      "165 +/- 20 sec",
+      "160 +/- 10 sec",
+      "210 +/- 20 sec"
+    ],
+    "c": 1
+  },
+  {
+    "q": "For testing KE type DV, the CR charging time from 0 to 4.8 kg/cm2 is",
+    "h": "KE प्रकार के DV के परीक्षण के लिए, 0 से 4.8 kg/cm2 तक CR चार्जिंग समय है",
+    "o": [
+      "170 +/- 10 sec",
+      "160 +/- 40 sec",
+      "160 +/- 10 sec",
+      "210 +/- 20 sec"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The three-branch pipe attached to common pipe bracket, where the middle pipe lead to",
+    "h": "कॉमन पाइप ब्रैकेट से जुड़ी तीन-शाखा पाइप, जहाँ बीच वाली पाइप जाती है",
+    "o": [
+      "CR",
+      "DV",
+      "BC",
+      "AR"
+    ],
+    "c": 3
+  },
+  {
+    "q": "During brake release, air from BC goes to",
+    "h": "ब्रेक रिलीज के दौरान, BC से हवा कहाँ जाती है?",
+    "o": [
+      "AR",
+      "CR",
+      "DV",
+      "Atmosphere / वातावरण"
+    ],
+    "c": 3
+  },
+  {
+    "q": "At what schedule, testing of pressure gauge and replacement of the defective gauge in SLR?",
+    "h": "SLR में प्रेशर गेज का परीक्षण और खराब गेज का प्रतिस्थापन किस शेड्यूल पर होता है?",
+    "o": [
+      "IOH",
+      "'A' schedule",
+      "'B' Schedule",
+      "Special schedule"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The type of dirt collector, used in bogie mounted passenger coach is",
+    "h": "बोगी माउंटेड पैसेंजर कोच में प्रयुक्त डर्ट कलेक्टर का प्रकार है",
+    "o": [
+      "2- way",
+      "4-way",
+      "3-way",
+      "single way"
+    ],
+    "c": 0
+  },
+  {
+    "q": "When DV is working condition the position of DV handle is",
+    "h": "जब DV काम करने की स्थिति में होता है तो DV हैंडल की स्थिति होती है",
+    "o": [
+      "Horizontal / क्षैतिज",
+      "Inclined / झुका हुआ",
+      "Vertical / लंबवत",
+      "Parallel / समानांतर"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The en-route brake power percentages of passenger BG coaching train is",
+    "h": "यात्री BG कोचिंग ट्रेन का मार्गस्थ (en-route) ब्रेक पावर प्रतिशत है",
+    "o": [
+      "85%",
+      "90%",
+      "100%",
+      "Not specified"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the capacity of control reservoir of passenger coach?",
+    "h": "यात्री कोच के कंट्रोल रिज़र्वयर की क्षमता क्या है?",
+    "o": [
+      "6.0 litre",
+      "7.0 litre",
+      "9.0 litre",
+      "10.0 litre"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What should be the effective maximum pressure in brake cylinder during full service application is",
+    "h": "पूर्ण सेवा आवेदन (Full service application) के दौरान ब्रेक सिलेंडर में प्रभावी अधिकतम दबाव क्या होना चाहिए?",
+    "o": [
+      "3.6 +/- 0.1 Kg/cm2",
+      "3.7 +/- 0.1 Kg/cm2",
+      "3.8 +/- 0.1 Kg/cm2",
+      "4.1 +/- 0.1 Kg/cm2"
+    ],
+    "c": 2
+  },
+  {
+    "q": "DV is directly mounted on",
+    "h": "DV सीधे किस पर लगा होता है?",
+    "o": [
+      "AR",
+      "Brake pipe / ब्रेक पाइप",
+      "Brake cylinder / ब्रेक सिलेंडर",
+      "Common pipe bracket / कॉमन पाइप ब्रैकेट"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Which one of the following valve in DV controls charging of CR?",
+    "h": "DV में निम्नलिखित में से कौन सा वाल्व CR की चार्जिंग को नियंत्रित करता है?",
+    "o": [
+      "Main valve / मुख्य वाल्व",
+      "Cut off valve / कट ऑफ वाल्व",
+      "Quick service valve / त्वरित सेवा वाल्व",
+      "Limiting device / लिमिटिंग डिवाइस"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Control reservoir in air brake system is",
+    "h": "एयर ब्रेक सिस्टम में कंट्रोल रिज़र्वयर किसलिए होता है?",
+    "o": [
+      "To control FP pressure / FP दबाव को नियंत्रित करने के लिए",
+      "To control DV valve / DV वाल्व को नियंत्रित करने के लिए",
+      "To control Brake system / ब्रेक सिस्टम को नियंत्रित करने के लिए",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Auxiliary reservoir is assisting in",
+    "h": "सहायक रिज़र्वयर (Auxiliary Reservoir) किसमें सहायता करता है?",
+    "o": [
+      "Charging of DV / DV की चार्जिंग",
+      "Charging of BP / BP की चार्जिंग",
+      "Sending air to BC / BC को हवा भेजना",
+      "Charging of CR / CR की चार्जिंग"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Dirt Collector should be cleaned within",
+    "h": "डर्ट कलेक्टर को कब साफ किया जाना चाहिए?",
+    "o": [
+      "At the time of IOH / IOH के समय",
+      "At the time of 'A' schedule / 'A' शेड्यूल के समय",
+      "At the time of POH / POH के समय",
+      "At the time of 'B' schedule / 'B' शेड्यूल के समय"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In air brake system, brake should apply when the rate of drop of air pressure in BP is",
+    "h": "एयर ब्रेक सिस्टम में, ब्रेक तब लगना चाहिए जब BP में हवा के दबाव में गिरावट की दर हो",
+    "o": [
+      "0.6 Kg/cm2/min in six sec",
+      "0.3 Kg/cm2 in one sec",
+      "0.4 Kg/cm2 in one sec",
+      "0.1 Kg/cm2 in one sec"
+    ],
+    "c": 0
+  },
+  {
+    "q": "In air brake system, brake should not apply when the rate of drop of air pressure in BP is",
+    "h": "एयर ब्रेक सिस्टम में, ब्रेक तब नहीं लगना चाहिए जब BP में हवा के दबाव में गिरावट की दर हो",
+    "o": [
+      "0.3 Kg/cm2 in 60 sec",
+      "0.4 Kg/cm2 in 4 sec",
+      "0.5 Kg/cm2 in 30 sec",
+      "0.8 Kg/cm2 in 8 sec"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The function of non-return valve used in air brake system is",
+    "h": "एयर ब्रेक सिस्टम में प्रयुक्त नॉन-रिटर्न वाल्व का कार्य है",
+    "o": [
+      "To reduce BP / BP को कम करना",
+      "To prevent flow of air from AR to FP / AR से FP तक हवा के प्रवाह को रोकना",
+      "To prevent CR to be charged / CR को चार्ज होने से रोकना",
+      "To prevent flow of air from CR to BP / CR से BP तक हवा के प्रवाह को रोकना"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Which equipment are not charged, when DV is isolated",
+    "h": "जब DV आइसोलेट होता है, तो कौन से उपकरण चार्ज नहीं होते हैं?",
+    "o": [
+      "Control reservoir and brake cylinder / कंट्रोल रिज़र्वयर और ब्रेक सिलेंडर",
+      "Brake cylinder / ब्रेक सिलेंडर",
+      "Control reservoir auxiliary reservoir / कंट्रोल रिज़र्वयर और सहायक रिज़र्वयर",
+      "Auxiliary reservoir and brake cylinder / सहायक रिज़र्वयर और ब्रेक सिलेंडर"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The vent hole is provided in the cut off angle cock to (when angle cock is closed)",
+    "h": "कट ऑफ एंगल कॉक में वेंट होल प्रदान किया जाता है (जब एंगल कॉक बंद होता है)",
+    "o": [
+      "Exhaust air pressure of air hose into atmosphere / एयर नली के हवा के दबाव को वातावरण में निकालना",
+      "The amount of vacuum / वैक्यूम की मात्रा",
+      "To arrest air pressure from air hose / एयर नली से हवा के दबाव को रोकना",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the thickness of roof sheet in ICF coach?",
+    "h": "ICF कोच में छत की शीट की मोटाई क्या है?",
+    "o": [
+      "2.1 mm",
+      "1.9 mm",
+      "1.8 mm",
+      "1.6 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Under slung tank capacity of roof mounted AC coaches fitted with WRA system is",
+    "h": "WRA सिस्टम से लैस रूफ माउंटेड एसी कोचों की अंडर स्लिंग टैंक क्षमता है",
+    "o": [
+      "1600 Litre",
+      "1700 Litre",
+      "1800 Litre",
+      "2000 Litre"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the meaning of WSP?",
+    "h": "WSP का क्या अर्थ है?",
+    "o": [
+      "Water speed protection",
+      "Wheel slide protection",
+      "Wheel solid profile",
+      "None of the above"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Minimum and Maximum air pressure required for WRA is",
+    "h": "WRA के लिए आवश्यक न्यूनतम और अधिकतम हवा का दबाव है",
+    "o": [
+      "0.35 Kg/cm2 & 0.75 Kg/cm2",
+      "0.45 Kg/cm2 & 0.5 Kg/cm2",
+      "0.55 Kg/cm2 & 0.6 Kg/cm2",
+      "0.65 Kg/cm2 & 0.75 Kg/cm2"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Sole bar of ICF coach consists of",
+    "h": "ICF कोच का सोल बार (Sole bar) किसका बना होता है?",
+    "o": [
+      "Z section",
+      "I section",
+      "Y section",
+      "U section"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What capacity of the equalizing stays of the Shatabdi Exp.?",
+    "h": "शताब्दी एक्सप्रेस के इक्वलाइजिंग स्टे की क्षमता क्या है?",
+    "o": [
+      "22 tons",
+      "20 tons",
+      "16 tons",
+      "14 tons"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is amount of the oil per side bearer in ICF coaches?",
+    "h": "ICF कोचों में प्रति साइड बियरर तेल की मात्रा क्या है?",
+    "o": [
+      "1.2 liter",
+      "1.6 liter",
+      "2.5 liter",
+      "2.2 liter"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the distance between side bearers of ICF coach?",
+    "h": "ICF कोच के साइड बियरर्स के बीच की दूरी क्या है?",
+    "o": [
+      "1560 mm",
+      "1590 mm",
+      "1600 mm",
+      "1610 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the oil level in dashpot?",
+    "h": "डैशपॉट में तेल का स्तर क्या है?",
+    "o": [
+      "50.0 mm",
+      "40.0 mm",
+      "75.0 mm",
+      "90.0 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What should be the interval of check the dashpot oil in mail/Express train?",
+    "h": "मेल/एक्सप्रेस ट्रेन में डैशपॉट तेल की जांच का अंतराल क्या होना चाहिए?",
+    "o": [
+      "15 days",
+      "25 days",
+      "one month",
+      "two month"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the amount of oil per dashpot in 40-mm depth in modified guide arrangement?",
+    "h": "संशोधित गाइड व्यवस्था में 40 मिमी गहराई में प्रति डैशपॉट तेल की मात्रा क्या है?",
+    "o": [
+      "1.6 Litre",
+      "2.5 Litre",
+      "2.2 Litre",
+      "1.9 Litre"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the interval of check the side bearer oil?",
+    "h": "साइड बियरर तेल की जांच का अंतराल क्या है?",
+    "o": [
+      "One month",
+      "25 days",
+      "15 days",
+      "10 days"
+    ],
+    "c": 0
+  },
+  {
+    "q": "In bogie mounted air brake systems, the No of brake cylinder in a coach are",
+    "h": "बोगी माउंटेड एयर ब्रेक सिस्टम में, एक कोच में ब्रेक सिलेंडर की संख्या है",
+    "o": [
+      "8",
+      "6",
+      "2",
+      "4"
+    ],
+    "c": 3
+  },
+  {
+    "q": "The weight of the coach is transferred through",
+    "h": "कोच का वजन किसके माध्यम से स्थानांतरित किया जाता है?",
+    "o": [
+      "Side bearer",
+      "Equalizing stay",
+      "Helical spring",
+      "Bolster"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Center pivot pin does not transmit any",
+    "h": "सेंटर पिवट पिन क्या संचारित नहीं करता है?",
+    "o": [
+      "Horizontal load / क्षैतिज भार",
+      "Tractive / कर्षण",
+      "Breaking force / ब्रेकिंग बल",
+      "Vertical force / ऊर्ध्वाधर बल"
+    ],
+    "c": 3
+  },
+  {
+    "q": "New dimension of side bearers wearing plate is",
+    "h": "साइड बियरर वियरिंग प्लेट का नया आयाम है",
+    "o": [
+      "10.0 mm",
+      "12.0 mm",
+      "14.0 mm",
+      "16.0 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is shop renewal dimension of side bearer wearing plate?",
+    "h": "साइड बियरर वियरिंग प्लेट का शॉप रिन्यूअल आयाम क्या है?",
+    "o": [
+      "10.0 mm",
+      "9.0 mm",
+      "8.0 mm",
+      "7.5 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Condemning size of side bearer wearing plate is",
+    "h": "साइड बियरर वियरिंग प्लेट का कंडमिंग आकार है",
+    "o": [
+      "10.0 mm",
+      "9.0 mm",
+      "8.50 mm",
+      "7.50 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Newly dimension of side bearer wearing pieces is",
+    "h": "साइड बियरर वियरिंग पीस का नया आयाम है",
+    "o": [
+      "45.0 mm",
+      "44.0 mm",
+      "43.0 mm",
+      "42.0 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Shop renewal size of side bearer wearing piece is",
+    "h": "साइड बियरर वियरिंग पीस का शॉप रिन्यूअल आकार है",
+    "o": [
+      "45.0 mm",
+      "44.50 mm",
+      "43.50 mm",
+      "42.50 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the condemning size of side bearer wearing piece?",
+    "h": "साइड बियरर वियरिंग पीस का कंडमिंग आकार क्या है?",
+    "o": [
+      "45.0 mm",
+      "44.0 mm",
+      "43.0 mm",
+      "42.0 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Diagonal gauge for axle guide of 13 t & 16.25 t bogie is",
+    "h": "13 टन और 16.25 टन बोगी के एक्सल गाइड के लिए विकर्ण गेज (Diagonal gauge) है",
+    "o": [
+      "3912 +/- 1.0 mm",
+      "3812 +/- 1.0 mm",
+      "3712 +/- 1.0 mm",
+      "3612 +/- 1.0 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Which type brake system, external slack adjuster have been eliminated?",
+    "h": "किस प्रकार के ब्रेक सिस्टम में, बाहरी स्लैक एडजस्टर को हटा दिया गया है?",
+    "o": [
+      "BMBC",
+      "UMBS",
+      "BMBS & UMBS",
+      "None of the above"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the modification of equalizing stay rod?",
+    "h": "इक्वलाइजिंग स्टे रॉड का संशोधन क्या है?",
+    "o": [
+      "Fitted 16 tons in all coaches / सभी कोचों में 16 टन फिट किया गया",
+      "Fitted 18 tons in all coaches / सभी कोचों में 18 टन फिट किया गया",
+      "Fitted 14 tons in all coaches / सभी कोचों में 14 टन फिट किया गया",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The color code of helical spring of ICF bogie is",
+    "h": "ICF बोगी के हेलिकल स्प्रिंग का कलर कोड है",
+    "o": [
+      "Yellow, blue, green / पीला, नीला, हरा",
+      "Yellow, red, green / पीला, लाल, हरा",
+      "White, blue, green / सफेद, नीला, हरा",
+      "White, red, green / सफेद, लाल, हरा"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What type of axle guidance arrangement used in ICF/RCF bogie?",
+    "h": "ICF/RCF बोगी में किस प्रकार की एक्सल गाइडेंस व्यवस्था का उपयोग किया जाता है?",
+    "o": [
+      "Oil clamping / तेल क्लैम्पिंग",
+      "Telescopic axle guide with oil damping / तेल डंपिंग के साथ टेलीस्कोपिक एक्सल गाइड",
+      "Vertical oil damping / वर्टिकल ऑयल डंपिंग",
+      "Pneumatic axle guide / न्यूमेटिक एक्सल गाइड"
+    ],
+    "c": 1
+  },
+  {
+    "q": "One of the function of Anchor links?",
+    "h": "एंकर लिंक का एक कार्य?",
+    "o": [
+      "To joint bolster and side frame / बोल्स्टर और साइड फ्रेम को जोड़ने के लिए",
+      "To prevent rational movement of bolster / बोल्स्टर की रोटेशनल गति को रोकने के लिए",
+      "To connect with upper plank and lower plank / ऊपरी प्लैंक और निचले प्लैंक के साथ जोड़ने के लिए",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Which type of grease used in roller bearing in ICF coach?",
+    "h": "ICF कोच में रोलर बेयरिंग में किस प्रकार की ग्रीस का उपयोग किया जाता है?",
+    "o": [
+      "Servo-20",
+      "Lithium base",
+      "Servo-40",
+      "Graphite-20"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What quantity of grease filled per axle box of SKF make bearing?",
+    "h": "SKF मेक बेयरिंग के प्रति एक्सल बॉक्स में कितनी ग्रीस भरी जाती है?",
+    "o": [
+      "1.75 kg",
+      "2.00 kg",
+      "2.25 kg",
+      "2.5 kg"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What quantity of grease filled per axle box of other than SKF make bearing?",
+    "h": "SKF के अलावा अन्य मेक बेयरिंग के प्रति एक्सल बॉक्स में कितनी ग्रीस भरी जाती है?",
+    "o": [
+      "1.75 kg",
+      "2.00 kg",
+      "2.25 kg",
+      "2.5 kg"
+    ],
+    "c": 1
+  },
+  {
+    "q": "LHB coaches are provided with what type of bearing?",
+    "h": "LHB कोचों में किस प्रकार की बेयरिंग प्रदान की जाती है?",
+    "o": [
+      "Spherical type / गोलाकार प्रकार",
+      "Plain bearing / सादा बेयरिंग",
+      "CTRB / सीटीआरबी",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 2
+  },
+  {
+    "q": "In air brake coach, PEAV & PEASD is connected to branch pipe is",
+    "h": "एयर ब्रेक कोच में, PEAV और PEASD किस ब्रांच पाइप से जुड़े होते हैं?",
+    "o": [
+      "FP",
+      "BP",
+      "BC",
+      "DV"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The pulling force required for alarm chain testing should not be more then",
+    "h": "अलार्म चेन परीक्षण के लिए आवश्यक खींचने वाला बल इससे अधिक नहीं होना चाहिए",
+    "o": [
+      "12 kg",
+      "10 kg",
+      "20 kg",
+      "30 kg"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is the choke size of PEAV",
+    "h": "PEAV का चोक आकार क्या है",
+    "o": [
+      "4.0 mm",
+      "5.0 mm",
+      "6.0 mm",
+      "8.0 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "At what schedule, the over hauling and testing of alarm chain apparatus is done",
+    "h": "अलार्म चेन उपकरण की ओवरहॉलिंग और परीक्षण किस शेड्यूल पर किया जाता है",
+    "o": [
+      "'A' schedule",
+      "'B' schedules",
+      "'C' schedule",
+      "Special schedule"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The full name of PEAV is",
+    "h": "PEAV का पूरा नाम है",
+    "o": [
+      "Power energy valve",
+      "Passenger entrance valve",
+      "Passenger emergency alarm valve",
+      "Pipe emergency valve"
+    ],
+    "c": 2
+  },
+  {
+    "q": "PEAV & PEASD can be isolated by",
+    "h": "PEAV और PEASD को किसके द्वारा अलग (isolate) किया जा सकता है",
+    "o": [
+      "Isolate isolating cock between branch pipe of BP & DV",
+      "Isolate isolating cock between branch pipe of FP & BP",
+      "Isolate isolating cock fitted in branch pipe",
+      "Isolate isolating cock of BC"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the free height of 16.25 tons axle box spring?",
+    "h": "16.25 टन एक्सल बॉक्स स्प्रिंग की फ्री ऊंचाई क्या है?",
+    "o": [
+      "360 mm",
+      "365 mm",
+      "375 mm",
+      "380 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the free height of non-AC coach axle box spring?",
+    "h": "नॉन-एसी कोच एक्सल बॉक्स स्प्रिंग की फ्री ऊंचाई क्या है?",
+    "o": [
+      "355 mm",
+      "360 mm",
+      "367 mm",
+      "370 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Free height of all non-AC ICF type axle box spring is",
+    "h": "सभी नॉन-एसी ICF प्रकार के एक्सल बॉक्स स्प्रिंग की फ्री ऊंचाई है",
+    "o": [
+      "375 mm",
+      "372 mm",
+      "360 mm",
+      "315 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Free height of AC ICF type bolster coil spring is",
+    "h": "AC ICF प्रकार के बोल्स्टर कॉइल स्प्रिंग की फ्री ऊंचाई है",
+    "o": [
+      "375 mm",
+      "385 mm",
+      "400 mm",
+      "416 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is colour code of 'A' group coil spring is",
+    "h": "'A' ग्रुप कॉइल स्प्रिंग का कलर कोड क्या है",
+    "o": [
+      "Yellow / पीला",
+      "Green / हरा",
+      "Oxford blue / ऑक्सफोर्ड नीला",
+      "White / सफेद"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is colour code of 'B' group coil spring is",
+    "h": "'B' ग्रुप कॉइल स्प्रिंग का कलर कोड क्या है",
+    "o": [
+      "Oxford blue / ऑक्सफोर्ड नीला",
+      "White / सफेद",
+      "Green / हरा",
+      "Yellow / पीला"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is colour code of 'C' group coil spring is",
+    "h": "'C' ग्रुप कॉइल स्प्रिंग का कलर कोड क्या है",
+    "o": [
+      "Oxford blue / ऑक्सफोर्ड नीला",
+      "White / सफेद",
+      "Green / हरा",
+      "Yellow / पीला"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Piston stroke (coach) of bogie mounted brake cylinder is",
+    "h": "बोगी माउंटेड ब्रेक सिलेंडर का पिस्टन स्ट्रोक (कोच) है",
+    "o": [
+      "28 mm",
+      "32 mm",
+      "36 mm",
+      "38 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In BMBS hole adjustment of curved pull rod to be done when wheel diameter reaches to",
+    "h": "BMBS में, जब पहिये का व्यास ____ तक पहुँच जाता है, तब कर्व्ड पुल रॉड का होल एडजस्टमेंट किया जाना चाहिए",
+    "o": [
+      "839 mm",
+      "842 mm",
+      "846 mm",
+      "None of the above / इनमें से कोई नहीं"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Permissible variations in wheel tread diameter for four-wheeled bogie on the same axle on BG is (while turning the wheel)",
+    "h": "BG पर एक ही एक्सल पर चार पहिया बोगी के लिए व्हील ट्रेड व्यास में स्वीकार्य भिन्नता है (पहिया घुमाते समय)",
+    "o": [
+      "0.5 mm",
+      "0.49 mm",
+      "0.30 mm",
+      "0.45 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Permissible variations in wheel tread diameter on the same coach on BG is (while turning the wheel)",
+    "h": "BG पर एक ही कोच पर व्हील ट्रेड व्यास में स्वीकार्य भिन्नता है (पहिया घुमाते समय)",
+    "o": [
+      "12.0 mm",
+      "10.0 mm",
+      "11.0 mm",
+      "13.0 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Permissible variations in wheel tread diameter for the same bogie on BG is (while turning the wheel)",
+    "h": "BG पर एक ही बोगी के लिए व्हील ट्रेड व्यास में स्वीकार्य भिन्नता है (पहिया घुमाते समय)",
+    "o": [
+      "10.0 mm",
+      "7.0 mm",
+      "5.0 mm",
+      "8.0 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The axle load of AC coaches is",
+    "h": "AC कोचों का एक्सल लोड है",
+    "o": [
+      "22.0 tons",
+      "16.25 tons",
+      "15.0 tons",
+      "14.50 tons"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Axle load capacity of generator (WLLRM) coach is",
+    "h": "जनरेटर (WLLRM) कोच की एक्सल लोड क्षमता है",
+    "o": [
+      "16.0 tons",
+      "16.25 tons",
+      "15.0 tons",
+      "20.30 tons"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The use of 13 tons axle load bogie is in",
+    "h": "13 टन एक्सल लोड बोगी का उपयोग किसमें किया जाता है?",
+    "o": [
+      "PVH",
+      "AC",
+      "Power Car",
+      "Non AC"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Flat faces on BG coach is permitted up to",
+    "h": "BG कोच पर फ्लैट फेस की अनुमति है",
+    "o": [
+      "60.0 mm",
+      "50.0 mm",
+      "75.0 mm",
+      "90.0 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "High speed ICF coach condemning flange thickness is",
+    "h": "हाई स्पीड ICF कोच कंडमिंग फ्लैंज मोटाई है",
+    "o": [
+      "14.0 mm",
+      "13.0 mm",
+      "22.0 mm",
+      "10.0 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Lateral movements of wheels are controlled by",
+    "h": "पहियों की पार्श्व गति (Lateral movements) किसके द्वारा नियंत्रित की जाती है?",
+    "o": [
+      "Axle Guide",
+      "Journal center",
+      "Roller bearing",
+      "Dash pot"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Bogie wheelbase of ICF/ RCF all coil bogies are",
+    "h": "ICF/RCF ऑल कॉइल बोगियों का बोगी व्हीलबेस है",
+    "o": [
+      "2896 mm",
+      "2986 mm",
+      "2886 mm",
+      "2997 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Min shop issue size of ICF solid wheel is",
+    "h": "ICF सॉलिड व्हील का न्यूनतम शॉप इश्यू साइज है",
+    "o": [
+      "837 mm",
+      "870 mm",
+      "854 mm",
+      "8746 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Flange thickness of new BG wheel coach is",
+    "h": "नए BG व्हील कोच की फ्लैंज मोटाई है",
+    "o": [
+      "28.0 mm",
+      "28.50 mm",
+      "29.50 mm",
+      "27.50 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The radius of the root of flange of new BG wheel is",
+    "h": "नए BG व्हील के फ्लैंज के रूट की त्रिज्या है",
+    "o": [
+      "14.0 mm",
+      "16.0 mm",
+      "18.0 mm",
+      "19.0 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Condemning height of flange on tread on BG wheel is",
+    "h": "BG व्हील पर फ्लैंज की कंडमिंग ऊंचाई है",
+    "o": [
+      "30.0 mm",
+      "32.0 mm",
+      "34.0 mm",
+      "35.0 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Condemning size of radius at the top of flange (Sharp flange) of BG main line coach wheel is",
+    "h": "BG मेन लाइन कोच व्हील के फ्लैंज के शीर्ष पर त्रिज्या (शार्प फ्लैंज) का कंडमिंग आकार है",
+    "o": [
+      "8.0 mm",
+      "5.0 mm",
+      "10.0 mm",
+      "12.0 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Means of WRA is",
+    "h": "WRA का अर्थ है",
+    "o": [
+      "Water raising apparatus",
+      "White race assistance",
+      "Water recording agreement",
+      "None of the above"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Permissible variation in new wheel tread diameter on the same axle on BG bogie wagon is",
+    "h": "BG बोगी वैगन पर एक ही धुरी पर नए पहिया चलने के व्यास में अनुमेय भिन्नता है",
+    "o": [
+      "0.45 mm",
+      "0.5 mm",
+      "0.35 mm",
+      "0.3 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Permissible variation in wheel tread diameter on the same trolley of BG wagon while changing the wheel is",
+    "h": "पहिया बदलते समय BG वैगन की एक ही ट्रॉली पर पहिया चलने के व्यास में अनुमेय भिन्नता है",
+    "o": [
+      "10 mm",
+      "13 mm",
+      "12 mm",
+      "15 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Permissible variation in wheel tread diameter on the same wagon of BG while changing the wheel is",
+    "h": "पहिया बदलते समय BG के एक ही वैगन पर पहिया चलने के व्यास में अनुमेय भिन्नता है",
+    "o": [
+      "13 mm",
+      "25 mm",
+      "30 mm",
+      "28 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The composite Brake block in yard for air Bk. train should be changed when thickness is",
+    "h": "एयर ब्रेक ट्रेन के लिए यार्ड में मिश्रित ब्रेक ब्लॉक को बदला जाना चाहिए जब मोटाई हो",
+    "o": [
+      "10.0 mm",
+      "15.0 mm",
+      "20.0 mm",
+      "25.0 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Of which brake van the quick coupling is the part",
+    "h": "क्विक कपलिंग किस ब्रेक वैन का हिस्सा है",
+    "o": [
+      "BVZT",
+      "BVZX",
+      "BVZC",
+      "BVZM"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the length over Headstock of the BOXN wagon?",
+    "h": "BOXN वैगन के हेडस्टॉक की लंबाई कितनी है?",
+    "o": [
+      "9774 mm",
+      "9784 mm",
+      "9777 mm",
+      "9848 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Tare weight of the BOXN wagon is",
+    "h": "BOXN वैगन का टेयर वजन है",
+    "o": [
+      "22.37 tons",
+      "22.47 tons",
+      "22.91 tons",
+      "22.90 tons"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the length over couplers of the BOXN wagon?",
+    "h": "BOXN वैगन के कप्लर्स की लंबाई कितनी है?",
+    "o": [
+      "10713 mm",
+      "10813 mm",
+      "11002 mm",
+      "10100 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the length over couplers of the BCN wagon?",
+    "h": "BCN वैगन के कप्लर्स की लंबाई कितनी है?",
+    "o": [
+      "15400 mm",
+      "15443 mm",
+      "15429 mm",
+      "15562 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Gross load of the BOXN wagon is",
+    "h": "BOXN वैगन का सकल भार है",
+    "o": [
+      "78.92 t",
+      "81.28 T",
+      "86.78 t",
+      "88.81 t"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In accident manual, train parting is under",
+    "h": "दुर्घटना मैनुअल में, ट्रेन पार्टिंग किसके अंतर्गत है?",
+    "o": [
+      "J class",
+      "K class",
+      "C class",
+      "P class"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Newly built BOXN wagon first POH periodicity is",
+    "h": "नवनिर्मित BOXN वैगन की पहली POH आवधिकता है",
+    "o": [
+      "4.5 year",
+      "5.5 year",
+      "6.0 year",
+      "6.5 year"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Newly built BLC containers wagon first POH periodicity is",
+    "h": "नवनिर्मित BLC कंटेनर वैगन की पहली POH आवधिकता है",
+    "o": [
+      "4.5 year",
+      "2.0 year",
+      "6.0 year",
+      "3.5 year"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Board gauge track gauge is",
+    "h": "ब्रॉड गेज ट्रैक गेज है",
+    "o": [
+      "1676 mm",
+      "1667 mm",
+      "1698 mm",
+      "1500 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "POH of BG brake van is",
+    "h": "BG ब्रेक वैन का POH है",
+    "o": [
+      "3.5 year",
+      "2.0 year",
+      "2.5 year",
+      "3.0 year"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Torque value of Cartridge type roller bearing cap screw is",
+    "h": "कार्ट्रिज प्रकार के रोलर बेयरिंग कैप स्क्रू का टॉर्क मान है",
+    "o": [
+      "42.0 kg-m",
+      "40.0 kg-m",
+      "38.0 kg-m",
+      "44.0 kg-m"
+    ],
+    "c": 1
+  },
+  {
+    "q": "C-class ODC shall be moved during",
+    "h": "C-क्लास ODC को किसके दौरान स्थानांतरित किया जाएगा?",
+    "o": [
+      "Day light",
+      "Day-night time",
+      "Only night time",
+      "None of the above"
+    ],
+    "c": 0
+  },
+  {
+    "q": "In air brake system, the thread joints are tightened with which type of tape?",
+    "h": "एयर ब्रेक सिस्टम में, थ्रेड जोड़ों को किस प्रकार के टेप से कड़ा किया जाता है?",
+    "o": [
+      "Cello tape",
+      "Teflon tape",
+      "Paper tape",
+      "None of the above"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Instructions for inspection and maintenance of BOXN wagon fitted with CASNUB bogies and air brake system, What RDSO's technical pamphlet is used?",
+    "h": "CASNUB बोगियों और एयर ब्रेक सिस्टम से लैस BOXN वैगन के निरीक्षण और रखरखाव के लिए निर्देश, RDSO का कौन सा तकनीकी पैम्फलेट उपयोग किया जाता है?",
+    "o": [
+      "G-90",
+      "G-70",
+      "G-97",
+      "WT-77"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Instructions for inspection and maintenance of CASNUB bogies, What RDSO's technical pamphlet is used?",
+    "h": "CASNUB बोगियों के निरीक्षण और रखरखाव के लिए निर्देश, RDSO का कौन सा तकनीकी पैम्फलेट उपयोग किया जाता है?",
+    "o": [
+      "G-97",
+      "G-86",
+      "G-90",
+      "G-95"
+    ],
+    "c": 3
+  },
+  {
+    "q": "As per new wagon numbering scheme, first two digits will indicate",
+    "h": "नई वैगन नंबरिंग योजना के अनुसार, पहले दो अंक इंगित करेंगे",
+    "o": [
+      "Owning Railway",
+      "Type of wagon",
+      "Year of manufacture",
+      "Cheek digit"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What do you mean by PME?",
+    "h": "PME से आपका क्या तात्पर्य है?",
+    "o": [
+      "Pre medical examination",
+      "Pre maintenance examination",
+      "Periodical maintenance examination",
+      "Power mechanical equipment"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What do you mean by CC rakes?",
+    "h": "CC रेक से आपका क्या तात्पर्य है?",
+    "o": [
+      "Content contact pad",
+      "Close circuit rake",
+      "Complete coal rake",
+      "All the above"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The minimum permissible buffer height above rail line to center of H/ Stock under loaded condition is",
+    "h": "लोडेड स्थिति के तहत रेल लाइन से हेड स्टॉक के केंद्र तक न्यूनतम स्वीकार्य बफर ऊंचाई है",
+    "o": [
+      "1105 mm",
+      "1145 mm",
+      "1115 mm",
+      "1030 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Standard diameter of knuckle pivot pin is",
+    "h": "नकल पिवट पिन का मानक व्यास है",
+    "o": [
+      "50 mm",
+      "43 mm",
+      "41.28 mm",
+      "34 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Standard dimension of shank wear plate for AAR coupler is",
+    "h": "AAR कपलर के लिए शैंक वियर प्लेट का मानक आयाम है",
+    "o": [
+      "12 mm",
+      "8 mm",
+      "6 mm",
+      "14 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Standard dimension of distance between the nose of Knuckle and guard arm is",
+    "h": "नकल की नाक और गार्ड आर्म के बीच की दूरी का मानक आयाम है",
+    "o": [
+      "140 mm",
+      "150 mm",
+      "127 mm",
+      "12 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The maximum permissible free slack in the draft gear in service is",
+    "h": "सेवा में ड्राफ्ट गियर में अधिकतम स्वीकार्य मुक्त ढीलापन है",
+    "o": [
+      "35 mm",
+      "30 mm",
+      "25 mm",
+      "20 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "No. of CBC gauge are",
+    "h": "CBC गेज की संख्या है",
+    "o": [
+      "5",
+      "8",
+      "12",
+      "2"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The high capacity draft gears are",
+    "h": "उच्च क्षमता वाले ड्राफ्ट गियर हैं",
+    "o": [
+      "Mark-20 & RF-401",
+      "Mark 50 & RF361",
+      "CF 21& RF-600",
+      "DF 39 & RF-21"
+    ],
+    "c": 1
+  },
+  {
+    "q": "To Adjust buffer height for 930 mm wheel diameter on BCN wagon except CASNUB 22 W, packing piece used is",
+    "h": "CASNUB 22 W को छोड़कर BCN वैगन पर 930 मिमी पहिया व्यास के लिए बफर ऊंचाई को समायोजित करने के लिए, उपयोग किया जाने वाला पैकिंग टुकड़ा है",
+    "o": [
+      "38 mm",
+      "37 mm",
+      "33 mm",
+      "32 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What type of center buffer coupler used in Indian Railway?",
+    "h": "भारतीय रेलवे में किस प्रकार के सेंटर बफर कपलर का उपयोग किया जाता है?",
+    "o": [
+      "APRT type",
+      "AARP type",
+      "AAR type",
+      "ARPA type"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The working strength of center buffer coupler is",
+    "h": "सेंटर बफर कपलर की कार्य शक्ति है",
+    "o": [
+      "100 t",
+      "120 t",
+      "140 t",
+      "180 t"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The tractive effort of the Loco to the individual wagons is transmitted with the help of",
+    "h": "लोको का ट्रैक्टिव प्रयास व्यक्तिगत वैगनों तक किसकी मदद से प्रसारित होता है",
+    "o": [
+      "CBC",
+      "Draw gear",
+      "Knuckle",
+      "Side frame"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Clevis and Clevis pin are the part of",
+    "h": "क्लेविस और क्लेविस पिन किसका हिस्सा हैं",
+    "o": [
+      "Alliance- II coupler",
+      "Non- Transition coupler",
+      "Transition coupler",
+      "Draw bar"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Standard diameters of wheel on BOXN Wagon is",
+    "h": "BOXN वैगन पर पहिये का मानक व्यास है",
+    "o": [
+      "1010 & 900 mm",
+      "1000 & 906 mm",
+      "950 & 906 mm",
+      "906 & 813 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The axle load of BOXN, BCN, BRN, BOBR, BTPN wagon is",
+    "h": "BOXN, BCN, BRN, BOBR, BTPN वैगन का एक्सल लोड है",
+    "o": [
+      "22.9 t",
+      "20.32 t",
+      "16.6 t",
+      "12.2 t"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The wheel gauge should be measured on",
+    "h": "पहिया गेज को मापा जाना चाहिए",
+    "o": [
+      "Off load condition",
+      "Loaded wagon",
+      "Both condition",
+      "Empty wagon"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The lowest wheel dia permitted by workshop for BOXN wagon is",
+    "h": "BOXN वैगन के लिए वर्कशॉप द्वारा अनुमत न्यूनतम पहिया व्यास है",
+    "o": [
+      "919 mm",
+      "906 mm",
+      "925 mm",
+      "860 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "In CTRB the grease use per Axle box is",
+    "h": "CTRB में प्रति एक्सल बॉक्स ग्रीस का उपयोग होता है",
+    "o": [
+      "455 +/- 30 gms",
+      "490 +/- 15 gms",
+      "500 +/- 35 gms",
+      "550 +/- 20 gms"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The condemning diameter of BTPN wheel is",
+    "h": "BTPN पहिये का कंडमिंग व्यास है",
+    "o": [
+      "813 mm",
+      "990 mm",
+      "906 mm",
+      "860 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Permissible maximum flat surface on tread on other BG wagon are",
+    "h": "अन्य BG वैगन पर ट्रेड पर अनुमेय अधिकतम सपाट सतह है",
+    "o": [
+      "75 mm",
+      "60 mm",
+      "75 mm",
+      "70 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is an integrated portion of the axle?",
+    "h": "धुरी का एक एकीकृत हिस्सा क्या है?",
+    "o": [
+      "Cap",
+      "Roller bearing",
+      "Journal",
+      "None of the above"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Standard dimension 'e' in SAB on Goods stock is",
+    "h": "माल स्टॉक पर SAB में मानक आयाम 'e' है",
+    "o": [
+      "550 to 570 mm",
+      "555 to 575 mm",
+      "570 to 580 mm",
+      "555 to 565 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The colour coding of distributor valve of air brake goods stock is",
+    "h": "एयर ब्रेक माल स्टॉक के डिस्ट्रीब्यूटर वाल्व की रंग कोडिंग है",
+    "o": [
+      "Yellow",
+      "Black",
+      "Green",
+      "White"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In air brake end-to end rakes, After intensive examination validity of BPC remain up to the",
+    "h": "एयर ब्रेक एंड-टू-एंड रेक में, गहन परीक्षा के बाद BPC की वैधता कब तक रहती है",
+    "o": [
+      "Next station",
+      "Loading point",
+      "Destination point",
+      "72 Hours"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Control rod diameter of air brake wagon is",
+    "h": "एयर ब्रेक वैगन का कंट्रोल रॉड व्यास है",
+    "o": [
+      "30 mm",
+      "32 mm",
+      "38 mm",
+      "40 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Piston stroke of BOXN wagon in empty conditions is",
+    "h": "खाली स्थिति में BOXN वैगन का पिस्टन स्ट्रोक है",
+    "o": [
+      "85 +/- 10 mm",
+      "70 +/- 15 mm",
+      "75 +/- 5 mm",
+      "80 +/- 10 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Piston stroke of BOXN wagon in loaded conditions is",
+    "h": "लोड की गई स्थिति में BOXN वैगन का पिस्टन स्ट्रोक है",
+    "o": [
+      "140 +/- 15 mm",
+      "130 +/- 10 mm",
+      "120 +/- 15 mm",
+      "125 +/- 15 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In air brake stock, BPC becomes invalid, if the rake is stabled in any examination yard for more than",
+    "h": "एयर ब्रेक स्टॉक में, BPC अमान्य हो जाता है, यदि रेक किसी परीक्षा यार्ड में इससे अधिक समय तक स्थिर रहता है",
+    "o": [
+      "24 hours",
+      "36 hours",
+      "48 hours",
+      "12 hours"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Dirt collector of a wagon should be cleaned within",
+    "h": "वैगन के डर्ट कलेक्टर को किसके भीतर साफ किया जाना चाहिए",
+    "o": [
+      "At the time of ROH",
+      "2 month",
+      "6 month",
+      "3 month"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the capacity of control reservoir in goods train?",
+    "h": "मालगाड़ी में कंट्रोल रिज़र्वयर की क्षमता क्या है?",
+    "o": [
+      "4 Lit.",
+      "6 Lit",
+      "8 Lit.",
+      "10 Lit."
+    ],
+    "c": 1
+  },
+  {
+    "q": "The BP pressure in Brake Van of 56-BOXN wagon load should not be less than",
+    "h": "56-BOXN वैगन लोड के ब्रेक वैन में BP दबाव इससे कम नहीं होना चाहिए",
+    "o": [
+      "4.5 kg/Cm2",
+      "3.7 kg/Cm2",
+      "4.8 kg/Cm2",
+      "5.8 kg/Cm2"
+    ],
+    "c": 2
+  },
+  {
+    "q": "When we release manually KE type DV, the air pressure release form",
+    "h": "जब हम मैन्युअल रूप से KE प्रकार के DV को छोड़ते हैं, तो हवा का दबाव निकलता है",
+    "o": [
+      "CR & AR",
+      "BC & AR",
+      "CR & BC",
+      "AR & DV"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The diameter of branch pipe of BP to DV for wagon is",
+    "h": "वैगन के लिए BP से DV की शाखा पाइप का व्यास है",
+    "o": [
+      "25 mm",
+      "20 mm",
+      "13 mm",
+      "22 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "'A' dimension in Boxn wagon is",
+    "h": "Boxn वैगन में 'A' आयाम है",
+    "o": [
+      "70 +/- 2 mm",
+      "172 +/- 3 mm",
+      "175 +/- 4 mm",
+      "175 + 1 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "For testing Air pressure locomotive the test plate hole diameter is",
+    "h": "एयर प्रेशर लोकोमोटिव के परीक्षण के लिए टेस्ट प्लेट होल का व्यास है",
+    "o": [
+      "8.2 mm",
+      "7.5 mm",
+      "9.5 mm",
+      "10 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The diameter of air brake cylinder BOXN wagon is",
+    "h": "BOXN वैगन के एयर ब्रेक सिलेंडर का व्यास है",
+    "o": [
+      "300 mm",
+      "355 mm",
+      "360 mm",
+      "315 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The diameter of air bake cylinder in BVZC (Wagon) is",
+    "h": "BVZC (वैगन) में एयर ब्रेक सिलेंडर का व्यास है",
+    "o": [
+      "300 mm",
+      "295 mm",
+      "305 mm",
+      "315 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The capacity of Auxiliary Reservoir (wagon) in air brake except Bk. Van is",
+    "h": "Bk. Van को छोड़कर एयर ब्रेक में सहायक रिज़र्वयर (वैगन) की क्षमता है",
+    "o": [
+      "200 litre",
+      "100 litre",
+      "300 litre",
+      "150 litre"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In Single pipe system the time taken in releasing of the wagon brake is",
+    "h": "सिंगल पाइप सिस्टम में वैगन ब्रेक को छोड़ने में लगने वाला समय है",
+    "o": [
+      "60 Sec.",
+      "120 Sec.",
+      "210 Sec.",
+      "90 Sec."
+    ],
+    "c": 0
+  },
+  {
+    "q": "Distance between the control rod head and the barrel of SAB is named as",
+    "h": "कंट्रोल रॉड हेड और SAB के बैरल के बीच की दूरी को क्या नाम दिया गया है",
+    "o": [
+      "'E' dimensions",
+      "'C' dimension",
+      "'A' dimension",
+      "'d' dimension"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The capacity of compressor machine for air brake testing of rake is",
+    "h": "रेक के एयर ब्रेक परीक्षण के लिए कंप्रेसर मशीन की क्षमता है",
+    "o": [
+      "12-15 Kg/Cm2",
+      "8-10 Kg/Cm2",
+      "7-12 Kg/Cm2",
+      "7-8 Kg/Cm2"
+    ],
+    "c": 1
+  },
+  {
+    "q": "At the originating point, minimum brake power of premium end-to-end rake is",
+    "h": "प्रारंभिक बिंदु पर, प्रीमियम एंड-टू-एंड रेक की न्यूनतम ब्रेक पावर है",
+    "o": [
+      "85%",
+      "95%",
+      "90%",
+      "98%"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The brake power of CC rake from nodal point is",
+    "h": "नोडल बिंदु से CC रेक की ब्रेक पावर है",
+    "o": [
+      "90%",
+      "100%",
+      "85%",
+      "75%"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Brake power certified issued for Premium end-to-end rakes will be valid for",
+    "h": "प्रीमियम एंड-टू-एंड रेक के लिए जारी ब्रेक पावर प्रमाणित कब तक मान्य होगा",
+    "o": [
+      "10+5 days",
+      "12+3 days",
+      "15+3 days",
+      "one month"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is the function of DC (Dirt collector)?",
+    "h": "DC (Dirt collector) का कार्य क्या है?",
+    "o": [
+      "Collect dirt",
+      "Collect air",
+      "Clean air",
+      "Clean CR"
+    ],
+    "c": 2
+  },
+  {
+    "q": "How much pressure should drop in a minute after putting a test plate in locomotive?",
+    "h": "लोकोमोटिव में टेस्ट प्लेट लगाने के बाद एक मिनट में कितना दबाव गिरना चाहिए?",
+    "o": [
+      "0.8 Kg/Cm2",
+      "1.0 Kg/Cm2",
+      "1.2 Kg/Cm2",
+      "1.5 Kg/Cm2"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The colour for brake power certificate for Premium end-to-end rake is",
+    "h": "प्रीमियम एंड-टू-एंड रेक के लिए ब्रेक पावर प्रमाणपत्र का रंग है",
+    "o": [
+      "Green",
+      "White",
+      "Pink",
+      "Yellow"
+    ],
+    "c": 0
+  },
+  {
+    "q": "For testing DV the time required for brake cylinder draining from 3.8 to .04 kg/cm2 is",
+    "h": "DV के परीक्षण के लिए ब्रेक सिलेंडर को 3.8 से .04 kg/cm2 तक खाली करने के लिए आवश्यक समय है",
+    "o": [
+      "30-40 sec",
+      "40-50 sec",
+      "45-60 sec",
+      "50-75 sec"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the piston stroke of BVZC wagons?",
+    "h": "BVZC वैगनों का पिस्टन स्ट्रोक क्या है?",
+    "o": [
+      "50+/-10 mm",
+      "70+/-10 mm",
+      "85+/-10 mm",
+      "90+/- 5 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is the empty piston stroke of BOBR/BOBRN wagon is",
+    "h": "BOBR/BOBRN वैगन का खाली पिस्टन स्ट्रोक क्या है",
+    "o": [
+      "70+/-10 mm",
+      "75+/-10 mm",
+      "80+/-10 mm",
+      "100+/-10 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "'A' dimension of the BOBRN wagon is",
+    "h": "BOBRN वैगन का 'A' आयाम है",
+    "o": [
+      "29+/-2mm",
+      "27+/-2mm",
+      "33+/-2mm",
+      "25+/-5 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the colour of BPC of air brake CC rake?",
+    "h": "एयर ब्रेक CC रेक के BPC का रंग क्या है?",
+    "o": [
+      "Red",
+      "Pink",
+      "Green",
+      "Yellow"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Control rod of SAB when rotated for one round, control rod head moves by a distance of",
+    "h": "SAB की कंट्रोल रॉड को एक चक्कर घुमाने पर, कंट्रोल रॉड हेड कितनी दूरी तय करता है",
+    "o": [
+      "6.0 mm",
+      "4.0 mm",
+      "2.0 mm",
+      "1.0 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "In wagon, hand brake is used when",
+    "h": "वैगन में, हैंड ब्रेक का उपयोग कब किया जाता है",
+    "o": [
+      "Standing in yard",
+      "Running in down gradient",
+      "Running in up gradient",
+      "None of the above"
+    ],
+    "c": 0
+  },
+  {
+    "q": "SAB adjust clearance between",
+    "h": "SAB किसके बीच क्लीयरेंस समायोजित करता है",
+    "o": [
+      "Wheel and brake block",
+      "Tie Rod and Brake block",
+      "Anchor pin to control rod",
+      "None of the above"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The M.R. pressure of engine should be",
+    "h": "इंजन का M.R. दबाव होना चाहिए",
+    "o": [
+      "6.0 to 8.0 Kg/Cm2",
+      "8.0 to 10.0 Kg/Cm2",
+      "10.0 to 12.0 Kg/Cm2",
+      "12.0 to 15.0 Kg/Cm2"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What do you mean of SWTR?",
+    "h": "SWTR से आपका क्या मतलब है?",
+    "o": [
+      "Single wagon test rubber",
+      "Single wagon test rig",
+      "Sliding wagon test ring",
+      "None of the above"
+    ],
+    "c": 1
+  },
+  {
+    "q": "If C3W type DV is manually released, pressure is released from",
+    "h": "यदि C3W प्रकार के DV को मैन्युअल रूप से छोड़ा जाता है, तो दबाव कहाँ से निकलता है",
+    "o": [
+      "AR",
+      "Control reservoir",
+      "Brake cylinder",
+      "All above"
+    ],
+    "c": 2
+  },
+  {
+    "q": "To uncouple BP or FP air hose it is essential to",
+    "h": "BP या FP एयर नली को अलग करने के लिए क्या आवश्यक है",
+    "o": [
+      "Open adjacent angle cock",
+      "Close adjacent angle cocks",
+      "Close supply of air from loco",
+      "None of the above"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The Empty Load Device indicator plate shows",
+    "h": "खाली लोड डिवाइस इंडिकेटर प्लेट क्या दिखाती है",
+    "o": [
+      "Yellow empty, black loaded",
+      "Blue empty, black loaded",
+      "White empty, black loaded",
+      "Black empty, blue loaded"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The first step of releasing brake binding in conventional A/B system is to",
+    "h": "पारंपरिक A/B सिस्टम में ब्रेक बाइंडिंग को छोड़ने का पहला कदम है",
+    "o": [
+      "Open vent plug of BC",
+      "Rotate SAB",
+      "Take out pin of SAB",
+      "Isolate DV & release manually"
+    ],
+    "c": 3
+  },
+  {
+    "q": "The Type of dirt collector, used in wagon is",
+    "h": "वैगन में प्रयुक्त डर्ट कलेक्टर का प्रकार है",
+    "o": [
+      "2-way",
+      "3-way",
+      "Branch pipe of BP to DV",
+      "In BP"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The function of Return spring provided in air brake cylinder is",
+    "h": "एयर ब्रेक सिलेंडर में प्रदान किए गए रिटर्न स्प्रिंग का कार्य है",
+    "o": [
+      "To push the spring out side the piston",
+      "To push the piston inside the cylinder",
+      "To push the deed lever",
+      "To push the control rod"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Standard thickness of UIC/CASNUB bogies composite brake block is",
+    "h": "UIC/CASNUB बोगियों के मिश्रित ब्रेक ब्लॉक की मानक मोटाई है",
+    "o": [
+      "60 mm",
+      "45 mm",
+      "55 mm",
+      "58 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "How many side frame fitted in CASNUB trolley / bogie?",
+    "h": "CASNUB ट्रॉली / बोगी में कितने साइड फ्रेम लगे होते हैं?",
+    "o": [
+      "2",
+      "1",
+      "3",
+      "Nil"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the axle load of CASNUB trolley?",
+    "h": "CASNUB ट्रॉली का एक्सल लोड क्या है?",
+    "o": [
+      "19.2 ton",
+      "22.9 ton",
+      "20.3 ton.",
+      "20.9 ton"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the new wheel diameter CASNUB 22 w (Retrofitted)?",
+    "h": "CASNUB 22 w (रेट्रोफिटेड) का नया पहिया व्यास क्या है?",
+    "o": [
+      "1000 mm",
+      "960 mm",
+      "956 mm",
+      "946 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What type of pivot used in CASNUB 22WM, 22NL and other type of CASNUB trolley?",
+    "h": "CASNUB 22WM, 22NL और अन्य प्रकार की CASNUB ट्रॉली में किस प्रकार के पिवट का उपयोग किया जाता है?",
+    "o": [
+      "IRS type",
+      "Spherical type",
+      "other type",
+      "None of the above"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is the nominal leteral clearance between side frame & axle box/adopter Casnub 22NL, 22NLB, 22HS bogie?",
+    "h": "साइड फ्रेम और एक्सल बॉक्स/एडेप्टर कैसनब 22NL, 22NLB, 22HS बोगी के बीच नाममात्र पार्श्व निकासी क्या है?",
+    "o": [
+      "18 mm",
+      "16 mm",
+      "22 mm",
+      "25 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the standard inclination on wheel tread?",
+    "h": "पहिया चलने पर मानक झुकाव क्या है?",
+    "o": [
+      "1 in 20",
+      "1 in 22",
+      "1 in 18",
+      "1 in 25"
+    ],
+    "c": 0
+  },
+  {
+    "q": "How many types of adopters used in CASNUB trolley?",
+    "h": "CASNUB ट्रॉली में कितने प्रकार के एडॉप्टर का उपयोग किया जाता है?",
+    "o": [
+      "2",
+      "1",
+      "3",
+      "4"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Condemning size of elastomeric pad for Casnub bogie is",
+    "h": "कैसनब बोगी के लिए इलास्टोमेरिक पैड का कंडमिंग आकार है",
+    "o": [
+      "44 mm",
+      "43 mm",
+      "42 mm",
+      "40 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Nominal dimension of side bearer rubber pad for Casnub bogie is",
+    "h": "कैसनब बोगी के लिए साइड बियरर रबर पैड का नाममात्र आयाम है",
+    "o": [
+      "114 mm",
+      "116 mm",
+      "118 mm",
+      "120 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Condemning size of side bearer rubber pad for Casnub bogie is",
+    "h": "कैसनब बोगी के लिए साइड बियरर रबर पैड का कंडमिंग आकार है",
+    "o": [
+      "111 mm",
+      "110 mm",
+      "109 mm",
+      "108 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What type of side bearers fitted in CASNUB 22HS trolley?",
+    "h": "CASNUB 22HS ट्रॉली में किस प्रकार के साइड बियरर लगे हैं?",
+    "o": [
+      "Metal CC type",
+      "Spring loaded CC type side bearer & PU type",
+      "Roller type",
+      "none of the above"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Which types of steel are used in side frame column friction plates of Casnub bogie?",
+    "h": "कैसनब बोगी की साइड फ्रेम कॉलम घर्षण प्लेटों में किस प्रकार के स्टील का उपयोग किया जाता है?",
+    "o": [
+      "Mild steel",
+      "Carbon steel",
+      "Silico manganese steel",
+      "None of the above"
+    ],
+    "c": 2
+  },
+  {
+    "q": "What is the standard inclination on wheel flange?",
+    "h": "पहिया फ्लैंज पर मानक झुकाव क्या है?",
+    "o": [
+      "1 in 5",
+      "1 in 2.5",
+      "1 in 10",
+      "1 in 20"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Pay load of BTPN tank wagon is",
+    "h": "BTPN टैंक वैगन का पेलोड है",
+    "o": [
+      "58.88 tons",
+      "54.28 tons",
+      "55.80 tons",
+      "52.3 tons"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Axle load of BTPN tank wagon is",
+    "h": "BTPN टैंक वैगन का एक्सल लोड है",
+    "o": [
+      "20.32 tons",
+      "22.35 tons",
+      "21.35 tons",
+      "25.22 tons"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Cleaning of bitumen barrel is carried out with",
+    "h": "बिटुमेन बैरल की सफाई किसके साथ की जाती है",
+    "o": [
+      "Kerosene oil",
+      "patrol",
+      "ledium",
+      "None of the above"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Barrel length of BTPN tank wagon is",
+    "h": "BTPN टैंक वैगन की बैरल लंबाई है",
+    "o": [
+      "11460 mm",
+      "11550 mm",
+      "11458 mm",
+      "12100 mm"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Name the type of coupling used in BLC wagon?",
+    "h": "BLC वैगन में प्रयुक्त कपलिंग के प्रकार का नाम बताएं?",
+    "o": [
+      "CBC & Slack Less Drawbar",
+      "HT CBC",
+      "Screw coupling",
+      "Slackness drew bars"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Barrel diameter of BTPN tank wagon is",
+    "h": "BTPN टैंक वैगन का बैरल व्यास है",
+    "o": [
+      "2860 mm",
+      "2850 mm",
+      "2840 mm",
+      "2830 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "The mechanical code of bogie Petrol tank wagon fitted with pneumatic brake is",
+    "h": "वायवीय ब्रेक से सुसज्जित बोगी पेट्रोल टैंक वैगन का यांत्रिक कोड है",
+    "o": [
+      "BTPN",
+      "LBM",
+      "LBM",
+      "LCT"
+    ],
+    "c": 0
+  },
+  {
+    "q": "The mechanical code of caustic soda tank wagon is",
+    "h": "कास्टिक सोडा टैंक वैगन का यांत्रिक कोड है",
+    "o": [
+      "CTB & CTBS",
+      "TCS & BTCS",
+      "THA & BTCS",
+      "TCS & MBTS"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Codal life of Tank wagon is",
+    "h": "टैंक वैगन का कोडल जीवन है",
+    "o": [
+      "35 year",
+      "45 year",
+      "50 year",
+      "25 year"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In the tank wagon, close the vapour extractor cock after",
+    "h": "टैंक वैगन में, वाष्प निकालने वाले कॉक को किसके बाद बंद करें",
+    "o": [
+      "Un loading",
+      "Loading",
+      "Running",
+      "None of the above"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Working pressure of BTPN safety valve is",
+    "h": "BTPN सुरक्षा वाल्व का कामकाजी दबाव है",
+    "o": [
+      "1.4 Kg/cm2",
+      "4.1 Kg/cm2",
+      "2.1 Kg/cm2",
+      "1.2 Kg/cm2"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Interval of ROH in BTPN tank wagon is",
+    "h": "BTPN टैंक वैगन में ROH का अंतराल है",
+    "o": [
+      "16 month",
+      "20 month",
+      "18 month",
+      "24 month"
+    ],
+    "c": 3
+  },
+  {
+    "q": "Cleaning of H2SO4 tank wagon is carried out with",
+    "h": "H2SO4 टैंक वैगन की सफाई किसके साथ की जाती है",
+    "o": [
+      "Lithium phosphate",
+      "Sodium phosphate",
+      "Bromide phosphate",
+      "None of the above"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Air tightens test pressure of master valve is",
+    "h": "मास्टर वाल्व का वायु कसाव परीक्षण दबाव है",
+    "o": [
+      "0.35 to 0.056 kg/Cm2",
+      "0.45 to 0.65 kg/Cm2",
+      "0.65 to 0.75 kg/Cm2",
+      "None of the above"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What is the location of safety valves fitted in liquefied petroleum gas tank wagon?",
+    "h": "द्रवीकृत पेट्रोलियम गैस टैंक वैगन में लगे सुरक्षा वाल्वों का स्थान क्या है?",
+    "o": [
+      "Inside dome",
+      "Outside dome",
+      "Outside on barrel",
+      "None of the above"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Condemning limit of BLC wheel set is",
+    "h": "BLC व्हील सेट की कंडमिंग सीमा है",
+    "o": [
+      "900 mm",
+      "800 mm",
+      "670 mm",
+      "780 mm"
+    ],
+    "c": 3
+  },
+  {
+    "q": "For lifting the container, force required to lift the container on automatic twist lock is",
+    "h": "कंटेनर को उठाने के लिए, स्वचालित ट्विस्ट लॉक पर कंटेनर को उठाने के लिए आवश्यक बल है",
+    "o": [
+      "1050 Kg",
+      "1000 Kg",
+      "1100 Kg",
+      "11590 Kg"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In place of empty load box what device is used in BLC wagon?",
+    "h": "खाली लोड बॉक्स के स्थान पर BLC वैगन में किस उपकरण का उपयोग किया जाता है?",
+    "o": [
+      "BSD",
+      "LSD",
+      "SDF",
+      "SAB"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is the material specification of BLC wagon trolley?",
+    "h": "BLC वैगन ट्रॉली का सामग्री विनिर्देश क्या है?",
+    "o": [
+      "Cast steel",
+      "Low cast steel",
+      "Steel",
+      "Micro steel"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Length of over Slack less draw bar for B-car of BLC wagon is",
+    "h": "BLC वैगन की B-कार के लिए स्लैक कम ड्रॉ बार की लंबाई है",
+    "o": [
+      "14566 mm",
+      "13156 mm",
+      "12212 mm",
+      "14763 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The standard height of platform for BLC wagon from Rail level is",
+    "h": "रेल स्तर से BLC वैगन के लिए प्लेटफॉर्म की मानक ऊंचाई है",
+    "o": [
+      "1010 mm",
+      "1015 mm",
+      "1009 mm",
+      "1100 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "The axle load capacity of BLC wagon is",
+    "h": "BLC वैगन की एक्सल लोड क्षमता है",
+    "o": [
+      "20.10 ton.",
+      "20.32 ton.",
+      "21.10 ton.",
+      "23.10 ton."
+    ],
+    "c": 1
+  },
+  {
+    "q": "The tare weight of A-car of BLC wagon is",
+    "h": "BLC वैगन की A-कार का टेयर वजन है",
+    "o": [
+      "21.20 ton.",
+      "19.10 ton.",
+      "19.80 ton.",
+      "20.22 ton."
+    ],
+    "c": 1
+  },
+  {
+    "q": "The tare weight of B- car of BLC wagon is",
+    "h": "BLC वैगन की B-कार का टेयर वजन है",
+    "o": [
+      "18.10 ton.",
+      "19.10 ton.",
+      "19.80 ton.",
+      "20.20 ton."
+    ],
+    "c": 0
+  },
+  {
+    "q": "Length of over Headstock to Headstock for A-car of BLC wagon is",
+    "h": "BLC वैगन की A-कार के लिए हेडस्टॉक से हेडस्टॉक तक की लंबाई है",
+    "o": [
+      "13650 mm",
+      "13625 mm",
+      "13555 mm",
+      "13365 mm"
+    ],
+    "c": 1
+  },
+  {
+    "q": "In BLC wagon, height of slackness drowbar system from Rail level is",
+    "h": "BLC वैगन में, रेल स्तर से स्लैकनेस ड्रॉबार सिस्टम की ऊंचाई है",
+    "o": [
+      "890 mm",
+      "848 mm",
+      "845 mm",
+      "910 mm"
+    ],
+    "c": 2
+  },
+  {
+    "q": "How many automatic twist locks used in BLC wagon?",
+    "h": "BLC वैगन में कितने स्वचालित ट्विस्ट लॉक का उपयोग किया जाता है?",
+    "o": [
+      "6",
+      "8",
+      "10",
+      "12"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Rake carrying capacity of the BLC wagon is",
+    "h": "BLC वैगन की रेक ले जाने की क्षमता है",
+    "o": [
+      "40 wagons",
+      "45 wagons",
+      "40 wagons",
+      "48 wagons"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Which type of side bearer arrangement used in BLC trolley?",
+    "h": "BLC ट्रॉली में किस प्रकार की साइड बियरर व्यवस्था का उपयोग किया जाता है?",
+    "o": [
+      "Elestromatic",
+      "Constant contact type",
+      "Spring loaded side bearer and PU pad",
+      "None of the above"
+    ],
+    "c": 2
+  },
+  {
+    "q": "Which type of trolley used in BLC wagon?",
+    "h": "BLC वैगन में किस प्रकार की ट्रॉली का उपयोग किया जाता है?",
+    "o": [
+      "UIC trolley",
+      "Cast steel bogie type LCCF 20 (C)",
+      "IRS trolley",
+      "Diamond frame trolley"
+    ],
+    "c": 1
+  },
+  {
+    "q": "For automatic locking & for lifting of automatic twist lock how much force is Kg required, respectively?",
+    "h": "स्वचालित लॉकिंग और स्वचालित ट्विस्ट लॉक को उठाने के लिए क्रमशः कितने बल (किग्रा) की आवश्यकता होती है?",
+    "o": [
+      "600 & 1000 Kg",
+      "800 & 1200 Kg",
+      "1000 & 500 Kg",
+      "500 & 1350 Kg"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What type of roller bearing used in BLC wagon?",
+    "h": "BLC वैगन में किस प्रकार के रोलर बेयरिंग का उपयोग किया जाता है?",
+    "o": [
+      "Cartage type",
+      "Tapered two-row cartridge roller bearing",
+      "Sparical type",
+      "Plan bearing"
+    ],
+    "c": 1
+  },
+  {
+    "q": "What is the loading capacity of containers in BLC wagon?",
+    "h": "BLC वैगन में कंटेनरों की लोडिंग क्षमता क्या है?",
+    "o": [
+      "Two 20' or one 40'",
+      "Two 22' or one 45'",
+      "Three 15' or two 20'",
+      "Two 20' or one 45'"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of ART is",
+    "h": "ART का पूर्ण रूप है",
+    "o": [
+      "Accident Relief Train",
+      "Automatic Relief Train",
+      "Accident Rail Track",
+      "Auxiliary Relief Team"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of AAR is",
+    "h": "AAR का पूर्ण रूप है",
+    "o": [
+      "Association of American Railroad",
+      "Automatic Air Release",
+      "Asian Association of Railways",
+      "Accident Avoidance Rule"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of ACD is",
+    "h": "ACD का पूर्ण रूप है",
+    "o": [
+      "Anti Collision Device",
+      "Automatic Coupling Device",
+      "Air Charge Detector",
+      "Axle Control Device"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of ADD is",
+    "h": "ADD का पूर्ण रूप है",
+    "o": [
+      "Auto Driving Device",
+      "Air Discharge Device",
+      "Automatic Door Detector",
+      "Axle Drive Device"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of BOLT is",
+    "h": "BOLT का पूर्ण रूप है",
+    "o": [
+      "Build Operate Lease Transfer",
+      "Build Own Lease Transfer",
+      "Basic Operation Lease Transfer",
+      "Build Operate Land Transfer"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of BOOT is",
+    "h": "BOOT का पूर्ण रूप है",
+    "o": [
+      "Build Operate Own Transfer",
+      "Build Own Operate Transfer",
+      "Basic Operation Own Transfer",
+      "Build Operate Own Transport"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of BOT is",
+    "h": "BOT का पूर्ण रूप है",
+    "o": [
+      "Build Operate Transfer",
+      "Build Own Transfer",
+      "Basic Operation Transfer",
+      "Build Operate Transport"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of BIS is",
+    "h": "BIS का पूर्ण रूप है",
+    "o": [
+      "Bureau of Indian Standards",
+      "Board of Indian Standards",
+      "Basic Indian Standards",
+      "Bureau of International Standards"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CTRB is",
+    "h": "CTRB का पूर्ण रूप है",
+    "o": [
+      "Cartridge Tapered Roller Bearing",
+      "Central Tapered Roller Bearing",
+      "Cartridge Turning Roller Bearing",
+      "Central Track Roller Bearing"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of COFMOW is",
+    "h": "COFMOW का पूर्ण रूप है",
+    "o": [
+      "Central Organization for Modernization of Workshops",
+      "Central Office for Maintenance of Wagons",
+      "Committee for Modernization of Workshops",
+      "Central Organization for Mechanical Workshops"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CONCERT is",
+    "h": "CONCERT का पूर्ण रूप है",
+    "o": [
+      "Countrywide Online Networking Computer Enhanced Reservation and Ticketing",
+      "Central Online Network for Computer Enhanced Railway Ticketing",
+      "Computerized Network for Centralized Railway Ticketing",
+      "Combined Online Network for Computer Enhanced Reservation and Ticketing"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CRIS is",
+    "h": "CRIS का पूर्ण रूप है",
+    "o": [
+      "Centre for Railway Information System",
+      "Central Railway Information Service",
+      "Computerized Railway Information System",
+      "Centre for Rail Internet Systems"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CCRS is",
+    "h": "CCRS का पूर्ण रूप है",
+    "o": [
+      "Chief Commissioner of Railway Safety",
+      "Central Committee for Railway Safety",
+      "Chief Controller of Railway Systems",
+      "Central Commissioner of Rail Safety"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CRS is",
+    "h": "CRS का पूर्ण रूप है",
+    "o": [
+      "Commissioner of Railway Safety",
+      "Central Railway Safety",
+      "Chief Railway Supervisor",
+      "Computerized Reservation System"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CWR is",
+    "h": "CWR का पूर्ण रूप है",
+    "o": [
+      "Continuous Welded Rail",
+      "Central Western Railway",
+      "Continuous Wagon Repair",
+      "Concrete Wooden Rail"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CONCOR is",
+    "h": "CONCOR का पूर्ण रूप है",
+    "o": [
+      "Container Corporation of India Ltd",
+      "Central Organization for New Containers",
+      "Container Coordination of Railways",
+      "Confederation of Container Operations"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of COIS is",
+    "h": "COIS का पूर्ण रूप है",
+    "o": [
+      "Coaching Operations Information System",
+      "Central Operating Information System",
+      "Computerized Operations Information System",
+      "Coaching Online Information System"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of COEA is",
+    "h": "COEA का पूर्ण रूप है",
+    "o": [
+      "Cabinet Committee on Economic Affairs",
+      "Central Organization for Economic Affairs",
+      "Committee on Economic Adjustment",
+      "Cabinet Office of Economic Affairs"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CORE is",
+    "h": "CORE का पूर्ण रूप है",
+    "o": [
+      "Central Organization of Railway Electrification",
+      "Central Office of Railway Engineering",
+      "Committee on Railway Electrification",
+      "Central Operation for Railway Efficiency"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CPM is",
+    "h": "CPM का पूर्ण रूप है",
+    "o": [
+      "Critical Path Method",
+      "Central Project Manager",
+      "Chief Project Manager",
+      "Computerized Project Management"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CRA is",
+    "h": "CRA का पूर्ण रूप है",
+    "o": [
+      "Central Record Keeping Agency",
+      "Chief Railway Administrator",
+      "Central Railway Association",
+      "Computerized Record Agency"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CMS is",
+    "h": "CMS का पूर्ण रूप है",
+    "o": [
+      "Crew Management System",
+      "Central Monitoring System",
+      "Computerized Maintenance System",
+      "Coach Management System"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of DMRC is",
+    "h": "DMRC का पूर्ण रूप है",
+    "o": [
+      "Delhi Metro Railway Corporation",
+      "Division of Mechanical Railway Components",
+      "Department of Metro Rail Corporation",
+      "Direct Metro Rail Connection"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of DRF is",
+    "h": "DRF का पूर्ण रूप है",
+    "o": [
+      "Depreciation Reserve Fund",
+      "Disaster Relief Fund",
+      "Direct Railway Fund",
+      "Departmental Reserve Fund"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of DF is",
+    "h": "DF का पूर्ण रूप है",
+    "o": [
+      "Development Fund",
+      "Diesel Fuel",
+      "Direct Finance",
+      "Departmental Fund"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of EOL is",
+    "h": "EOL का पूर्ण रूप है",
+    "o": [
+      "Engine On Load",
+      "End of Line",
+      "Extra Ordinary Leave",
+      "Electronic Operation Log"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of EBD is",
+    "h": "EBD का पूर्ण रूप है",
+    "o": [
+      "Emergency Braking Distance",
+      "Electronic Brake Device",
+      "Engine Breakdown Data",
+      "Effective Braking Distance"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of FOIS is",
+    "h": "FOIS का पूर्ण रूप है",
+    "o": [
+      "Freight Operations Information System",
+      "Freight Organization Information System",
+      "Fast Operation Information System",
+      "Freight Online Integrated System"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of FWP is",
+    "h": "FWP का पूर्ण रूप है",
+    "o": [
+      "Final Works Program",
+      "Freight Wagon Program",
+      "Financial Works Plan",
+      "Forward Works Proposal"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of PWP is",
+    "h": "PWP का पूर्ण रूप है",
+    "o": [
+      "Preliminary Works Program",
+      "Planned Works Program",
+      "Proposed Works Plan",
+      "Project Works Program"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of LSWP is",
+    "h": "LSWP का पूर्ण रूप है",
+    "o": [
+      "Lump Sum Works Program",
+      "Large Scale Works Program",
+      "Limited Service Works Program",
+      "Local Sector Works Program"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of GSM-R is",
+    "h": "GSM-R का पूर्ण रूप है",
+    "o": [
+      "Global System for Mobile Communications - Railway",
+      "Global Satellite Mobile - Railway",
+      "General System for Mobile - Recording",
+      "Global Standard Mobile - Railway"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of GPS is",
+    "h": "GPS का पूर्ण रूप है",
+    "o": [
+      "Global Positioning System",
+      "General Positioning System",
+      "Global Placement System",
+      "Ground Positioning Satellite"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of GTR is",
+    "h": "GTR का पूर्ण रूप है",
+    "o": [
+      "Gross Traffic Receipt",
+      "General Traffic Rule",
+      "Global Train Report",
+      "Goods Train Register"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of HOER is",
+    "h": "HOER का पूर्ण रूप है",
+    "o": [
+      "Hours of Employment Regulation",
+      "Head Office of Eastern Railway",
+      "High Operating Efficiency Ratio",
+      "Hours of Engine Running"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of HRD is",
+    "h": "HRD का पूर्ण रूप है",
+    "o": [
+      "Hydraulic Rescue Device / Human Resource Development",
+      "Heavy Railway Duty",
+      "High Resistance Device",
+      "Head of Railway Department"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of HDPE is",
+    "h": "HDPE का पूर्ण रूप है",
+    "o": [
+      "High Density Poly Ethylene",
+      "Heavy Duty Poly Ethylene",
+      "High Durability Plastic Equipment",
+      "Heat Deflection Poly Ethylene"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IBRD is",
+    "h": "IBRD का पूर्ण रूप है",
+    "o": [
+      "International Bank for Reconstruction and Development",
+      "Indian Board for Railway Development",
+      "International Board for Railway Design",
+      "Indian Bank for Rural Development"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IRCTC is",
+    "h": "IRCTC का पूर्ण रूप है",
+    "o": [
+      "Indian Railway Catering & Tourism Corporation",
+      "Indian Railway Commercial & Transport Corporation",
+      "Indian Railway Catering & Travel Center",
+      "International Railway Catering & Tourism Corporation"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IVRS is",
+    "h": "IVRS का पूर्ण रूप है",
+    "o": [
+      "Interactive Voice Response System",
+      "Integrated Voice Recording System",
+      "Indian Vehicle Registration System",
+      "Instant Verification and Reporting System"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CAMTECH is",
+    "h": "CAMTECH का पूर्ण रूप है",
+    "o": [
+      "Centre for Advanced Maintenance Technology",
+      "Central Agency for Modern Technology",
+      "Committee for Advanced Mechanical Technology",
+      "Computer Aided Maintenance Technology"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of ICF is",
+    "h": "ICF का पूर्ण रूप है",
+    "o": [
+      "Integral Coach Factory",
+      "Indian Coach Factory",
+      "International Coach Factory",
+      "Integrated Coach Facility"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of ICBM is",
+    "h": "ICBM का पूर्ण रूप है",
+    "o": [
+      "Inter Continental Ballistic Missiles",
+      "Integrated Circuit Board Module",
+      "Indian Council for Ballistic Missiles",
+      "Internal Combustion Ballistic Missile"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IRT is",
+    "h": "IRT का पूर्ण रूप है",
+    "o": [
+      "Institute of Rail Transport",
+      "Indian Railway Transport",
+      "International Rail Transit",
+      "Integrated Rail Technology"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IRCA is",
+    "h": "IRCA का पूर्ण रूप है",
+    "o": [
+      "Indian Railway Conference Association",
+      "Indian Railway Central Association",
+      "International Railway Conference Agency",
+      "Indian Rail Coach Association"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IRWO is",
+    "h": "IRWO का पूर्ण रूप है",
+    "o": [
+      "Indian Railway Welfare Organisation",
+      "Indian Railway Works Organisation",
+      "International Railway Welfare Organization",
+      "Indian Rail Workers Organization"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IRFC is",
+    "h": "IRFC का पूर्ण रूप है",
+    "o": [
+      "Indian Railway Finance Corporation",
+      "Indian Railway Freight Corporation",
+      "International Railway Finance Commission",
+      "Indian Rail Funding Corporation"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IRICEN is",
+    "h": "IRICEN का पूर्ण रूप है",
+    "o": [
+      "Indian Railway Institute of Civil Engineering",
+      "Indian Railway Institute of Construction Engineering",
+      "International Railway Institute of Civil Engineering",
+      "Indian Research Institute for Civil Engineering"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IRISET is",
+    "h": "IRISET का पूर्ण रूप है",
+    "o": [
+      "Indian Railway Institute of Signal Engineering and Telecommunication",
+      "Indian Railway Institute of Science Engineering and Technology",
+      "International Railway Institute of Signal and Telecommunication",
+      "Indian Research Institute for Signal Engineering Technology"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IRIMEE is",
+    "h": "IRIMEE का पूर्ण रूप है",
+    "o": [
+      "Indian Railway Institute of Mechanical and Electrical Engineering",
+      "Indian Railway Institute of Mechanical Engineering Education",
+      "Indian Research Institute of Mechanical and Electrical Engineering",
+      "International Railway Institute of Mechanical and Electrical Engineering"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IRIEE is",
+    "h": "IRIEE का पूर्ण रूप है",
+    "o": [
+      "Indian Railway Institute of Electrical Engineering",
+      "Indian Railway Institute of Electronics Engineering",
+      "International Railway Institute of Electrical Engineering",
+      "Indian Research Institute of Electrical Engineering"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of MMD is",
+    "h": "MMD का पूर्ण रूप है",
+    "o": [
+      "Maximum Moving Dimensions",
+      "Minimum Moving Dimensions",
+      "Maximum Material Density",
+      "Minimum Maintenance Duration"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of KRCL is",
+    "h": "KRCL का पूर्ण रूप है",
+    "o": [
+      "Konkan Railway Corporation Ltd",
+      "Kolkata Railway Corporation Ltd",
+      "Karnataka Railway Corporation Ltd",
+      "Kerala Railway Corporation Ltd"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of LWR is",
+    "h": "LWR का पूर्ण रूप है",
+    "o": [
+      "Long Welded Rail",
+      "Light Weight Rail",
+      "Long Wagon Rake",
+      "Linear Welded Rail"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of LLE is",
+    "h": "LLE का पूर्ण रूप है",
+    "o": [
+      "Life Line Express",
+      "Long Load Express",
+      "Low Level Entrance",
+      "Linear Line Engine"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of LSD is",
+    "h": "LSD का पूर्ण रूप है",
+    "o": [
+      "Load Sensing Device",
+      "Low Speed Device",
+      "Lateral Shock Damper",
+      "Linear Spring Device"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of LVCD is",
+    "h": "LVCD का पूर्ण रूप है",
+    "o": [
+      "Last Vehicle Check Device",
+      "Low Voltage Control Device",
+      "Lateral Vibration Control Device",
+      "Load Vehicle Check Device"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of MEMU is",
+    "h": "MEMU का पूर्ण रूप है",
+    "o": [
+      "Main Line Electrical Multiple Unit",
+      "Metro Electrical Multiple Unit",
+      "Mobile Electrical Maintenance Unit",
+      "Main Electrical Motor Unit"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of MRVC is",
+    "h": "MRVC का पूर्ण रूप है",
+    "o": [
+      "Mumbai Rail Vikas Corporation",
+      "Metro Rail Vikas Corporation",
+      "Maharashtra Railway Vikas Corporation",
+      "Mass Rapid Vehicle Corporation"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of NTES is",
+    "h": "NTES का पूर्ण रूप है",
+    "o": [
+      "National Train Enquiry System",
+      "Network Train Enquiry System",
+      "New Train Enquiry System",
+      "National Transport Enquiry System"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of OYWS is",
+    "h": "OYWS का पूर्ण रूप है",
+    "o": [
+      "Own Your Wagon Scheme",
+      "Own Your Warehouse Scheme",
+      "Open Your Wagon Scheme",
+      "Operational Year Wagon Scheme"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of PERT is",
+    "h": "PERT का पूर्ण रूप है",
+    "o": [
+      "Programme Evaluation Review Technique",
+      "Project Evaluation and Review Technique",
+      "Planned Evaluation and Reporting Technique",
+      "Process Evaluation Review Technique"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of PQRS is",
+    "h": "PQRS का पूर्ण रूप है",
+    "o": [
+      "Plasser Quick Relaying System",
+      "Permanent Quick Rail System",
+      "Premium Quality Rail System",
+      "Track Quick Relaying System"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of RRB is",
+    "h": "RRB का पूर्ण रूप है",
+    "o": [
+      "Railway Recruitment Board",
+      "Railway Regional Board",
+      "Rail Regulatory Board",
+      "Regional Recruitment Bureau"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of RLDA is",
+    "h": "RLDA का पूर्ण रूप है",
+    "o": [
+      "Rail Land Development Authority",
+      "Railway Land Development Agency",
+      "Rail Lease Development Authority",
+      "Railway Land Department Association"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of RRT is",
+    "h": "RRT का पूर्ण रूप है",
+    "o": [
+      "Railway Rates Tribunal",
+      "Railway Recruitment Tribunal",
+      "Rail Research Team",
+      "Rapid Rail Transit"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of SPAD is",
+    "h": "SPAD का पूर्ण रूप है",
+    "o": [
+      "Signal Passed at Danger",
+      "Signal Passed after Departure",
+      "Speed Passed at Danger",
+      "Stop Passed at Danger"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of SPART is",
+    "h": "SPART का पूर्ण रूप है",
+    "o": [
+      "Self Propelled Accident Relief Train",
+      "Special Accident Relief Train",
+      "Self Propelled Auxiliary Relief Train",
+      "Standard Propelled Accident Relief Train"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of TOT is",
+    "h": "TOT का पूर्ण रूप है",
+    "o": [
+      "Transfer of Technology",
+      "Time on Track",
+      "Total Operation Time",
+      "Track on Train"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of TPWS is",
+    "h": "TPWS का पूर्ण रूप है",
+    "o": [
+      "Train Protection and Warning System",
+      "Train Position Warning System",
+      "Track Protection Warning System",
+      "Total Protection and Warning System"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of USFD is",
+    "h": "USFD का पूर्ण रूप है",
+    "o": [
+      "Ultrasonic Flaw Detector",
+      "Ultra Sound Flaw Detection",
+      "Universal Steel Flaw Detector",
+      "Under Structure Flaw Detection"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of UTS is",
+    "h": "UTS का पूर्ण रूप है",
+    "o": [
+      "Unreserved Ticketing System",
+      "Universal Ticketing System",
+      "Unified Transport System",
+      "Urban Ticketing System"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of WILD is",
+    "h": "WILD का पूर्ण रूप है",
+    "o": [
+      "Wheel Impact Load Detector",
+      "Wagon Impact Load Detector",
+      "Weight Indicator and Load Detector",
+      "Wireless Integrated Load Device"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of BLC is",
+    "h": "BLC का पूर्ण रूप है",
+    "o": [
+      "Bogie Low height Container flat wagon",
+      "Bogie Long Covered wagon",
+      "Bogie Luggage Carrier",
+      "Bogie Low Capacity wagon"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CLW is",
+    "h": "CLW का पूर्ण रूप है",
+    "o": [
+      "Chittaranjan Locomotive Works",
+      "Central Locomotive Works",
+      "Chennai Locomotive Works",
+      "Central Loco Workshop"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of CPB is",
+    "h": "CPB का पूर्ण रूप है",
+    "o": [
+      "Common Pipe Bracket",
+      "Central Pipe Bracket",
+      "Control Pipe Bracket",
+      "Coach Pipe Bracket"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of DLW is",
+    "h": "DLW का पूर्ण रूप है",
+    "o": [
+      "Diesel Locomotive Works",
+      "Delhi Locomotive Works",
+      "Diesel Loco Workshop",
+      "Direct Locomotive Works"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of DCW is",
+    "h": "DCW का पूर्ण रूप है",
+    "o": [
+      "Diesel Component Works",
+      "Diesel Coach Works",
+      "Direct Current Works",
+      "Diesel Central Workshop"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of HSD is",
+    "h": "HSD का पूर्ण रूप है",
+    "o": [
+      "High Speed Diesel",
+      "Heavy Speed Diesel",
+      "High Standard Diesel",
+      "Hydro Static Diesel"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of IRCON is",
+    "h": "IRCON का पूर्ण रूप है",
+    "o": [
+      "Indian Railway Construction Corporation Ltd",
+      "International Railway Construction",
+      "Indian Railway Concrete Corporation",
+      "Indian Road Construction Company"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of LHB is",
+    "h": "LHB का पूर्ण रूप है",
+    "o": [
+      "Linke Hofmann Busch",
+      "Light Heavy Bogie",
+      "Long Haul Bogie",
+      "Linke Heavy Bogie"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of ODC is",
+    "h": "ODC का पूर्ण रूप है",
+    "o": [
+      "Over Dimensional Consignment",
+      "Over Dimensional Cargo",
+      "Ordinary Dimensional Consignment",
+      "Open Door Coach"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of RCF is",
+    "h": "RCF का पूर्ण रूप है",
+    "o": [
+      "Rail Coach Factory",
+      "Railway Coach Factory",
+      "Rail Car Factory",
+      "Railway Carriage Factory"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of RITES is",
+    "h": "RITES का पूर्ण रूप है",
+    "o": [
+      "Rail India Technical and Economic Services Ltd",
+      "Rail India Transportation Engineering Services",
+      "Railway Infrastructure and Technical Engineering",
+      "Rail India Technical Education Society"
+    ],
+    "c": 0
+  },
+  {
+    "q": "Full form of RWF is",
+    "h": "RWF का पूर्ण रूप है",
+    "o": [
+      "Rail Wheel Factory",
+      "Railway Wheel Factory",
+      "Rail Wagon Factory",
+      "Railway Workshop Factory"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'C' stand for?",
+    "h": "वैगन कोड 'C' का क्या अर्थ है?",
+    "o": [
+      "4 Wheeler Covered Wagon",
+      "Covered Bogie Wagon",
+      "Coal Wagon",
+      "Container Wagon"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'BC' stand for?",
+    "h": "वैगन कोड 'BC' का क्या अर्थ है?",
+    "o": [
+      "Covered Bogie Wagon",
+      "Bogie Coal Wagon",
+      "Bogie Container Wagon",
+      "Bogie Cement Wagon"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'KC' stand for?",
+    "h": "वैगन कोड 'KC' का क्या अर्थ है?",
+    "o": [
+      "4 Wheeler Open Wagon",
+      "Open Bogie Wagon",
+      "Covered 4 Wheeler Wagon",
+      "Crane Wagon"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'BKC' stand for?",
+    "h": "वैगन कोड 'BKC' का क्या अर्थ है?",
+    "o": [
+      "Open Bogie Wagon",
+      "Bogie Covered Wagon",
+      "Bogie Kitchen Car",
+      "Bogie Coal Wagon"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'BOX' stand for?",
+    "h": "वैगन कोड 'BOX' का क्या अर्थ है?",
+    "o": [
+      "All Welded Open Bogie Wagon",
+      "Bogie Open Extra High",
+      "Bogie Open X-Ray",
+      "Bogie Oil Express"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'BOXN' stand for?",
+    "h": "वैगन कोड 'BOXN' का क्या अर्थ है?",
+    "o": [
+      "All Welded Open Bogie Wagon with CBC Air Brake",
+      "Bogie Open Extra New",
+      "Bogie Open Non-stop",
+      "Bogie Open with Narrow width"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'BCN' stand for?",
+    "h": "वैगन कोड 'BCN' का क्या अर्थ है?",
+    "o": [
+      "All Welded Covered Bogie Wagon with CBC Air Brake",
+      "Bogie Covered New",
+      "Bogie Cement New",
+      "Bogie Container New"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'BTPN' stand for?",
+    "h": "वैगन कोड 'BTPN' का क्या अर्थ है?",
+    "o": [
+      "Bogie Tank Wagon for Petrol Air Brake",
+      "Bogie Tank Petrol New",
+      "Bogie Tarpaulin Petrol New",
+      "Bogie Tank Pressure New"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'BTPGLN' stand for?",
+    "h": "वैगन कोड 'BTPGLN' का क्या अर्थ है?",
+    "o": [
+      "Bogie Tank Wagon LPG with Air Brake",
+      "Bogie Tank Petrol Gas Liquid New",
+      "Bogie Tank Pressure Gas Liquid New",
+      "Bogie Tank Petrol Gas Low New"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'BRN' stand for?",
+    "h": "वैगन कोड 'BRN' का क्या अर्थ है?",
+    "o": [
+      "Bogie Flat Wagon Open with Air Brake",
+      "Bogie Rail New",
+      "Bogie Roof New",
+      "Bogie Rolling New"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the wagon code 'BVZC' stand for?",
+    "h": "वैगन कोड 'BVZC' का क्या अर्थ है?",
+    "o": [
+      "Guard Brake Van with CBC & Air Brake System",
+      "Bogie Van Zinc Carrier",
+      "Brake Van Zero Class",
+      "Guard Brake Van with Screw Coupling"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the coach code 'WCB' stand for?",
+    "h": "कोच कोड 'WCB' का क्या अर्थ है?",
+    "o": [
+      "Vestibuled Pantry Car",
+      "Vestibuled Chair Car",
+      "Vestibuled Cooling Bogie",
+      "Vestibuled Composite Brake Van"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the coach code 'WGACCN' stand for?",
+    "h": "कोच कोड 'WGACCN' का क्या अर्थ है?",
+    "o": [
+      "Vestibuled Air Conditioned Three Tier with Self Generating Electrical Equipment",
+      "Vestibuled AC Chair Car",
+      "Vestibuled General AC Class",
+      "Vestibuled AC Coupe"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the coach code 'WGACCW' stand for?",
+    "h": "कोच कोड 'WGACCW' का क्या अर्थ है?",
+    "o": [
+      "Vestibuled Air Conditioned Two Tier with Self Generating Electrical Equipment",
+      "Vestibuled AC Chair Car Wide",
+      "Vestibuled General AC Class Wide",
+      "Vestibuled AC Coupe Wide"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the coach code 'SLR' stand for?",
+    "h": "कोच कोड 'SLR' का क्या अर्थ है?",
+    "o": [
+      "Second Class Luggage and Brake Van",
+      "Sleeper Class Luggage Room",
+      "Special Luxury Room",
+      "Second Class Ladies Room"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the coach code 'RA' stand for?",
+    "h": "कोच कोड 'RA' का क्या अर्थ है?",
+    "o": [
+      "Inspection Carriage (Administrative)",
+      "Railway Administration Car",
+      "Rail Ambulance",
+      "Relief Accident Van"
+    ],
+    "c": 0
+  },
+  {
+    "q": "What does the coach code 'NMG' stand for?",
+    "h": "कोच कोड 'NMG' का क्या अर्थ है?",
+    "o": [
+      "New Modified Goods",
+      "New Motor Goods",
+      "Non Modified Goods",
+      "Narrow Gauge Motor Goods"
+    ],
+    "c": 0
+  }
+]
