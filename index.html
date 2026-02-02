@@ -1,1193 +1,798 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Contract Management Cell – Digital File System</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            iridescent1: "#8EC5FC",
-            iridescent2: "#E0C3FC",
-          },
-          boxShadow: {
-            glass: "0 25px 50px -12px rgba(0, 0, 0, 0.45)",
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    body {
-      min-height: 100vh;
-      background: radial-gradient(circle at 0% 0%, #8ec5fc 0, transparent 40%),
-                  radial-gradient(circle at 100% 0%, #e0c3fc 0, transparent 45%),
-                  radial-gradient(circle at 100% 100%, #f9f871 0, transparent 40%),
-                  radial-gradient(circle at 0% 100%, #ff9a9e 0, transparent 45%);
-      background-color: #050816;
-    }
-    .glass {
-      backdrop-filter: blur(18px);
-      background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.25);
-    }
-    .glass-strong {
-      backdrop-filter: blur(24px);
-      background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.06));
-      border: 1px solid rgba(255,255,255,0.45);
-    }
-    .iridescent-border {
-      border-image: linear-gradient(135deg, #8ec5fc, #e0c3fc, #f9f871, #ff9a9e) 1;
-      border-width: 2px;
-      border-style: solid;
-    }
-    .file-tag-pink { border-left: 4px solid #ff9aeb; }
-    .file-tag-brown { border-left: 4px solid #8b5a2b; }
-    .file-tag-white { border-left: 4px solid #f5f5f5; }
-    .slide-in {
-      animation: slide-in 0.3s ease-out forwards;
-    }
-    @keyframes slide-in {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Railways - JE Mock Test (Secured)</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+    <style>
+        :root { 
+            --primary: #b71c1c; 
+            --primary-dark: #7f0000;
+            --primary-light: #ffcdd2;
+            --primary-fade: rgba(183, 28, 28, 0.1);
+            
+            --secondary: #eceff1; 
+            --text: #263238; 
+            --correct: #2e7d32; 
+            --wrong: #c62828; 
+            --warning: #ff8f00; 
+            --skipped: #78909c; 
+            --header-bg: #fff;
+        }
+        
+        body { font-family: 'Segoe UI', 'Roboto', sans-serif; margin: 0; background: var(--secondary); color: var(--text); display: flex; flex-direction: column; height: 100vh; overflow: hidden; transition: background 0.3s; }
+
+        /* =========================================
+           1. STYLISH LOGIN PAGE CSS (New Added)
+           ========================================= */
+        #login-page {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #8E0E00 0%, #1F1C18 100%); /* Premium Red-Black Gradient */
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 10000;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px); /* Frosted Glass Effect */
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            width: 90%; max-width: 380px;
+            text-align: center;
+            animation: floatIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-logo-circle {
+            width: 90px; height: 90px; margin: -60px auto 20px auto;
+            background: white; border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            display: flex; align-items: center; justify-content: center;
+            border: 4px solid var(--secondary);
+        }
+        
+        .login-logo-img { width: 100%; height: auto; }
+
+        .login-title { font-size: 1.8rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; letter-spacing: -0.5px; text-transform: uppercase; }
+        .login-subtitle { font-size: 0.9rem; color: #555; margin-bottom: 30px; font-weight: 500; letter-spacing: 0.5px; }
+
+        .google-btn {
+            width: 100%; padding: 14px;
+            border: none; border-radius: 50px;
+            background-color: #1a73e8; color: white;
+            font-size: 1rem; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(26, 115, 232, 0.4);
+            transition: all 0.3s ease;
+        }
+        .google-btn:hover { background-color: #1557b0; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26, 115, 232, 0.6); }
+        .google-btn img { background: white; border-radius: 50%; padding: 2px; width: 24px; height: 24px; }
+
+        .error-message { 
+            color: #d32f2f; font-size: 0.85rem; margin-top: 20px; 
+            background: #ffcdd2; padding: 10px; border-radius: 8px; border: 1px solid #e57373;
+            display: none; animation: shake 0.5s;
+        }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } 100% { transform: translateX(0); } }
+
+        .railway-watermark { position: absolute; bottom: 20px; color: rgba(255,255,255,0.3); font-size: 0.8rem; letter-spacing: 1px; }
+
+        /* =========================================
+           2. MAIN APP CSS (Existing Code)
+           ========================================= */
+        #app-content { display: none; height: 100%; flex-direction: column; }
+
+        #loader { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.98); z-index:9999; display:none; justify-content:center; align-items:center; flex-direction:column; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #eee; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        header { background: var(--header-bg); color: #333; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-bottom: 3px solid var(--primary); z-index: 50; gap: 10px; }
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .header-controls { display: flex; align-items: center; gap: 15px; }
+
+        .railway-logo { width: 45px; height: 45px; background: url('https://upload.wikimedia.org/wikipedia/commons/8/83/Indian_Railways.svg') no-repeat center center; background-size: contain; flex-shrink: 0; }
+        .title-group h2 { margin: 0; font-size: 1.3rem; color: var(--primary); line-height: 1.2; font-weight: 700; }
+        .title-group p { margin: 0; font-size: 0.75rem; color: #666; font-weight: 500; }
+
+        /* User Profile in Header */
+        .user-profile { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold; color: var(--primary); background: #f5f5f5; padding: 5px 12px; border-radius: 20px; border: 1px solid #ddd; }
+        .logout-btn { background: none; border: none; color: var(--wrong); font-weight: bold; cursor: pointer; font-size: 0.8rem; margin-left: 5px; text-transform: uppercase; }
+        .logout-btn:hover { text-decoration: underline; }
+
+        /* Custom Dropdown */
+        .selector-group { display: flex; align-items: center; gap: 10px; position: relative; }
+        .selector-label { font-size: 0.9rem; font-weight: 700; color: #546e7a; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+        .custom-select { position: relative; width: 260px; font-family: 'Segoe UI', sans-serif; }
+        .select-selected { background-color: #f1f8e9; border: 2px solid var(--primary); border-radius: 30px; padding: 6px 35px 6px 15px; color: var(--primary-dark); font-weight: 600; font-size: 0.9rem; cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: all 0.3s; }
+        .select-selected:hover { background-color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .select-selected::after { content: "▼"; font-size: 0.7rem; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); transition: transform 0.3s; }
+        .select-selected.select-arrow-active::after { transform: translateY(-50%) rotate(180deg); }
+        .select-items { position: absolute; background-color: #fff; top: 110%; left: 0; right: 0; z-index: 999; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); overflow-y: auto; max-height: 200px !important; border: 1px solid #eee; animation: slideDown 0.2s ease-out; }
+        .select-hide { display: none; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .select-items div { padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #f0f0f0; color: #333; font-weight: 500; font-size: 0.9rem; transition: background 0.2s; }
+        .select-items div:last-child { border-bottom: none; }
+        .select-items div:hover { background-color: var(--primary-fade); color: var(--primary); font-weight: 700; }
+        .same-as-selected { background-color: var(--primary); color: #ffffff !important; }
+
+        .tools-group { display: flex; align-items: center; gap: 5px; background: #f5f5f5; padding: 4px 8px; border-radius: 30px; border: 1px solid #ddd; }
+        .timer-display { font-family: 'Courier New', monospace; font-weight: 800; font-size: 1.1rem; color: var(--primary); min-width: 60px; text-align: center; }
+        .timer-input { width: 35px; padding: 4px; border: 1px solid #ccc; border-radius: 4px; text-align: center; font-size: 0.8rem; }
+        .palette-wrapper { position: relative; }
+        .tool-btn { background: var(--primary); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; transition: 0.2s; flex-shrink: 0; }
+        .tool-btn:hover { transform: scale(1.1); }
+        .theme-panel { position: absolute; top: 45px; right: -10px; background: white; padding: 12px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); display: none; grid-template-columns: repeat(4, 1fr); gap: 10px; z-index: 100; border: 1px solid #eee; width: 140px; }
+        .theme-panel::before { content: ''; position: absolute; top: -8px; right: 18px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid white; }
+        .theme-dot { width: 25px; height: 25px; border-radius: 50%; cursor: pointer; border: 2px solid white; box-shadow: 0 0 0 1px #ccc; transition: transform 0.2s; }
+        .theme-dot:hover { transform: scale(1.2); }
+
+        .container { display: flex; flex: 1; overflow: hidden; padding: 15px; gap: 15px; position: relative; }
+        .q-area { flex: 3; background: white; padding: 0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; }
+        .sidebar { flex: 1; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow-y: auto; max-width: 320px; border-top: 5px solid var(--primary); }
+
+        .active-test-banner { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 15px 25px; font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+        .active-test-banner span { opacity: 0.9; font-size: 0.9rem; font-weight: 400; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+        .q-scroll-area { padding: 25px; overflow-y: auto; flex: 1; }
+        .q-meta { margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
+        .q-idx { font-weight: 700; color: var(--primary); font-size: 1.1rem; background: var(--primary-light); padding: 5px 12px; border-radius: 15px; }
+        .q-text { font-size: 1.25rem; margin-bottom: 10px; font-weight: 600; color: #263238; line-height: 1.4; }
+        .q-hindi { font-size: 1.15rem; margin-bottom: 25px; color: #455a64; font-family: 'Nirmala UI', sans-serif; }
+        
+        .options label { display: flex; align-items: flex-start; padding: 15px; margin-bottom: 12px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: 0.2s; background: #fff; position: relative; }
+        .options label:hover { background: #fafafa; border-color: var(--primary); }
+        .options input { margin-right: 15px; margin-top: 4px; transform: scale(1.3); accent-color: var(--primary); flex-shrink: 0; }
+        .options input:checked + span { font-weight: 600; color: var(--primary); }
+
+        .clear-btn { background: #fff; border: 1px solid #ef5350; color: #ef5350; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; margin-top: 15px; transition: 0.2s; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
+        .clear-btn:hover { background: #ef5350; color: white; box-shadow: 0 2px 5px rgba(239, 83, 80, 0.3); }
+
+        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
+        .p-btn { padding: 8px 0; background: #fff; border: 1px solid #cfd8dc; border-radius: 6px; cursor: pointer; text-align: center; font-size: 0.9rem; font-weight: 600; color:#455a64; transition: 0.2s; }
+        .p-btn:hover { background: #eceff1; }
+        .p-btn.done { background: var(--primary); color: white; border-color: var(--primary); }
+        .p-btn.curr { border: 2px solid var(--warning); transform: scale(1.1); box-shadow: 0 3px 6px rgba(0,0,0,0.15); z-index: 2; position: relative; }
+
+        .footer { padding: 15px 25px; display: flex; justify-content: space-between; border-top: 1px solid #eee; background: #fff; }
+        .btn { padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; color: white; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.1s; }
+        .btn:active { transform: scale(0.98); }
+        .prev { background: #78909c; } .next { background: var(--primary); } .sub { background: var(--correct); box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3); }
+        
+        #result { display: none; padding: 0; overflow-y: auto; background: #f0f2f5; position: absolute; top:0; left:0; width:100%; height:100%; z-index: 100; }
+        .res-container { max-width: 1100px; margin: 30px auto; padding: 0 20px 60px 20px; }
+        .res-header { text-align: center; margin-bottom: 30px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .res-header h1 { color: var(--primary); margin: 0 0 10px 0; font-size: 2.2rem; }
+        .score-row { display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+        .score-card { flex: 1; min-width: 300px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: relative; overflow: hidden; }
+        .score-card::before { content: ''; position: absolute; top:0; left:0; width: 6px; height: 100%; background: #ccc; }
+        .sc-official::before { background: var(--primary); }
+        .sc-practice::before { background: var(--warning); }
+        .sc-title { font-size: 1.2rem; font-weight: 700; color: #455a64; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .big-score { font-size: 3rem; font-weight: 800; color: #263238; line-height: 1; margin-bottom: 5px; }
+        .big-score span { font-size: 1.2rem; color: #90a4ae; font-weight: 600; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+        .stat-item div:first-child { font-size: 0.85rem; color: #78909c; font-weight: 600; }
+        .stat-item div:last-child { font-size: 1.1rem; font-weight: 700; }
+        .text-green { color: var(--correct); } .text-red { color: var(--wrong); }
+
+        .chart-row { display: flex; gap: 20px; margin-bottom: 30px; }
+        .chart-box { flex: 1; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .donut-chart { width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(var(--correct) 0deg 0deg, var(--wrong) 0deg 0deg, var(--skipped) 0deg 360deg); position: relative; margin-bottom: 20px; }
+        .donut-chart::after { content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110px; height: 110px; background: white; border-radius: 50%; }
+        .legend { display: flex; gap: 15px; justify-content: center; }
+        .l-item { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 600; color: #555; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        .table-container { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        thead th { position: sticky; top: 0; background: var(--primary); color: white; z-index: 10; padding: 15px; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        td { padding: 15px; border-bottom: 1px solid #eee; vertical-align: top; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #fafafa; }
+        .badge { padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; color: white; display: inline-block; min-width: 70px; text-align: center; text-transform: uppercase; }
+        .bg-cor { background-color: var(--correct); }
+        .bg-wro { background-color: var(--wrong); }
+        .bg-ski { background-color: var(--skipped); }
+        .check-btn { background-color: transparent; color: #1976d2; border: 1px solid #1976d2; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+        .check-btn:hover { background-color: #1976d2; color: white; box-shadow: 0 2px 5px rgba(25, 118, 210, 0.2); }
+
+        @media (max-width: 768px) { 
+            header { flex-direction: column; align-items: stretch; gap: 10px; padding: 15px; }
+            .header-left { justify-content: center; width: 100%; text-align: center; }
+            .header-controls { justify-content: space-between; width: 100%; gap: 10px; }
+            .selector-label { display: none; }
+            .custom-select { width: 100%; flex-grow: 1; }
+            .select-selected { font-size: 0.9rem; padding: 8px 15px; }
+            .container { flex-direction: column; overflow-y: auto; padding: 10px; } 
+            .q-area { flex: none; min-height: 450px; }
+            .sidebar { flex: none; max-width: 100%; max-height: 250px; order: 2; margin-top: 10px; }
+            .score-row, .chart-row { flex-direction: column; }
+            .tools-group { padding: 4px; }
+            .timer-input { display: none; }
+            .tool-btn { width: 28px; height: 28px; }
+        }
+    </style>
 </head>
-<body class="text-slate-100">
-  <div id="app"></div>
+<body>
 
-  <script>
-    /*************** CONFIG – SABSE UPAR YAHAN WORKER URL SET KARO **************/
-    let WORKER_URL = localStorage.getItem("workerUrl") || "https://fms1.clickworld.workers.dev";
-    /*****************************************************************************/
+<div id="login-page">
+    <div class="login-card">
+        <div class="login-logo-circle">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Indian_Railways.svg" alt="Railway Logo" class="login-logo-img">
+        </div>
+        <h2 class="login-title">JE Exam Portal</h2>
+        <p class="login-subtitle">Departmental Selection (LDCE)</p>
+        
+        <button class="google-btn" onclick="signIn()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
+            Sign in with Google
+        </button>
+        
+        <div id="login-error" class="error-message"></div>
+    </div>
+    <div class="railway-watermark">INDIAN RAILWAYS • SECURE EXAM SYSTEM</div>
+</div>
 
-    const app = document.getElementById("app");
+<div id="app-content">
+    
+    <div id="loader"><div class="spinner"></div><p id="loader-text" style="margin-top:15px; font-weight:bold; color:#555;">Initializing...</p></div>
 
-    let state = {
-      token: localStorage.getItem("token") || null,
-      user: JSON.parse(localStorage.getItem("user") || "null"),
-      page: localStorage.getItem("token") ? "dashboard" : "login",
-      theme: localStorage.getItem("theme") || "dark",
-      searchQuery: "",
-      searchResults: [],
-      searchOpen: false,
-      activeFileId: null,
-      fileDetails: null,
-      filesCache: [],
+    <header>
+        <div class="header-left">
+            <div class="railway-logo" title="Indian Railways"></div>
+            <div class="title-group">
+                <h2>JE Mock Test Engine</h2>
+                <p>Departmental Selection</p>
+            </div>
+        </div>
+        
+        <div class="header-controls">
+            <div class="user-profile">
+                <span id="display-user-name">User</span>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+
+            <div class="palette-wrapper">
+                <button class="tool-btn" onclick="toggleThemePanel()" title="Change Color Theme">🎨</button>
+                <div class="theme-panel" id="theme-panel">
+                    <div class="theme-dot" style="background:#b71c1c;" onclick="setTheme('#b71c1c', '#7f0000', '#ffcdd2', 'rgba(183, 28, 28, 0.1)')" title="Railway Red"></div>
+                    <div class="theme-dot" style="background:#1565c0;" onclick="setTheme('#1565c0', '#003c8f', '#bbdefb', 'rgba(21, 101, 192, 0.1)')" title="Ocean Blue"></div>
+                    <div class="theme-dot" style="background:#2e7d32;" onclick="setTheme('#2e7d32', '#005005', '#c8e6c9', 'rgba(46, 125, 50, 0.1)')" title="Forest Green"></div>
+                    <div class="theme-dot" style="background:#6a1b9a;" onclick="setTheme('#6a1b9a', '#38006b', '#e1bee7', 'rgba(106, 27, 154, 0.1)')" title="Royal Purple"></div>
+                    <div class="theme-dot" style="background:#00695c;" onclick="setTheme('#00695c', '#003d33', '#b2dfdb', 'rgba(0, 105, 92, 0.1)')" title="Teal"></div>
+                    <div class="theme-dot" style="background:#37474f;" onclick="setTheme('#37474f', '#102027', '#cfd8dc', 'rgba(55, 71, 79, 0.1)')" title="Dark Slate"></div>
+                    <div class="theme-dot" style="background:#e65100;" onclick="setTheme('#e65100', '#ac1900', '#ffe0b2', 'rgba(230, 81, 0, 0.1)')" title="Orange"></div>
+                    <div class="theme-dot" style="background:#283593;" onclick="setTheme('#283593', '#001064', '#c5cae9', 'rgba(40, 53, 147, 0.1)')" title="Indigo"></div>
+                </div>
+            </div>
+
+            <div class="tools-group">
+                <input type="number" id="manual-timer" class="timer-input" placeholder="Min">
+                <button class="tool-btn" onclick="setCustomTime()" title="Set Timer">✓</button>
+                <div class="timer-display" id="timer">60:00</div>
+            </div>
+
+            <div class="selector-group">
+                <span class="selector-label">Select Test:</span>
+                <div class="custom-select" id="custom-select">
+                    <div class="select-selected">Loading...</div>
+                    <div class="select-items select-hide" id="select-items"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="quiz-ui">
+        <div class="q-area">
+            <div class="active-test-banner">
+                <div id="active-test-name">Please Select a Test</div>
+                <span><span id="q-count">0</span> Questions</span>
+            </div>
+
+            <div class="q-scroll-area">
+                <div class="q-meta">
+                    <span id="q-idx" class="q-idx">Q. 1</span>
+                </div>
+                
+                <div id="q-content"></div>
+                
+                <button class="clear-btn" onclick="clearResponse()" id="clear-btn" style="display:none;">
+                    ✕ Clear Selection
+                </button>
+            </div>
+
+            <div class="footer">
+                <button class="btn prev" onclick="nav(-1)">Previous</button>
+                <button class="btn sub" onclick="finish()">Submit Test</button>
+                <button class="btn next" onclick="nav(1)">Next</button>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h3 style="margin-top:0; border-bottom:2px solid #eee; padding-bottom:10px; color:var(--primary);">Question Palette</h3>
+            <div class="grid" id="palette"></div>
+            <div style="font-size:0.8rem; margin-top:15px; display:flex; gap:15px; color:#555; justify-content: center;">
+                <div style="display:flex; align-items:center; gap:5px;"><span style="width:12px; height:12px; background:var(--primary); border-radius:3px;"></span> Done</div>
+                <div style="display:flex; align-items:center; gap:5px;"><span style="width:12px; height:12px; border:2px solid var(--warning); border-radius:3px;"></span> Current</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    // ============================================
+    // CONFIGURATION
+    // ============================================
+    const GH_USERNAME = 'unitrix2';    
+    const GH_REPO = 'fms1';     
+    const FOLDER_PATH = 'tests';     
+    
+    // ⚠️ IMPORTANT: PASTE YOUR FIREBASE CONFIG HERE ⚠️
+    // (Go to Firebase Console -> Project Settings -> General -> Your Apps -> Config)
+    const firebaseConfig = {
+        apiKey: "AIzaSyCxCLczt1L01qr3DmdvAv_EU3IsWhgxs0w",
+        authDomain: "fms1-39dca.firebaseapp.com",
+        projectId: "fms1-39dca",
+        storageBucket: "fms1-39dca.firebasestorage.app",
+        messagingSenderId: "46968102286",
+        appId: "1:46968102286:web:452d87de53dfcc2028d8df"
     };
+    // ============================================
 
-    applyTheme(state.theme);
-    render();
-
-    /*************** THEME *************************************/
-    function applyTheme(theme) {
-      const html = document.documentElement;
-      if (theme === "light") {
-        html.setAttribute("data-theme", "light");
-      } else {
-        html.setAttribute("data-theme", "dark");
-      }
+    // Initialize Firebase
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
     }
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
 
-    /*************** RENDER ROOT *******************************/
-    function render() {
-      if (!state.token) {
-        renderAuth();
-      } else {
-        renderMainLayout();
-      }
-    }
-
-    /*************** AUTH UI ***********************************/
-    function renderAuth() {
-      app.innerHTML = `
-        <div class="min-h-screen flex items-center justify-center px-4">
-          <div class="glass-strong shadow-glass rounded-3xl p-8 max-w-md w-full text-slate-100 iridescent-border">
-            <div class="flex justify-between items-center mb-6">
-              <h1 class="text-2xl font-semibold">Contract Cell – Secure Access</h1>
-              <button id="themeToggle" class="p-2 rounded-full glass text-xs">
-                ${state.theme === "dark" ? "Light" : "Dark"}
-              </button>
-            </div>
-
-            <div class="mb-4">
-              <label class="block text-sm mb-1">Cloudflare Worker URL</label>
-              <input id="workerUrlInput"
-                class="w-full glass px-3 py-2 rounded-xl text-sm outline-none"
-                placeholder="https://your-worker-url.example.com"
-                value="${WORKER_URL}">
-              <p class="text-xs text-slate-300 mt-1">
-                Backend ka URL yahan set karein. Saare API calls yahi jayenge.
-              </p>
-            </div>
-
-            <div class="flex gap-2 mb-6 text-xs">
-              <button id="tabLogin" class="flex-1 py-2 rounded-xl glass ${state.page === "login" ? "border border-iridescent1" : ""}">Login</button>
-              <button id="tabSignup" class="flex-1 py-2 rounded-xl glass ${state.page === "signup" ? "border border-iridescent1" : ""}">Sign up</button>
-            </div>
-
-            ${state.page === "login" ? loginFormHTML() : signupFormHTML()}
-          </div>
-        </div>
-      `;
-
-      document.getElementById("themeToggle").onclick = () => {
-        state.theme = state.theme === "dark" ? "light" : "dark";
-        localStorage.setItem("theme", state.theme);
-        applyTheme(state.theme);
-        render();
-      };
-      document.getElementById("workerUrlInput").onchange = (e) => {
-        WORKER_URL = e.target.value.trim();
-        localStorage.setItem("workerUrl", WORKER_URL);
-      };
-      document.getElementById("tabLogin").onclick = () => {
-        state.page = "login";
-        render();
-      };
-      document.getElementById("tabSignup").onclick = () => {
-        state.page = "signup";
-        render();
-      };
-
-      if (state.page === "login") bindLoginEvents();
-      else bindSignupEvents();
-    }
-
-    function loginFormHTML() {
-      return `
-        <form id="loginForm" class="space-y-4">
-          <div>
-            <label class="block text-sm mb-1">Email</label>
-            <input type="email" name="email" required
-              class="w-full glass px-3 py-2 rounded-xl text-sm outline-none">
-          </div>
-          <div>
-            <label class="block text-sm mb-1">Password</label>
-            <input type="password" name="password" required
-              class="w-full glass px-3 py-2 rounded-xl text-sm outline-none">
-          </div>
-          <button type="submit" class="w-full mt-4 py-2 rounded-xl glass-strong shadow-glass text-sm font-semibold">
-            Login
-          </button>
-          <p id="authMessage" class="text-xs text-red-300 mt-2"></p>
-        </form>
-      `;
-    }
-
-    function signupFormHTML() {
-      return `
-        <form id="signupForm" class="space-y-4">
-          <div>
-            <label class="block text-sm mb-1">Name</label>
-            <input type="text" name="name" required
-              class="w-full glass px-3 py-2 rounded-xl text-sm outline-none">
-          </div>
-          <div>
-            <label class="block text-sm mb-1">Email</label>
-            <input type="email" name="email" required
-              class="w-full glass px-3 py-2 rounded-xl text-sm outline-none">
-          </div>
-          <div>
-            <label class="block text-sm mb-1">Password</label>
-            <input type="password" name="password" required
-              class="w-full glass px-3 py-2 rounded-xl text-sm outline-none">
-          </div>
-          <button type="submit" class="w-full mt-4 py-2 rounded-xl glass-strong shadow-glass text-sm font-semibold">
-            Signup Request
-          </button>
-          <p id="authMessage" class="text-xs text-slate-200 mt-2">
-            Signup ke baad admin approval ke baad hi login hoga.
-          </p>
-        </form>
-      `;
-    }
-
-    function bindLoginEvents() {
-      const form = document.getElementById("loginForm");
-      form.onsubmit = async (e) => {
-        e.preventDefault();
-        const fd = new FormData(form);
-        const payload = {
-          email: fd.get("email"),
-          password: fd.get("password"),
-        };
-        try {
-          const res = await fetch(WORKER_URL + "/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-          const data = await res.json();
-          if (!res.ok) {
-            document.getElementById("authMessage").textContent = data.error || "Login failed";
-            return;
-          }
-          state.token = data.token;
-          state.user = data.user;
-          localStorage.setItem("token", state.token);
-          localStorage.setItem("user", JSON.stringify(state.user));
-          state.page = "dashboard";
-          render();
-        } catch (err) {
-          document.getElementById("authMessage").textContent = "Network error";
-        }
-      };
-    }
-
-    function bindSignupEvents() {
-      const form = document.getElementById("signupForm");
-      form.onsubmit = async (e) => {
-        e.preventDefault();
-        const fd = new FormData(form);
-        const payload = {
-          name: fd.get("name"),
-          email: fd.get("email"),
-          password: fd.get("password"),
-        };
-        try {
-          const res = await fetch(WORKER_URL + "/auth/signup", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-          const data = await res.json();
-          const msgEl = document.getElementById("authMessage");
-          if (!res.ok) {
-            msgEl.textContent = data.error || "Signup failed";
-            return;
-          }
-          msgEl.textContent = data.message || "Signup request sent.";
-        } catch (err) {
-          document.getElementById("authMessage").textContent = "Network error";
-        }
-      };
-    }
-
-    /*************** MAIN LAYOUT ********************************/
-    function renderMainLayout() {
-      app.innerHTML = `
-        <div class="min-h-screen flex flex-col">
-          <header class="glass-strong shadow-glass px-6 py-3 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-2xl glass flex items-center justify-center text-xs font-semibold">
-                CMC
-              </div>
-              <div>
-                <div class="text-sm font-semibold">Contract Management Cell</div>
-                <div class="text-xs text-slate-300">Digital File Management System</div>
-              </div>
-            </div>
-            <div class="flex-1 mx-8">
-              ${searchBoxHTML()}
-            </div>
-            <div class="flex items-center gap-3">
-              <button id="themeToggle" class="glass px-3 py-1 rounded-xl text-xs">
-                ${state.theme === "dark" ? "🌙 Dark" : "☀️ Light"}
-              </button>
-              <div class="text-xs text-right">
-                <div>${state.user?.name || "User"}</div>
-                <div class="text-slate-300">${state.user?.email || ""}</div>
-              </div>
-              <button id="logoutBtn" class="glass px-3 py-1 rounded-xl text-xs">
-                Logout
-              </button>
-            </div>
-          </header>
-
-          <div class="flex flex-1 overflow-hidden">
-            <aside class="w-60 glass-strong shadow-glass m-4 rounded-3xl p-4 flex flex-col gap-2">
-              <button data-page="dashboard" class="nav-btn ${state.page === "dashboard" ? "bg-white/10" : ""}">Dashboard</button>
-              <button data-page="files" class="nav-btn ${state.page === "files" ? "bg-white/10" : ""}">File Manager</button>
-              <button data-page="admin" class="nav-btn ${state.page === "admin" ? "bg-white/10" : ""}">Admin Panel</button>
-              <button data-page="settings" class="nav-btn ${state.page === "settings" ? "bg-white/10" : ""}">Settings</button>
-            </aside>
-
-            <main class="flex-1 m-4 mr-4 glass-strong shadow-glass rounded-3xl p-4 overflow-auto relative">
-              ${state.page === "dashboard"
-                ? dashboardHTML()
-                : state.page === "files"
-                ? fileManagerHTML()
-                : state.page === "admin"
-                ? adminPanelHTML()
-                : settingsHTML()
-              }
-            </main>
-          </div>
-
-          ${state.fileDetails ? filePreviewSliderHTML() : ""}
-        </div>
-      `;
-
-      document.querySelectorAll(".nav-btn").forEach((btn) => {
-        btn.classList.add("w-full", "text-left", "px-3", "py-2", "rounded-2xl", "text-sm");
-        btn.onclick = () => {
-          state.page = btn.dataset.page;
-          render();
-        };
-      });
-
-      document.getElementById("logoutBtn").onclick = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        state.token = null;
-        state.user = null;
-        state.page = "login";
-        render();
-      };
-
-      document.getElementById("themeToggle").onclick = () => {
-        state.theme = state.theme === "dark" ? "light" : "dark";
-        localStorage.setItem("theme", state.theme);
-        applyTheme(state.theme);
-        render();
-      };
-
-      bindSearchEvents();
-      const workerInput = document.getElementById("settingsWorkerUrl");
-      if (workerInput) {
-        workerInput.onchange = (e) => {
-          WORKER_URL = e.target.value.trim();
-          localStorage.setItem("workerUrl", WORKER_URL);
-        };
-      }
-
-      bindFileManagerEvents();
-      bindSettingsEvents();
-    }
-
-    /*************** SEARCH UI *********************************/
-    function searchBoxHTML() {
-      const suggestions =
-        state.searchOpen && state.searchResults.length
-          ? `<div class="absolute mt-1 w-full glass rounded-2xl shadow-glass max-h-64 overflow-auto z-20">
-              ${state.searchResults
-                .map(
-                  (r, idx) => `
-                <div class="px-3 py-2 text-xs hover:bg-white/10 cursor-pointer" data-idx="${idx}">
-                  <div class="font-semibold">${r.label}</div>
-                  <div class="text-[10px] text-slate-300 uppercase">${r.type}</div>
-                </div>`
-                )
-                .join("")}
-            </div>`
-          : "";
-
-      return `
-        <div class="relative">
-          <input id="globalSearch"
-            class="w-full glass px-4 py-2 rounded-2xl text-xs outline-none"
-            placeholder="Search by File No, File Name, Firm, Contract..."
-            value="${state.searchQuery}">
-          ${suggestions}
-        </div>
-      `;
-    }
-
-    function bindSearchEvents() {
-      const input = document.getElementById("globalSearch");
-      if (!input) return;
-      let timer = null;
-
-      input.oninput = (e) => {
-        state.searchQuery = e.target.value;
-        if (timer) clearTimeout(timer);
-        if (!state.searchQuery.trim()) {
-          state.searchResults = [];
-          state.searchOpen = false;
-          render();
-          return;
-        }
-        timer = setTimeout(() => doSearch(state.searchQuery), 250);
-      };
-
-      input.onfocus = () => {
-        if (state.searchResults.length) {
-          state.searchOpen = true;
-          render();
-        }
-      };
-
-      document.addEventListener(
-        "click",
-        (e) => {
-          if (!e.target.closest("#globalSearch") && !e.target.closest("[data-idx]")) {
-            if (state.searchOpen) {
-              state.searchOpen = false;
-              render();
-            }
-          }
-        },
-        { capture: true }
-      );
-
-      document.querySelectorAll("[data-idx]").forEach((el) => {
-        el.onclick = () => {
-          const idx = Number(el.dataset.idx);
-          const item = state.searchResults[idx];
-          handleSearchSelect(item);
-        };
-      });
-    }
-
-    async function doSearch(q) {
-      try {
-        const res = await fetch(WORKER_URL + "/search?q=" + encodeURIComponent(q), {
-          headers: { Authorization: "Bearer " + state.token },
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          console.error(data);
-          return;
-        }
-        state.searchResults = data.results || [];
-        state.searchOpen = true;
-        render();
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    function handleSearchSelect(item) {
-      state.searchOpen = false;
-      state.searchQuery = "";
-      if (item.type === "file") {
-        state.page = "files";
-        state.activeFileId = item.id;
-        loadFileDetails(item.id);
-      } else if (item.type === "firm" || item.type === "contract") {
-        state.page = "dashboard";
-      }
-      render();
-    }
-
-    /*************** DASHBOARD *********************************/
-    function dashboardHTML() {
-      return `
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <h2 class="text-lg font-semibold">Dashboard</h2>
-            <span class="text-xs text-slate-300">
-              Basic stats – aap baad me /stats endpoint se graphs add kar sakte hain.
-            </span>
-          </div>
-          <div class="grid md:grid-cols-3 gap-4">
-            <div class="glass rounded-2xl p-4">
-              <div class="text-xs text-slate-300 mb-1">Total Files</div>
-              <div id="dashTotalFiles" class="text-2xl font-semibold">–</div>
-            </div>
-            <div class="glass rounded-2xl p-4">
-              <div class="text-xs text-slate-300 mb-1">Active Contracts</div>
-              <div id="dashActiveContracts" class="text-2xl font-semibold">–</div>
-            </div>
-            <div class="glass rounded-2xl p-4">
-              <div class="text-xs text-slate-300 mb-1">Firms</div>
-              <div id="dashFirms" class="text-2xl font-semibold">–</div>
-            </div>
-          </div>
-          <p class="text-xs text-slate-300">
-            Abhi ye numbers static hain; aap easily backend me endpoints banake yahan dynamic values la sakte ho.
-          </p>
-        </div>
-      `;
-    }
-
-    /*************** FILE MANAGER ******************************/
-    function fileManagerHTML() {
-      const activeFileInfo = state.fileDetails
-        ? `<div class="text-xs text-slate-300 mt-1">${state.fileDetails.file.fileNo} – ${state.fileDetails.file.fileName}</div>`
-        : `<div class="text-xs text-slate-400 mt-1">Search se file select karein ya nayi file banayein.</div>`;
-
-      return `
-        <div class="flex h-full">
-          <div class="w-72 border-r border-white/10 pr-3 mr-3 overflow-auto">
-            <div class="flex items-center justify-between mb-3">
-              <h2 class="text-sm font-semibold">Files & Sub-Files</h2>
-              <button id="btnNewFile" class="text-xs glass px-2 py-1 rounded-xl">+ New File</button>
-            </div>
-            <div id="fileTree" class="space-y-1 text-xs text-slate-300">
-              ${renderFileTree()}
-            </div>
-          </div>
-
-          <div class="flex-1 flex flex-col overflow-hidden">
-            <div class="flex items-center justify-between mb-2">
-              <div>
-                <h2 class="text-sm font-semibold">Details</h2>
-                ${activeFileInfo}
-              </div>
-              <div class="flex gap-2">
-                <button id="btnNewSubFile" class="text-xs glass px-2 py-1 rounded-xl">
-                  + New Sub-file
-                </button>
-                <button id="btnShowQR" class="text-xs glass px-2 py-1 rounded-xl">
-                  Show QR
-                </button>
-              </div>
-            </div>
-
-            <div class="flex gap-4 h-[calc(100%-2rem)]">
-              <div class="flex-1 overflow-auto">
-                ${fileDetailsFormHTML()}
-              </div>
-              <div class="w-72 border-l border-white/10 pl-3">
-                <div class="flex items-center justify-between mb-2">
-                  <h3 class="text-xs font-semibold">Documents</h3>
-                  <button id="btnUploadDoc" class="text-[11px] glass px-2 py-1 rounded-xl">+ Upload</button>
-                </div>
-                <div id="docList" class="space-y-1 text-xs">
-                  ${renderDocList()}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderFileTree() {
-      const files = state.filesCache || [];
-      if (!files.length) {
-        return `<div class="text-slate-400 text-[11px]">Abhi file list load nahi hui. Search se open karein ya refresh karein.</div>`;
-      }
-      const byParent = {};
-      for (const f of files) {
-        const parentId = f.parentId || "root";
-        if (!byParent[parentId]) byParent[parentId] = [];
-        byParent[parentId].push(f);
-      }
-      function renderNode(parentId, level) {
-        const list = byParent[parentId] || [];
-        return list
-          .map((f) => {
-            const isActive = String(f.id) === String(state.activeFileId);
-            return `
-              <div class="pl-${level * 3}">
-                <div class="flex items-center gap-1">
-                  <button class="text-left w-full px-2 py-1 rounded-xl ${
-                    isActive ? "glass-strong" : "glass"
-                  } text-[11px]" data-file-id="${f.id}">
-                    ${f.fileNo || ""} – ${f.fileName || ""}
-                  </button>
-                </div>
-                ${renderNode(f.id, level + 1)}
-              </div>
-            `;
-          })
-          .join("");
-      }
-      return renderNode("root", 0);
-    }
-
-    function fileDetailsFormHTML() {
-      const f = state.fileDetails?.file || {};
-      const cat = (f.category || "").toUpperCase();
-      const catClass =
-        cat === "PINK_FILE"
-          ? "file-tag-pink"
-          : cat === "BROWN_FILE"
-          ? "file-tag-brown"
-          : "file-tag-white";
-
-      return `
-        <form id="fileDetailsForm" class="space-y-3 text-xs ${catClass} glass rounded-2xl p-4">
-          <div class="grid md:grid-cols-3 gap-3">
-            <div>
-              <label class="block mb-1">File No.</label>
-              <input name="fileNo" value="${f.fileNo || ""}" class="w-full glass px-2 py-1 rounded-xl">
-            </div>
-            <div>
-              <label class="block mb-1">File Name</label>
-              <input name="fileName" value="${f.fileName || ""}" class="w-full glass px-2 py-1 rounded-xl">
-            </div>
-            <div>
-              <label class="block mb-1">Category</label>
-              <select name="category" class="w-full glass px-2 py-1 rounded-xl">
-                <option value="PINK_FILE" ${cat === "PINK_FILE" ? "selected" : ""}>Pink File</option>
-                <option value="BROWN_FILE" ${cat === "BROWN_FILE" ? "selected" : ""}>Brown File</option>
-                <option value="WHITE_BACKING" ${cat === "WHITE_BACKING" ? "selected" : ""}>White Backing</option>
-                <option value="REGISTER" ${cat === "REGISTER" ? "selected" : ""}>Register</option>
-                <option value="OTHER" ${cat === "OTHER" ? "selected" : ""}>Other</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="grid md:grid-cols-3 gap-3">
-            <div>
-              <label class="block mb-1">Supervisor IDs (comma separated)</label>
-              <input name="supervisorIds" value="${f.supervisorIds || ""}" class="w-full glass px-2 py-1 rounded-xl">
-            </div>
-            <div>
-              <label class="block mb-1">Location ID</label>
-              <input name="locationId" value="${f.locationId || ""}" class="w-full glass px-2 py-1 rounded-xl">
-            </div>
-            <div>
-              <label class="block mb-1">File Type</label>
-              <input value="${f.fileType || ""}" disabled class="w-full glass px-2 py-1 rounded-xl opacity-60">
-            </div>
-          </div>
-
-          <div>
-            <label class="block mb-1">Description</label>
-            <textarea name="description" rows="3" class="w-full glass px-2 py-1 rounded-xl">${f.description || ""}</textarea>
-          </div>
-
-          <div class="flex justify-end gap-2">
-            <button type="button" id="btnSaveFile" class="glass px-4 py-1 rounded-xl text-xs">
-              Save Changes
-            </button>
-          </div>
-        </form>
-      `;
-    }
-
-    function renderDocList() {
-      const docs = state.fileDetails?.documents || [];
-      if (!docs.length) {
-        return `<div class="text-slate-400 text-[11px]">No documents attached.</div>`;
-      }
-      return docs
-        .map(
-          (d, idx) => `
-        <div class="glass rounded-xl px-2 py-1 flex items-center justify-between cursor-pointer text-[11px]" data-doc-idx="${idx}">
-          <div class="truncate mr-2">${d.title || "(untitled)"}</div>
-          <button class="text-[10px] underline">Preview</button>
-        </div>`
-        )
-        .join("");
-    }
-
-    async function loadFilesList() {
-      try {
-        const res = await fetch(WORKER_URL + "/files", {
-          headers: { Authorization: "Bearer " + state.token },
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          console.error(data);
-          return;
-        }
-        state.filesCache = data.files || [];
-        render();
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    async function loadFileDetails(id) {
-      if (!id) return;
-      try {
-        const res = await fetch(WORKER_URL + "/files/" + id, {
-          headers: { Authorization: "Bearer " + state.token },
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          console.error(data);
-          return;
-        }
-        state.fileDetails = data;
-        render();
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    function bindFileManagerEvents() {
-      const tree = document.getElementById("fileTree");
-      if (tree) {
-        tree.querySelectorAll("[data-file-id]").forEach((btn) => {
-          btn.onclick = () => {
-            const id = btn.dataset.fileId;
-            state.activeFileId = id;
-            loadFileDetails(id);
-          };
-        });
-      }
-
-      const newFileBtn = document.getElementById("btnNewFile");
-      if (newFileBtn) {
-        newFileBtn.onclick = async () => {
-          const fileNo = prompt("File No:");
-          if (!fileNo) return;
-          const fileName = prompt("File Name:");
-          if (!fileName) return;
-          const body = {
-            fileNo,
-            fileName,
-            fileType: "FILE",
-            category: "PINK_FILE",
-          };
-          try {
-            const res = await fetch(WORKER_URL + "/files", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + state.token,
-              },
-              body: JSON.stringify(body),
+    // --- AUTHENTICATION LOGIC ---
+    function signIn() {
+        auth.signInWithPopup(provider)
+            .then((result) => {
+                checkPermission(result.user);
+            })
+            .catch((error) => {
+                showError("Login Failed: " + error.message);
             });
-            const data = await res.json();
-            if (!res.ok) {
-              alert(data.error || "Error creating file");
-              return;
-            }
-            await loadFilesList();
-            state.activeFileId = data.id;
-            await loadFileDetails(data.id);
-          } catch (err) {
-            alert("Network error");
-          }
-        };
-      }
+    }
 
-      const newSubBtn = document.getElementById("btnNewSubFile");
-      if (newSubBtn) {
-        newSubBtn.onclick = async () => {
-          if (!state.activeFileId) {
-            alert("Pehle koi main file select karein.");
-            return;
-          }
-          const fileNo = prompt("Sub-file No:");
-          if (!fileNo) return;
-          const fileName = prompt("Sub-file Name:");
-          if (!fileName) return;
-          const body = {
-            fileNo,
-            fileName,
-            category: "WHITE_BACKING",
-          };
-          try {
-            const res = await fetch(
-              WORKER_URL + "/files/" + state.activeFileId + "/subfiles",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: "Bearer " + state.token,
-                },
-                body: JSON.stringify(body),
-              }
-            );
-            const data = await res.json();
-            if (!res.ok) {
-              alert(data.error || "Error creating sub-file");
-              return;
-            }
-            await loadFilesList();
-            await loadFileDetails(state.activeFileId);
-          } catch (err) {
-            alert("Network error");
-          }
-        };
-      }
-
-      const showQR = document.getElementById("btnShowQR");
-      if (showQR) {
-        showQR.onclick = () => {
-          if (!state.fileDetails?.file?.id) {
-            alert("File select karein.");
-            return;
-          }
-          const id = state.fileDetails.file.id;
-          const url = WORKER_URL + "/qr/" + id;
-          window.open(url, "_blank");
-        };
-      }
-
-      const saveBtn = document.getElementById("btnSaveFile");
-      const form = document.getElementById("fileDetailsForm");
-      if (saveBtn && form && state.fileDetails?.file?.id) {
-        saveBtn.onclick = async () => {
-          const fd = new FormData(form);
-          const body = {
-            fileNo: fd.get("fileNo"),
-            fileName: fd.get("fileName"),
-            category: fd.get("category"),
-            supervisorIds: fd.get("supervisorIds"),
-            locationId: fd.get("locationId"),
-            description: fd.get("description"),
-          };
-          try {
-            const res = await fetch(WORKER_URL + "/files/" + state.fileDetails.file.id, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + state.token,
-              },
-              body: JSON.stringify(body),
-            });
-            const data = await res.json();
-            if (!res.ok) {
-              alert(data.error || "Error updating file");
-              return;
-            }
-            await loadFilesList();
-            await loadFileDetails(state.fileDetails.file.id);
-            alert("Saved");
-          } catch (err) {
-            alert("Network error");
-          }
-        };
-      }
-
-      const uploadBtn = document.getElementById("btnUploadDoc");
-      if (uploadBtn) {
-        uploadBtn.onclick = async () => {
-          if (!state.fileDetails?.file?.id) {
-            alert("File select karein.");
-            return;
-          }
-          const input = document.createElement("input");
-          input.type = "file";
-          input.onchange = async () => {
-            const file = input.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = async () => {
-              const base64 = reader.result.split(",")[1];
-              const body = {
-                title: file.name,
-                mimeType: file.type || "application/octet-stream",
-                base64Data: base64,
-              };
-              try {
-                const res = await fetch(
-                  WORKER_URL + "/files/" + state.fileDetails.file.id + "/documents",
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: "Bearer " + state.token,
-                    },
-                    body: JSON.stringify(body),
-                  }
-                );
-                const data = await res.json();
-                if (!res.ok) {
-                  alert(data.error || "Error uploading document");
-                  return;
+    function checkPermission(user) {
+        // Fetch allowed emails list from JSON file
+        fetch('allowed_users.json')
+            .then(res => {
+                if(!res.ok) throw new Error("Permission list missing (allowed_users.json)");
+                return res.json();
+            })
+            .then(allowedList => {
+                if (allowedList.includes(user.email)) {
+                    // Success
+                    document.getElementById('login-page').style.display = 'none';
+                    document.getElementById('app-content').style.display = 'flex';
+                    document.getElementById('display-user-name').innerText = user.displayName.split(" ")[0];
+                    startApp(); // Start the Quiz Logic
+                } else {
+                    // Fail
+                    auth.signOut();
+                    showError(`Access Denied: ${user.email} is not authorized.`);
                 }
-                await loadFileDetails(state.fileDetails.file.id);
-              } catch (err) {
-                alert("Network error");
-              }
-            };
-            reader.readAsDataURL(file);
-          };
-          input.click();
-        };
-      }
-
-      document.querySelectorAll("[data-doc-idx]").forEach((el) => {
-        el.onclick = () => {
-          const idx = Number(el.dataset.docIdx);
-          const doc = state.fileDetails.documents[idx];
-          if (!doc) return;
-          const driveUrl = "https://drive.google.com/file/d/" + doc.driveFileId + "/view";
-          window.open(driveUrl, "_blank");
-        };
-      });
-
-      if (!state.filesCache.length) {
-        loadFilesList();
-      }
+            })
+            .catch(err => showError(err.message));
     }
 
-    /*************** FILE PREVIEW SLIDER ***********************/
-    function filePreviewSliderHTML() {
-      const f = state.fileDetails.file;
-      return `
-        <div class="fixed inset-0 flex justify-end bg-black/40">
-          <div class="w-96 h-full glass-strong slide-in shadow-glass p-4 flex flex-col">
-            <div class="flex items-center justify-between mb-2">
-              <div>
-                <div class="text-xs text-slate-300">File Preview</div>
-                <div class="text-sm font-semibold truncate">${f.fileNo} – ${f.fileName}</div>
-              </div>
-              <button id="closePreview" class="glass px-2 py-1 rounded-xl text-xs">Close</button>
-            </div>
-            <div class="text-[11px] text-slate-300 mb-2">
-              Category: ${f.category} | Type: ${f.fileType} | Location: ${f.locationId}
-            </div>
-            <div class="flex-1 overflow-auto text-xs">
-              <p class="mb-2"><span class="font-semibold">Description:</span> ${f.description || "-"}</p>
-              <p class="mb-2"><span class="font-semibold">Supervisors:</span> ${f.supervisorIds || "-"}</p>
-              <p class="mb-2"><span class="font-semibold">Created At:</span> ${f.createdAt || "-"}</p>
-              <hr class="border-white/10 my-2">
-              <p class="text-[11px] text-slate-400">
-                QR scan karne par public view me sirf admin-configured fields hi show honge.
-              </p>
-            </div>
-          </div>
-        </div>
-      `;
+    function logout() {
+        auth.signOut().then(() => location.reload());
     }
 
-    document.addEventListener("click", (e) => {
-      if (e.target && e.target.id === "closePreview") {
-        state.fileDetails = null;
-        render();
-      }
+    function showError(msg) {
+        const el = document.getElementById('login-error');
+        el.innerText = msg;
+        el.style.display = 'block';
+    }
+
+    // Auto-login check
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            checkPermission(user);
+        }
     });
 
-    /*************** ADMIN PANEL *******************************/
-    function adminPanelHTML() {
-      return `
-        <div class="space-y-4 text-xs">
-          <div class="flex items-center justify-between">
-            <h2 class="text-sm font-semibold">Admin Panel</h2>
-            <span class="text-[11px] text-slate-300">
-              User control, QR config, logs
-            </span>
-          </div>
+    // ============================================
+    // --- QUIZ LOGIC (Original Code Wrapped) ---
+    // ============================================
 
-          <div class="grid md:grid-cols-3 gap-3">
-            <div class="glass rounded-2xl p-3">
-              <h3 class="text-xs font-semibold mb-2">User Management</h3>
-              <button id="btnLoadUsers" class="glass px-3 py-1 rounded-xl text-[11px]">Load Users</button>
-              <div id="adminUsers" class="mt-2 max-h-64 overflow-auto text-[11px]"></div>
-            </div>
+    let currentQuestions = [];
+    let qIdx = 0;
+    let answers = {};
+    let time = 3600;
+    let timerInt;
+    let availableTests = [];
 
-            <div class="glass rounded-2xl p-3">
-              <h3 class="text-xs font-semibold mb-2">QR Code Configuration</h3>
-              <button id="btnLoadQRConfig" class="glass px-3 py-1 rounded-xl text-[11px]">Load Config</button>
-              <div id="adminQRConfig" class="mt-2 max-h-64 overflow-auto text-[11px]"></div>
-              <button id="btnSaveQRConfig" class="mt-2 glass px-3 py-1 rounded-xl text-[11px]">Save</button>
-            </div>
-
-            <div class="glass rounded-2xl p-3">
-              <h3 class="text-xs font-semibold mb-2">Activity Logs</h3>
-              <button id="btnLoadLogs" class="glass px-3 py-1 rounded-xl text-[11px]">Load Logs</button>
-              <div id="adminLogs" class="mt-2 max-h-64 overflow-auto text-[11px]"></div>
-            </div>
-          </div>
-        </div>
-      `;
+    async function startApp() {
+        await fetchExamsFromGitHub();
+        setupCustomDropdown();
+        
+        document.addEventListener('click', function(event) {
+            const panel = document.getElementById('theme-panel');
+            const btn = document.querySelector('.tool-btn[onclick="toggleThemePanel()"]');
+            if (panel && !panel.contains(event.target) && !btn.contains(event.target)) {
+                panel.style.display = 'none';
+            }
+            
+            const selectContainer = document.getElementById('custom-select');
+            if (selectContainer && !selectContainer.contains(event.target)) {
+                document.getElementById("select-items").classList.add("select-hide");
+                document.querySelector(".select-selected").classList.remove("select-arrow-active");
+            }
+        });
     }
 
-    async function bindSettingsEvents() {
-      const themeSel = document.getElementById("settingsTheme");
-      if (themeSel) {
-        themeSel.onchange = (e) => {
-          state.theme = e.target.value;
-          localStorage.setItem("theme", state.theme);
-          applyTheme(state.theme);
-          render();
-        };
-      }
+    // --- SMART POP-UP WINDOW LOGIC ---
+    function openGoogleSearch(index) {
+        const q = currentQuestions[index];
+        let qText = q.q.split(" / ")[0].trim(); 
+        let optionsText = "";
+        if (q.o && q.o.length > 0) {
+            optionsText = q.o.map(opt => opt.split(" / ")[0].trim())
+                .filter(opt => {
+                    let lower = opt.toLowerCase();
+                    return !lower.startsWith("none") && !lower.startsWith("all") && !lower.startsWith("both");
+                }).join(" ");
+        }
+        let query = qText;
+        if (qText.length < 100 && optionsText) {
+            query += " " + optionsText;
+        }
+        query += " Indian Railways answer";
+        const w = 600, h = 700;
+        const left = (screen.width / 2) - (w / 2);
+        const top = (screen.height / 2) - (h / 2);
+        const url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+        window.open(url, 'GoogleVerify', `width=${w},height=${h},top=${top},left=${left},scrollbars=yes,resizable=yes`);
+    }
 
-      const workerInput = document.getElementById("settingsWorkerUrl");
-      if (workerInput) {
-        workerInput.onchange = (e) => {
-          WORKER_URL = e.target.value.trim();
-          localStorage.setItem("workerUrl", WORKER_URL);
-        };
-      }
+    // --- CUSTOM DROPDOWN LOGIC ---
+    function setupCustomDropdown() {
+        const selected = document.querySelector(".select-selected");
+        const items = document.getElementById("select-items");
 
-      // Admin panel events
-      const btnLoadUsers = document.getElementById("btnLoadUsers");
-      if (btnLoadUsers) {
-        btnLoadUsers.onclick = async () => {
-          try {
-            const res = await fetch(WORKER_URL + "/admin/users", {
-              headers: { Authorization: "Bearer " + state.token },
-            });
-            const data = await res.json();
-            if (!res.ok) {
-              alert(data.error || "Cannot load users");
-              return;
-            }
-            const container = document.getElementById("adminUsers");
-            container.innerHTML =
-              data.users
-                .map(
-                  (u) => `
-              <div class="glass rounded-xl px-2 py-1 mb-1 flex items-center justify-between">
-                <div>
-                  <div>${u.name || "(no name)"} – ${u.email}</div>
-                  <div class="text-[10px] text-slate-300">Role: ${u.role} | Active: ${u.isActive}</div>
-                </div>
-                <div class="flex flex-col gap-1">
-                  <button class="px-2 py-1 rounded-xl text-[10px] glass" data-approve="${u.id}">Approve</button>
-                  <button class="px-2 py-1 rounded-xl text-[10px] glass" data-make-admin="${u.id}">Make ADMIN</button>
-                </div>
-              </div>`
-                )
-                .join("") || "<div class='text-[11px] text-slate-400'>No users.</div>";
+        selected.addEventListener("click", function(e) {
+            e.stopPropagation();
+            items.classList.toggle("select-hide");
+            this.classList.toggle("select-arrow-active");
+        });
+    }
 
-            container.querySelectorAll("[data-approve]").forEach((btn) => {
-              btn.onclick = async () => {
-                const id = btn.dataset.approve;
-                const res2 = await fetch(WORKER_URL + "/admin/users/" + id + "/approve", {
-                  method: "POST",
-                  headers: { Authorization: "Bearer " + state.token },
-                });
-                const d2 = await res2.json();
-                if (!res2.ok) {
-                  alert(d2.error || "Error approving");
-                  return;
+    function populateCustomDropdown(tests) {
+        const items = document.getElementById("select-items");
+        const selected = document.querySelector(".select-selected");
+        items.innerHTML = "";
+        
+        if(tests.length > 0) {
+            selected.innerHTML = tests[0].name; 
+        }
+
+        tests.forEach((test, index) => {
+            const div = document.createElement("div");
+            div.innerHTML = test.name;
+            div.addEventListener("click", function() {
+                if(confirm("Start " + test.name + "? Current progress will be lost.")) {
+                    selected.innerHTML = test.name;
+                    loadExam(test.url, test.name);
+                    const siblings = this.parentNode.children;
+                    for (let i = 0; i < siblings.length; i++) {
+                        siblings[i].classList.remove("same-as-selected");
+                    }
+                    this.classList.add("same-as-selected");
+                    items.classList.add("select-hide");
+                    selected.classList.remove("select-arrow-active");
                 }
-                btnLoadUsers.click();
-              };
             });
+            if(index === 0) div.classList.add("same-as-selected");
+            items.appendChild(div);
+        });
+    }
 
-            container.querySelectorAll("[data-make-admin]").forEach((btn) => {
-              btn.onclick = async () => {
-                const id = btn.dataset.makeAdmin;
-                const res2 = await fetch(WORKER_URL + "/admin/users/" + id + "/role", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + state.token,
-                  },
-                  body: JSON.stringify({ role: "ADMIN" }),
-                });
-                const d2 = await res2.json();
-                if (!res2.ok) {
-                  alert(d2.error || "Error changing role");
-                  return;
-                }
-                btnLoadUsers.click();
-              };
-            });
-          } catch (err) {
-            alert("Network error");
-          }
-        };
-      }
+    // --- THEME LOGIC ---
+    function toggleThemePanel() {
+        const panel = document.getElementById('theme-panel');
+        panel.style.display = panel.style.display === 'grid' ? 'none' : 'grid';
+    }
 
-      const btnLoadQRConfig = document.getElementById("btnLoadQRConfig");
-      const btnSaveQRConfig = document.getElementById("btnSaveQRConfig");
-      if (btnLoadQRConfig) {
-        btnLoadQRConfig.onclick = async () => {
-          try {
-            const res = await fetch(WORKER_URL + "/admin/qr-config", {
-              headers: { Authorization: "Bearer " + state.token },
-            });
-            const data = await res.json();
-            if (!res.ok) {
-              alert(data.error || "Error loading config");
-              return;
+    function setTheme(primary, dark, light, fade) {
+        document.documentElement.style.setProperty('--primary', primary);
+        document.documentElement.style.setProperty('--primary-dark', dark);
+        document.documentElement.style.setProperty('--primary-light', light);
+        document.documentElement.style.setProperty('--primary-fade', fade);
+        document.getElementById('theme-panel').style.display = 'none';
+    }
+
+    // --- TIMER LOGIC ---
+    function setCustomTime() {
+        const min = parseInt(document.getElementById('manual-timer').value);
+        if (min > 0) {
+            time = min * 60;
+            clearInterval(timerInt);
+            startTimer();
+        }
+    }
+
+    function startTimer() {
+        clearInterval(timerInt);
+        timerInt = setInterval(() => {
+            time--;
+            let display = "";
+            if (time >= 3600) {
+                let h = Math.floor(time / 3600);
+                let m = Math.floor((time % 3600) / 60);
+                let s = time % 60;
+                display = `${h}:${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+            } else {
+                let m = Math.floor(time / 60);
+                let s = time % 60;
+                display = `${m}:${s < 10 ? '0' : ''}${s}`;
             }
-            const container = document.getElementById("adminQRConfig");
-            container.innerHTML =
-              data.items
-                .map(
-                  (item, idx) => `
-              <div class="flex items-center justify-between mb-1">
-                <div>
-                  <div>${item.label}</div>
-                  <div class="text-[10px] text-slate-300">${item.fieldKey}</div>
+            document.getElementById('timer').innerText = display;
+            if(time <= 0) finish();
+        }, 1000);
+    }
+
+    // --- GITHUB FETCH ---
+    async function fetchExamsFromGitHub() {
+        const apiUrl = `https://api.github.com/repos/${GH_USERNAME}/${GH_REPO}/contents/${FOLDER_PATH}`;
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) throw new Error("GitHub API Error");
+            const files = await response.json();
+            const jsonFiles = files.filter(file => file.name.endsWith('.json'));
+            
+            if(jsonFiles.length === 0) {
+                document.getElementById('loader').innerHTML = `<p style="color:red">No JSON files found.</p>`;
+                document.getElementById('loader').style.display = 'flex';
+                return;
+            }
+            
+            availableTests = jsonFiles.map(file => ({
+                name: file.name.replace('.json', '').replace(/_/g, ' ').replace(/-/g, ' ').toUpperCase(),
+                url: file.download_url
+            }));
+
+            populateCustomDropdown(availableTests);
+            if(availableTests.length > 0) {
+                loadExam(availableTests[0].url, availableTests[0].name);
+            }
+            document.getElementById('loader').style.display = 'none';
+
+        } catch (error) {
+            console.error("GitHub Error:", error);
+            // Don't show error immediately on loader, could be network issue
+        }
+    }
+
+    async function loadExam(url, examName) {
+        document.getElementById('quiz-ui').style.display = 'flex';
+        document.getElementById('result').style.display = 'none';
+        
+        const loader = document.getElementById('loader');
+        loader.style.display = 'flex';
+        document.getElementById('loader-text').innerText = "Loading Test Data...";
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("File not found");
+            currentQuestions = await response.json();
+            
+            qIdx = 0; 
+            answers = {}; 
+            time = 3600; 
+            
+            document.getElementById('active-test-name').innerText = examName;
+            document.getElementById('q-count').innerText = currentQuestions.length;
+            
+            startTimer();
+            renderQ();
+            renderPal();
+            loader.style.display = 'none';
+
+        } catch (error) {
+            loader.style.display = 'none';
+            alert("Error loading test data.");
+        }
+    }
+
+    function renderQ() {
+        if(currentQuestions.length === 0) return;
+        let q = currentQuestions[qIdx];
+        document.getElementById('q-idx').innerText = `Q. ${qIdx+1}`;
+        
+        let html = `
+            <div class="q-text">${q.q}</div>
+            <div class="q-hindi">${q.h}</div>
+            <div class="options">`;
+            
+        q.o.forEach((opt, i) => {
+            let chk = answers[qIdx] === i ? 'checked' : '';
+            html += `<label><input type="radio" name="o" onclick="save(${i})" ${chk}> <span>${String.fromCharCode(65+i)}) ${opt}</span></label>`;
+        });
+        document.getElementById('q-content').innerHTML = html + '</div>';
+        document.getElementById('clear-btn').style.display = (answers[qIdx] !== undefined) ? 'inline-flex' : 'none';
+        
+        updPal();
+        setTimeout(() => {
+            const btn = document.getElementById(`p-${qIdx}`);
+            if(btn) btn.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+        }, 50);
+    }
+
+    function renderPal() {
+        const grid = document.getElementById('palette');
+        grid.innerHTML = '';
+        currentQuestions.forEach((_, i) => {
+            const btn = document.createElement('div');
+            btn.className = 'p-btn';
+            btn.innerText = i + 1;
+            btn.id = `p-${i}`;
+            btn.onclick = () => { qIdx = i; renderQ(); };
+            grid.appendChild(btn);
+        });
+        updPal();
+    }
+
+    function updPal() {
+        currentQuestions.forEach((_, i) => {
+            let el = document.getElementById(`p-${i}`);
+            if(el) {
+                let cls = 'p-btn';
+                if(answers[i] !== undefined) cls += ' done';
+                if(i === qIdx) cls += ' curr';
+                el.className = cls;
+            }
+        });
+    }
+
+    function save(opt) { 
+        answers[qIdx] = opt; 
+        renderQ(); 
+    }
+
+    function clearResponse() {
+        delete answers[qIdx];
+        renderQ();
+    }
+
+    function nav(d) { 
+        if(qIdx+d >= 0 && qIdx+d < currentQuestions.length) { 
+            qIdx+=d; renderQ(); 
+        } 
+    }
+
+    function finish() {
+        if(!confirm("Are you sure you want to submit?")) return;
+        clearInterval(timerInt);
+        document.getElementById('quiz-ui').style.display = 'none';
+        const resDiv = document.getElementById('result');
+        resDiv.style.display = 'block';
+
+        let o_cor=0, o_wro=0, o_att=0;
+        let p_cor=0, p_wro=0, p_att=0;
+        
+        let attemptsList = Object.keys(answers).map(Number).sort((a,b)=>a-b);
+        let validAttempts = attemptsList.slice(0, 100); 
+        let totalQ = currentQuestions.length;
+
+        let tableRows = '';
+
+        currentQuestions.forEach((q, i) => {
+            let u = answers[i], isAtt = u!==undefined, isCor = isAtt && u===q.c;
+            
+            if(isAtt) {
+                p_att++;
+                if(isCor) p_cor++; else p_wro++;
+            }
+
+            if(validAttempts.includes(i)) {
+                o_att++;
+                if(isCor) o_cor++; else o_wro++;
+            }
+            
+            let statusBadge = isCor ? '<span class="badge bg-cor">Correct</span>' : 
+                              (isAtt ? '<span class="badge bg-wro">Wrong</span>' : '<span class="badge bg-ski">Skipped</span>');
+            
+            let correctOpt = q.o[q.c];
+            let userOpt = isAtt ? q.o[u] : '-';
+            let searchBtn = `<button onclick="openGoogleSearch(${i})" class="check-btn">🔍 Check</button>`;
+
+            tableRows += `
+                <tr style="background:${isCor?'#f1f8e9':(isAtt?'#ffebee':'white')}">
+                    <td style="font-weight:bold;">${i+1}</td>
+                    <td><div style="font-weight:600">${q.q}</div><div style="font-size:0.9em; color:#666; margin-top:4px;">${q.h}</div></td>
+                    <td>${userOpt}</td>
+                    <td>${correctOpt}</td>
+                    <td>${statusBadge}</td>
+                    <td>${searchBtn}</td>
+                </tr>`;
+        });
+
+        let o_marks = (o_cor - (o_wro/3)).toFixed(2);
+        let p_marks = (p_cor - (p_wro/3)).toFixed(2);
+        let o_percent = ((o_marks / 100) * 100).toFixed(1); 
+        let p_percent = totalQ > 0 ? ((p_marks / totalQ) * 100).toFixed(1) : 0;
+
+        let degCor = (p_cor / totalQ) * 360;
+        let degWro = (p_wro / totalQ) * 360;
+        let pieStyle = `conic-gradient(var(--correct) 0deg ${degCor}deg, var(--wrong) ${degCor}deg ${degCor+degWro}deg, var(--skipped) ${degCor+degWro}deg 360deg)`;
+
+        resDiv.innerHTML = `
+            <div class="res-container">
+                <div class="res-header">
+                    <h1>Performance Report</h1>
+                    <p style="color:#666; font-size:1.1rem;">${document.getElementById('active-test-name').innerText}</p>
                 </div>
-                <label class="inline-flex items-center cursor-pointer">
-                  <input type="checkbox" class="sr-only peer" data-qr-idx="${idx}" ${
-                    String(item.show).toLowerCase() === "true" ? "checked" : ""
-                  }>
-                  <div class="w-9 h-5 bg-slate-500 peer-focus:outline-none rounded-full peer peer-checked:bg-emerald-500 transition"></div>
-                </label>
-              </div>`
-                )
-                .join("") || "<div class='text-[11px] text-slate-400'>No config.</div>";
-            container.dataset.raw = JSON.stringify(data.items);
-          } catch (err) {
-            alert("Network error");
-          }
-        };
-      }
 
-      if (btnSaveQRConfig) {
-        btnSaveQRConfig.onclick = async () => {
-          const container = document.getElementById("adminQRConfig");
-          if (!container.dataset.raw) {
-            alert("Load config first");
-            return;
-          }
-          let items = JSON.parse(container.dataset.raw);
-          container.querySelectorAll("[data-qr-idx]").forEach((inp) => {
-            const idx = Number(inp.dataset.qrIdx);
-            items[idx].show = inp.checked;
-          });
-          try {
-            const res = await fetch(WORKER_URL + "/admin/qr-config", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + state.token,
-              },
-              body: JSON.stringify({ items }),
-            });
-            const data = await res.json();
-            if (!res.ok) {
-              alert(data.error || "Error saving config");
-              return;
-            }
-            alert("QR config saved");
-          } catch (err) {
-            alert("Network error");
-          }
-        };
-      }
+                <div class="score-row">
+                    <div class="score-card sc-official">
+                        <div class="sc-title">OFFICIAL SCORE <span class="badge" style="background:#333; color:fff;">First 100 Rule</span></div>
+                        <div class="big-score">${o_marks} <span>/ 100</span></div>
+                        <div style="margin-bottom:10px; font-weight:600; color:${o_percent>=40?'var(--correct)':'var(--wrong)'}">${o_percent}% Percentage</div>
+                        <div class="stats-grid">
+                            <div class="stat-item"><div>ATTEMPTED</div><div>${o_att} / 100</div></div>
+                            <div class="stat-item"><div>ACCURACY</div><div>${o_att>0?((o_cor/o_att)*100).toFixed(0):0}%</div></div>
+                            <div class="stat-item"><div>CORRECT</div><div class="text-green">${o_cor}</div></div>
+                            <div class="stat-item"><div>WRONG</div><div class="text-red">${o_wro}</div></div>
+                        </div>
+                    </div>
 
-      const btnLoadLogs = document.getElementById("btnLoadLogs");
-      if (btnLoadLogs) {
-        btnLoadLogs.onclick = async () => {
-          try {
-            const res = await fetch(WORKER_URL + "/admin/logs", {
-              headers: { Authorization: "Bearer " + state.token },
-            });
-            const data = await res.json();
-            if (!res.ok) {
-              alert(data.error || "Error loading logs");
-              return;
-            }
-            const container = document.getElementById("adminLogs");
-            container.innerHTML =
-              data.logs
-                .slice(-50)
-                .reverse()
-                .map(
-                  (log) => `
-              <div class="glass rounded-xl px-2 py-1 mb-1">
-                <div>${log.action}</div>
-                <div class="text-[10px] text-slate-300">${log.timestamp} | User: ${log.userId}</div>
-              </div>`
-                )
-                .join("") || "<div class='text-[11px] text-slate-400'>No logs.</div>";
-          } catch (err) {
-            alert("Network error");
-          }
-        };
-      }
+                    <div class="score-card sc-practice">
+                        <div class="sc-title">PRACTICE SCORE <span class="badge" style="background:#555; color:fff;">All Questions</span></div>
+                        <div class="big-score">${p_marks} <span>/ ${totalQ}</span></div>
+                        <div style="margin-bottom:10px; font-weight:600; color:${p_percent>=40?'var(--correct)':'var(--wrong)'}">${p_percent}% Percentage</div>
+                        <div class="stats-grid">
+                            <div class="stat-item"><div>ATTEMPTED</div><div>${p_att} / ${totalQ}</div></div>
+                            <div class="stat-item"><div>ACCURACY</div><div>${p_att>0?((p_cor/p_att)*100).toFixed(0):0}%</div></div>
+                            <div class="stat-item"><div>CORRECT</div><div class="text-green">${p_cor}</div></div>
+                            <div class="stat-item"><div>WRONG</div><div class="text-red">${p_wro}</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-row">
+                    <div class="chart-box">
+                        <h4 style="margin-bottom:20px; color:#555;">Overall Analysis</h4>
+                        <div class="donut-chart" style="background:${pieStyle}"></div>
+                        <div class="legend">
+                            <div class="l-item"><span class="dot" style="background:var(--correct)"></span> Correct</div>
+                            <div class="l-item"><span class="dot" style="background:var(--wrong)"></span> Wrong</div>
+                            <div class="l-item"><span class="dot" style="background:var(--skipped)"></span> Skipped</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-bottom:30px;">
+                    <button class="btn next" onclick="location.reload()">Take Another Test</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th style="width:50px;">Q#</th><th>Question</th><th>Your Answer</th><th>Correct Answer</th><th style="width:100px;">Result</th><th style="width:100px;">Verify</th></tr></thead>
+                        <tbody>${tableRows}</tbody>
+                    </table>
+                </div>
+            </div>`;
+        window.scrollTo(0, 0);
     }
+</script>
 
-    /*************** SETTINGS **********************************/
-    function settingsHTML() {
-      return `
-        <div class="space-y-4 text-xs">
-          <h2 class="text-sm font-semibold">Settings</h2>
-          <div class="glass rounded-2xl p-3 grid md:grid-cols-2 gap-3">
-            <div>
-              <label class="block mb-1">Cloudflare Worker URL</label>
-              <input id="settingsWorkerUrl" value="${WORKER_URL}" class="w-full glass px-2 py-1 rounded-xl">
-              <p class="text-[11px] text-slate-300 mt-1">
-                Yahan change karne se future sessions ke liye bhi save ho jayega.
-              </p>
-            </div>
-            <div>
-              <label class="block mb-1">Theme</label>
-              <select id="settingsTheme" class="w-full glass px-2 py-1 rounded-xl">
-                <option value="dark" ${state.theme === "dark" ? "selected" : ""}>Dark Iridescent</option>
-                <option value="light" ${state.theme === "light" ? "selected" : ""}>Light Iridescent</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-  </script>
 </body>
 </html>
