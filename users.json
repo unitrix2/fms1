@@ -1,0 +1,32 @@
+[
+  {
+    "username": "admin",
+    "password": "123",
+    "name": "Super Admin",
+    "access": ["admin"]
+  },
+  {
+    "username": "tech3",
+    "password": "123",
+    "name": "Ramesh Kumar",
+    "access": ["tech-iii"]
+  },
+  {
+    "username": "je",
+    "password": "123",
+    "name": "Suresh Singh",
+    "access": ["je"]
+  },
+  {
+    "username": "adme",
+    "password": "123",
+    "name": "Amit Sharma",
+    "access": ["adme"]
+  },
+  {
+    "username": "multi",
+    "password": "123",
+    "name": "All Rounder",
+    "access": ["je", "tech-iii", "adme"]
+  }
+]
