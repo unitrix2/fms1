@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Railway Professional Exam Portal</title>
+    <title>Railway LDCE CBT Portal</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
@@ -11,80 +11,88 @@
 
     <style>
         :root { 
-            --primary: #b71c1c; --primary-dark: #7f0000; --primary-light: #ffcdd2;
-            --secondary: #eceff1; --text: #263238; --white: #ffffff;
-            --correct: #2e7d32; --wrong: #c62828; --review: #7b1fa2; --warning: #ff8f00;
+            --primary: #b71c1c; --primary-dark: #7f0000; --bg: #f4f7f9;
+            --text: #263238; --white: #ffffff; --border: #cfd8dc;
+            --correct: #2e7d32; --wrong: #c62828; --review: #7b1fa2; --current: #ff8f00;
         }
         
-        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background: var(--secondary); color: var(--text); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-        /* --- LOGIN PAGE (Original Animation Kept) --- */
-        #login-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0d47a1 0%, #000000 100%); display: flex; justify-content: center; align-items: center; z-index: 10000; }
-        .login-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); padding: 30px; border-radius: 20px; width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.2); color: white; }
-        .input-group input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; box-sizing: border-box; }
-        .login-btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; text-transform: uppercase; }
+        /* --- LOGIN PAGE --- */
+        #login-page { position: fixed; inset: 0; background: radial-gradient(circle, #0d47a1, #000); z-index: 10000; display: flex; justify-content: center; align-items: center; }
+        .login-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); padding: 30px; border-radius: 20px; width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.2); color: white; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .login-card input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; outline: none; }
+        .login-btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 10px; }
         .google-btn { width: 100%; padding: 12px; background: white; color: #333; border: none; border-radius: 50px; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; }
 
-        /* --- APP HEADER --- */
+        /* --- GLOBAL HEADER --- */
         #app-content { display: none; height: 100%; flex-direction: column; }
-        header { background: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 100; }
-        .user-profile { display: flex; align-items: center; gap: 12px; background: #f5f5f5; padding: 5px 15px; border-radius: 50px; border: 1px solid #ddd; }
-        .user-photo { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--primary); }
-        .header-title h2 { margin: 0; color: var(--primary); font-size: 1.2rem; }
-        
-        /* --- THEME PALETTE --- */
-        .theme-switcher { display: flex; gap: 5px; }
-        .dot { width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid #ccc; }
+        header { background: var(--white); padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); flex-shrink: 0; }
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .logo { width: 45px; height: 45px; }
+        .user-meta { display: flex; align-items: center; gap: 12px; background: #eee; padding: 4px 15px; border-radius: 30px; }
+        .user-photo { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--primary); }
+        .theme-dots { display: flex; gap: 6px; margin-right: 15px; }
+        .t-dot { width: 14px; height: 14px; border-radius: 50%; cursor: pointer; border: 1px solid #999; }
 
-        /* --- DASHBOARD --- */
+        /* --- DASHBOARD VIEW --- */
         #dashboard { flex: 1; padding: 20px; overflow-y: auto; }
-        .filter-bar { margin-bottom: 20px; display: flex; gap: 10px; align-items: center; }
-        .dropdown { padding: 10px; border-radius: 5px; border: 1px solid #ccc; background: white; font-weight: bold; }
-        .test-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
-        .test-card { background: white; padding: 20px; border-radius: 10px; border-left: 6px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.3s; }
-        .test-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .card-actions { display: flex; gap: 10px; }
-        .btn-icon { background: #eee; border: none; padding: 8px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; }
-        .btn-icon:hover { background: #ddd; }
-
-        /* --- QUIZ INTERFACE (RESEARCHED LAYOUT) --- */
-        #quiz-view { display: none; height: 100%; flex: 1; gap: 15px; padding: 15px; box-sizing: border-box; background: #f0f2f5; }
-        .q-main { flex: 3; background: white; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .q-header { padding: 15px 25px; background: #f8f9fa; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        .timer { font-family: monospace; font-size: 1.4rem; font-weight: bold; color: var(--primary); }
+        .role-filter { background: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; display: none; align-items: center; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .select-box { padding: 8px 15px; border-radius: 5px; border: 2px solid var(--primary); font-weight: bold; cursor: pointer; }
         
-        .q-content { flex: 1; padding: 30px; overflow-y: auto; }
-        .q-text { font-size: 1.25rem; font-weight: 600; margin-bottom: 15px; line-height: 1.4; }
-        .q-hindi { color: #546e7a; font-size: 1.15rem; margin-bottom: 25px; }
-        .option-label { display: flex; align-items: flex-start; padding: 15px; border: 2px solid #eee; border-radius: 10px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
-        .option-label:hover { background: #f9f9f9; border-color: var(--primary); }
-        .option-label input { margin-right: 15px; transform: scale(1.4); accent-color: var(--primary); }
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .test-card { background: white; border-radius: 12px; border-left: 6px solid var(--primary); padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .test-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn-print { background: #333; color: white; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 1.1rem; }
 
-        .q-footer { padding: 15px 25px; background: white; border-top: 1px solid #eee; display: flex; justify-content: space-between; }
+        /* --- QUIZ INTERFACE (CBT STYLE) --- */
+        #quiz-view { display: none; flex: 1; height: 100%; overflow: hidden; background: #e9ecef; }
+        .quiz-main { flex: 3; display: flex; flex-direction: column; background: var(--white); margin: 15px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .quiz-header { padding: 15px 25px; background: #f8f9fa; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .timer-box { font-family: 'Courier New', monospace; font-size: 1.5rem; font-weight: bold; color: var(--primary); border: 2px solid var(--primary); padding: 2px 15px; border-radius: 5px; }
         
-        /* --- SIDEBAR (PALETTE) --- */
-        .q-sidebar { flex: 1; max-width: 320px; background: white; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; overflow-y: auto; margin-top: 15px; }
-        .p-btn { padding: 10px 0; text-align: center; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
-        .p-btn.done { background: var(--primary); color: white; border-color: var(--primary); }
-        .p-btn.review { background: var(--review); color: white; border-color: var(--review); }
-        .p-btn.current { border: 2px solid var(--warning); transform: scale(1.1); }
+        .question-area { flex: 1; padding: 30px; overflow-y: auto; }
+        .q-text { font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; line-height: 1.4; }
+        .q-hindi { font-size: 1.2rem; color: #455a64; margin-bottom: 25px; border-left: 4px solid #ddd; padding-left: 15px; }
+        
+        .options-grid { display: flex; flex-direction: column; gap: 12px; }
+        .option-item { display: flex; align-items: center; padding: 15px; border: 2px solid #eceff1; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+        .option-item:hover { background: #f1f8e9; border-color: var(--correct); }
+        .option-item.selected { background: #e8f5e9; border-color: var(--correct); font-weight: bold; }
+        .option-item input { transform: scale(1.5); margin-right: 15px; accent-color: var(--correct); }
 
-        .btn { padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; text-transform: uppercase; }
-        .btn-back { background: #546e7a; margin-right: 10px; }
-        .btn-prev { background: #90a4ae; }
-        .btn-next { background: var(--primary); }
-        .btn-review { background: var(--review); }
-        .btn-submit { background: var(--correct); }
+        .quiz-footer { padding: 15px 25px; background: #fff; border-top: 1px solid var(--border); display: flex; justify-content: space-between; }
 
-        /* --- PRINT BOOKLET --- */
+        /* --- SIDEBAR PALETTE --- */
+        .quiz-sidebar { flex: 1; max-width: 320px; background: var(--white); margin: 15px 15px 15px 0; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .palette-container { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; overflow-y: auto; flex: 1; margin-top: 15px; padding-right: 5px; }
+        .p-num { height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
+        .p-num.answered { background: var(--correct); color: white; border-color: var(--correct); }
+        .p-num.review { background: var(--review); color: white; border-color: var(--review); }
+        .p-num.active { border: 3px solid var(--current); transform: scale(1.1); box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+
+        /* --- BUTTONS --- */
+        .btn { padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; text-transform: uppercase; color: white; transition: 0.2s; }
+        .btn:active { transform: scale(0.95); }
+        .btn-gray { background: #78909c; }
+        .btn-primary { background: var(--primary); }
+        .btn-purple { background: var(--review); }
+        .btn-green { background: var(--correct); }
+        .btn-exit { background: #37474f; font-size: 0.8rem; padding: 5px 12px; }
+
+        /* --- ADMIN TOOLS (MODAL & REPORTS) --- */
+        #admin-panel { display: none; padding: 20px; }
+        .report-table { width: 100%; border-collapse: collapse; background: white; margin-top: 15px; }
+        .report-table th, .report-table td { padding: 12px; border: 1px solid #eee; text-align: left; }
+        .report-table th { background: #f5f5f5; }
+
+        /* --- PRINT BOOKLET CSS --- */
         @media print {
             body * { visibility: hidden; }
             #print-area, #print-area * { visibility: visible; }
-            #print-area { position: absolute; left:0; top:0; width:100%; padding: 20px; }
-            .print-q { margin-bottom: 30px; border-bottom: 1px dashed #ccc; padding-bottom: 15px; break-inside: avoid; }
-            .print-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-            .print-key { break-before: page; text-align: center; }
+            #print-area { position: absolute; left: 0; top: 0; width: 100%; padding: 20px; }
+            .print-q-block { page-break-inside: avoid; margin-bottom: 25px; border-bottom: 1px dashed #000; padding-bottom: 15px; }
+            .print-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -92,72 +100,85 @@
 
 <div id="login-page">
     <div class="login-card">
-        <img src="https://images.seeklogo.com/logo-png/31/1/indian-railways-logo-png_seeklogo-310214.png" width="70">
-        <h2>LDCE Mock Test</h2>
-        <div class="input-group"><input type="text" id="username" placeholder="Username / PF Number"></div>
-        <div class="input-group"><input type="password" id="password" placeholder="Password"></div>
-        <button class="login-btn" onclick="manualLogin()">Login</button>
-        <div style="margin: 15px 0; font-size: 0.8rem;">OR</div>
-        <button class="google-btn" onclick="googleLogin()">
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18"> Google Login
-        </button>
-        <p id="login-msg" style="color: yellow; margin-top: 10px; font-size: 0.85rem;"></p>
+        <img src="https://images.seeklogo.com/logo-png/31/1/indian-railways-logo-png_seeklogo-310214.png" width="70" style="margin-bottom:15px;">
+        <h2 style="margin:0 0 20px 0;">CBT Mock Test Portal</h2>
+        <div id="login-form">
+            <input type="text" id="username" placeholder="Username / PF Number">
+            <input type="password" id="password" placeholder="Password">
+            <button class="login-btn" onclick="handleManualLogin()">LOGIN</button>
+            <div style="margin:15px 0; font-size:0.8rem; opacity:0.7;">OR</div>
+            <button class="google-btn" onclick="handleGoogleLogin()">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18"> Google Login
+            </button>
+        </div>
+        <p id="login-error" style="color: #ffeb3b; margin-top: 15px; font-size: 0.85rem; display: none;"></p>
     </div>
 </div>
 
 <div id="app-content">
     <header>
-        <div style="display:flex; align-items:center; gap:15px;">
-            <img src="https://images.seeklogo.com/logo-png/31/1/indian-railways-logo-png_seeklogo-310214.png" width="40">
-            <div class="header-title"><h2 id="dynamic-title">Exam Portal</h2></div>
+        <div class="header-left">
+            <img src="https://images.seeklogo.com/logo-png/31/1/indian-railways-logo-png_seeklogo-310214.png" class="logo">
+            <div class="header-titles">
+                <h2 id="main-title" style="margin:0; color:var(--primary);">LDCE Exam Portal</h2>
+                <div class="theme-dots">
+                    <div class="t-dot" style="background:#b71c1c" onclick="setTheme('#b71c1c')"></div>
+                    <div class="t-dot" style="background:#1565c0" onclick="setTheme('#1565c0')"></div>
+                    <div class="t-dot" style="background:#2e7d32" onclick="setTheme('#2e7d32')"></div>
+                    <div class="t-dot" style="background:#455a64" onclick="setTheme('#455a64')"></div>
+                </div>
+            </div>
         </div>
-        
-        <div class="header-controls">
-            <div class="theme-switcher">
-                <div class="dot" style="background:#b71c1c" onclick="changeTheme('#b71c1c')"></div>
-                <div class="dot" style="background:#1565c0" onclick="changeTheme('#1565c0')"></div>
-                <div class="dot" style="background:#2e7d32" onclick="changeTheme('#2e7d32')"></div>
-                <div class="dot" style="background:#37474f" onclick="changeTheme('#37474f')"></div>
+        <div class="header-right" style="display:flex; align-items:center; gap:20px;">
+            <div class="user-meta">
+                <img id="u-img" src="" class="user-photo">
+                <span id="u-name" style="font-weight:bold; color:#333;">User</span>
             </div>
-            <div class="user-profile">
-                <img id="u-photo" src="" class="user-photo">
-                <span id="u-name" style="font-weight:bold; margin:0 10px;">User</span>
-                <button class="btn-icon" onclick="logout()" title="Logout">Logout</button>
-            </div>
+            <button class="btn btn-exit" onclick="handleLogout()">LOGOUT</button>
         </div>
     </header>
 
     <main id="dashboard">
-        <div id="filter-area" class="filter-bar">
-            <span>Select Role:</span>
-            <select id="cat-select" class="dropdown" onchange="loadTestCards(this.value)">
-                </select>
+        <div id="role-selector-bar" class="role-filter">
+            <span><b>Select Category:</b></span>
+            <select id="category-select" class="select-box" onchange="loadCategoryPapers(this.value)"></select>
         </div>
-        <div id="test-list" class="test-grid"></div>
+        
+        <div id="admin-reports-view" style="display:none; margin-bottom:30px;">
+            <h3 style="color:var(--primary)">⚠️ Reported Questions (Admin Only)</h3>
+            <div id="reports-list"></div>
+        </div>
+
+        <h3 id="papers-heading" style="color:var(--primary); border-bottom:2px solid #ddd; padding-bottom:10px;">Available Question Papers</h3>
+        <div id="test-list-grid" class="test-grid"></div>
     </main>
 
     <div id="quiz-view">
-        <div class="q-main">
-            <div class="q-header">
-                <button class="btn btn-back" onclick="confirmExit()">← Exit</button>
-                <span id="active-test-name" style="font-weight:bold;">Test Name</span>
-                <div class="timer" id="timer">00:00:00</div>
+        <div class="quiz-main">
+            <div class="quiz-header">
+                <button class="btn btn-exit" onclick="exitQuiz()">← BACK TO LIST</button>
+                <span id="active-paper-name" style="font-weight:bold; color:#333;">Paper Name</span>
+                <div class="timer-box" id="timer">00:00:00</div>
             </div>
-            <div class="q-content" id="q-body">
+            <div class="question-area" id="question-display">
                 </div>
-            <div class="q-footer">
-                <button class="btn btn-prev" onclick="nav(-1)">Previous</button>
-                <button class="btn btn-review" onclick="markForReview()">Review Later</button>
-                <button class="btn btn-next" onclick="nav(1)">Next Question</button>
-                <button class="btn btn-submit" onclick="finishTest()">Finish Test</button>
+            <div class="quiz-footer">
+                <button class="btn btn-gray" onclick="changeQ(-1)">PREVIOUS</button>
+                <button class="btn btn-purple" onclick="toggleReview()">MARK FOR REVIEW</button>
+                <button class="btn btn-primary" onclick="changeQ(1)">NEXT</button>
+                <button class="btn btn-green" onclick="submitFinal()">SUBMIT TEST</button>
             </div>
         </div>
         
-        <div class="q-sidebar">
-            <h4 style="margin:0;">Question Palette</h4>
-            <div class="palette-grid" id="palette"></div>
-            <hr style="width:100%; margin: 20px 0;">
-            <button class="btn-icon" style="width:100%; background:#fff3e0; color:#e65100; font-weight:bold;" onclick="reportQ()">⚠️ Report Error</button>
+        <div class="quiz-sidebar">
+            <h4 style="margin:0 0 10px 0; color:var(--primary);">Question Palette</h4>
+            <div class="palette-container" id="palette-grid"></div>
+            <div style="margin-top:20px; font-size:0.8rem; display:grid; grid-template-columns:1fr 1fr; gap:10px; border-top:1px solid #eee; padding-top:10px;">
+                <div><span style="display:inline-block;width:12px;height:12px;background:var(--correct)"></span> Answered</div>
+                <div><span style="display:inline-block;width:12px;height:12px;background:var(--review)"></span> Review</div>
+                <div><span style="display:inline-block;width:12px;height:12px;border:1px solid #999"></span> Unvisited</div>
+            </div>
+            <button class="btn" style="margin-top:auto; background:#ff9800; width:100%;" onclick="reportCurrentQ()">REPORT ERROR</button>
         </div>
     </div>
 </div>
@@ -165,8 +186,8 @@
 <div id="print-area"></div>
 
 <script>
-    // --- DATABASE CONFIG ---
-    const GH_USER = 'unitrix2', GH_REPO = 'fms1';
+    // --- APP CORE CONFIG ---
+    const GH_USER = 'unitrix2', GH_REPO = 'LDCETG3';
     
     const firebaseConfig = {
         apiKey: "AIzaSyCxCLczt1L01qr3DmdvAv_EU3IsWhgxs0w",
@@ -177,76 +198,99 @@
         appId: "1:46968102286:web:452d87de53dfcc2028d8df"
     };
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth(), db = firebase.firestore(), provider = new firebase.auth.GoogleAuthProvider();
+    const auth = firebase.auth(), db = firebase.firestore(), googleProvider = new firebase.auth.GoogleAuthProvider();
 
-    let userObj = null, questions = [], answers = {}, review = {}, qIdx = 0, timerInt = null, totalSeconds = 0;
+    // --- APP STATE ---
+    let user = null;
+    let quizData = [], userAnswers = {}, reviewMarks = {}, currentIdx = 0;
+    let timerInterval = null, secondsElapsed = 0;
 
-    // --- AUTHENTICATION ---
-    function googleLogin() {
-        auth.signInWithPopup(provider).then(res => validateAccess(res.user.email, 'google')).catch(e => alert(e.message));
+    // --- AUTHENTICATION LOGIC ---
+    function handleGoogleLogin() {
+        auth.signInWithPopup(googleProvider).then(res => startAuth(res.user.email, 'google')).catch(err => alert(err.message));
     }
 
-    async function manualLogin() {
+    async function handleManualLogin() {
         const u = document.getElementById('username').value, p = document.getElementById('password').value;
         const res = await fetch('users.json');
         const users = await res.json();
-        const valid = users.find(x => x.username === u && x.password === p);
-        if(valid) validateAccess(valid, 'manual');
-        else document.getElementById('login-msg').innerText = "Invalid Credentials";
+        const found = users.find(x => x.username === u && x.password === p);
+        if(found) startAuth(found, 'manual');
+        else showLoginError("Invalid Username/Password");
     }
 
-    async function validateAccess(cred, type) {
-        let email = type === 'google' ? cred : cred.username;
+    async function startAuth(data, type) {
+        let email = type === 'google' ? data : data.username;
         let roles = [], name = "User", photo = "https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/person.svg";
 
         if(type === 'google') {
             const res = await fetch('allowed_users.json');
             const allowed = await res.json();
-            const found = allowed.find(x => x.email.toLowerCase() === email.toLowerCase());
-            if(found) { roles = found.access; name = email.split('@')[0]; }
+            const record = allowed.find(x => x.email.toLowerCase() === email.toLowerCase());
+            if(record) { roles = record.access; name = email.split('@')[0]; }
         } else {
-            roles = cred.access; name = cred.name;
+            roles = data.access; name = data.name;
         }
 
         if(roles.length > 0) {
-            userObj = { name, email, roles, photo };
-            sessionStorage.setItem('ldce_user', JSON.stringify(userObj));
-            initPortal();
+            user = { name, email, roles, photo };
+            sessionStorage.setItem('cbt_user', JSON.stringify(user));
+            launchPortal();
         } else {
-            alert("No access found for this ID.");
+            showLoginError("Access Denied: No Role Assigned.");
             auth.signOut();
         }
     }
 
-    // --- APP INITIALIZATION ---
-    function initPortal() {
+    function showLoginError(m) { const el = document.getElementById('login-error'); el.innerText = m; el.style.display = 'block'; }
+
+    // --- PORTAL CORE ---
+    function launchPortal() {
         document.getElementById('login-page').style.display = 'none';
         document.getElementById('app-content').style.display = 'flex';
-        document.getElementById('u-name').innerText = userObj.name;
-        document.getElementById('u-photo').src = userObj.photo;
+        document.getElementById('u-name').innerText = user.name;
+        document.getElementById('u-img').src = user.photo;
 
-        const title = userObj.roles.includes('admin') ? "Admin Portal" : "LDCE " + userObj.roles.map(r=>r.toUpperCase()).join(' / ') + " Exam";
-        document.getElementById('dynamic-title').innerText = title;
+        // Dynamic Title
+        const titleEl = document.getElementById('main-title');
+        if(user.roles.includes('admin')) titleEl.innerText = "SUPER ADMIN PORTAL";
+        else titleEl.innerText = "LDCE " + user.roles.map(r=>r.toUpperCase()).join(' / ') + " EXAM";
 
-        const sel = document.getElementById('cat-select');
-        sel.innerHTML = '<option value="">-- Choose Category --</option>';
+        // Admin Reports
+        if(user.roles.includes('admin')) {
+            document.getElementById('admin-reports-view').style.display = 'block';
+            fetchAdminReports();
+        }
+
+        // Dropdown Logic
+        const sel = document.getElementById('category-select');
+        sel.innerHTML = '<option value="">-- Click to Choose --</option>';
+        let categories = user.roles.includes('admin') ? ['tech-iii', 'je', 'adme'] : user.roles;
         
-        let rolesToShow = userObj.roles.includes('admin') ? ['tech-iii', 'je', 'adme'] : userObj.roles;
-        rolesToShow.forEach(r => sel.innerHTML += `<option value="${r}">${r.toUpperCase()}</option>`);
+        categories.forEach(c => sel.innerHTML += `<option value="${c}">${c.toUpperCase()}</option>`);
 
-        if(rolesToShow.length === 1) {
-            document.getElementById('filter-area').style.display = 'none';
-            loadTestCards(rolesToShow[0]);
+        if(categories.length === 1) {
+            document.getElementById('role-selector-bar').style.display = 'none';
+            loadCategoryPapers(categories[0]);
         } else {
-            document.getElementById('filter-area').style.display = 'flex';
+            document.getElementById('role-selector-bar').style.display = 'flex';
+        }
+
+        // Resume Capability
+        const saved = localStorage.getItem('cbt_resume_' + user.email);
+        if(saved) {
+            if(confirm("एक अधूरा टेस्ट मिला है। क्या आप वहीं से शुरू करना चाहते हैं?")) {
+                resumeExistingTest(JSON.parse(saved));
+            } else {
+                localStorage.removeItem('cbt_resume_' + user.email);
+            }
         }
     }
 
-    // --- DASHBOARD TOOLS ---
-    async function loadTestCards(cat) {
+    async function loadCategoryPapers(cat) {
         if(!cat) return;
-        const grid = document.getElementById('test-list');
-        grid.innerHTML = "Searching folders...";
+        const grid = document.getElementById('test-list-grid');
+        grid.innerHTML = "Fetching folder contents...";
         try {
             const res = await fetch(`https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/tests/${cat}`);
             const files = await res.json();
@@ -256,138 +300,165 @@
                 const card = document.createElement('div');
                 card.className = "test-card";
                 card.innerHTML = `
-                    <div style="flex:1" onclick="startExam('${f.download_url}', '${name}')">
-                        <div style="font-weight:bold;">${name}</div>
-                        <div style="font-size:0.8rem; color:#666;">Click to take test ➔</div>
+                    <div style="flex:1" onclick="initiateQuiz('${f.download_url}', '${name}')">
+                        <div style="font-weight:bold; font-size:1.1rem;">${name}</div>
+                        <div style="font-size:0.8rem; color:#666; margin-top:5px;">Click to Start Test ➔</div>
                     </div>
-                    ${userObj.roles.includes('admin') ? `<button class="btn-icon" onclick="printTest('${f.download_url}', '${name}')" title="Print Booklet">🖨️</button>` : ''}
+                    ${user.roles.includes('admin') ? `<button class="btn-print" onclick="printBooklet('${f.download_url}', '${name}')" title="Print Booklet">🖨️</button>` : ''}
                 `;
                 grid.appendChild(card);
             });
-        } catch(e) { grid.innerHTML = "No papers found in this directory."; }
+        } catch(e) { grid.innerHTML = "No JSON files found in tests/" + cat; }
     }
 
-    // --- QUIZ ENGINE ---
-    async function startExam(url, name) {
+    // --- QUIZ SYSTEM ---
+    async function initiateQuiz(url, name) {
         const res = await fetch(url);
-        questions = await res.json();
-        answers = {}; review = {}; qIdx = 0; totalSeconds = 0;
-        
+        quizData = await res.json();
+        userAnswers = {}; reviewMarks = {}; currentIdx = 0; secondsElapsed = 0;
+        startQuizUI(name);
+    }
+
+    function resumeExistingTest(s) {
+        quizData = s.data; userAnswers = s.ans; reviewMarks = s.rev; 
+        currentIdx = s.idx; secondsElapsed = s.time;
+        startQuizUI(s.name);
+    }
+
+    function startQuizUI(name) {
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('quiz-view').style.display = 'flex';
-        document.getElementById('active-test-name').innerText = name;
-        
-        renderQ();
+        document.getElementById('active-paper-name').innerText = name;
+        renderQuestion();
         renderPalette();
-        startTimer();
+        runTimer();
     }
 
-    function renderQ() {
-        const q = questions[qIdx];
-        let html = `<div class="q-text">Q${qIdx+1}. ${q.q}</div>`;
-        if(q.h) html += `<div class="q-hindi">${q.h}</div>`;
-        html += `<div class="options">`;
+    function renderQuestion() {
+        const q = quizData[currentIdx];
+        let h = `<div class="q-text">Question ${currentIdx+1}</div>`;
+        h += `<div class="q-text">${q.q}</div>`;
+        if(q.h) h += `<div class="q-hindi">${q.h}</div>`;
+        h += `<div class="options-grid">`;
         q.o.forEach((opt, i) => {
-            const checked = answers[qIdx] === i ? 'checked' : '';
-            html += `<label class="option-label"><input type="radio" name="opt" onclick="save(${i})" ${checked}> ${opt}</label>`;
+            const isSel = userAnswers[currentIdx] === i ? 'selected' : '';
+            h += `<div class="option-item ${isSel}" onclick="pickAns(${i})">
+                    <input type="radio" name="q" ${isSel?'checked':''}> ${opt}
+                  </div>`;
         });
-        document.getElementById('q-body').innerHTML = html + "</div>";
-        updateUI();
+        document.getElementById('question-display').innerHTML = h + `</div>`;
+        syncUI();
     }
 
-    function save(idx) { answers[qIdx] = idx; updateUI(); }
-    
-    function markForReview() { review[qIdx] = !review[qIdx]; updateUI(); }
-
-    function nav(dir) {
-        if(qIdx + dir >= 0 && qIdx + dir < questions.length) {
-            qIdx += dir;
-            renderQ();
-        }
-    }
+    function pickAns(i) { userAnswers[currentIdx] = i; renderQuestion(); }
+    function toggleReview() { reviewMarks[currentIdx] = !reviewMarks[currentIdx]; syncUI(); }
+    function changeQ(d) { if(currentIdx+d >=0 && currentIdx+d < quizData.length){ currentIdx+=d; renderQuestion(); } }
 
     function renderPalette() {
-        const p = document.getElementById('palette');
-        p.innerHTML = '';
-        questions.forEach((_, i) => {
+        const g = document.getElementById('palette-grid');
+        g.innerHTML = "";
+        quizData.forEach((_, i) => {
             const b = document.createElement('div');
-            b.className = 'p-btn';
-            b.innerText = i + 1;
-            b.id = `pal-${i}`;
-            b.onclick = () => { qIdx = i; renderQ(); };
-            p.appendChild(b);
+            b.className = "p-num"; b.innerText = i + 1; b.id = "p-item-" + i;
+            b.onclick = () => { currentIdx = i; renderQuestion(); };
+            g.appendChild(b);
         });
+        syncUI();
     }
 
-    function updateUI() {
-        questions.forEach((_, i) => {
-            const b = document.getElementById(`pal-${i}`);
-            b.className = 'p-btn';
-            if(answers[i] !== undefined) b.classList.add('done');
-            if(review[i]) b.classList.add('review');
-            if(i === qIdx) b.classList.add('current');
+    function syncUI() {
+        quizData.forEach((_, i) => {
+            const el = document.getElementById("p-item-" + i);
+            if(!el) return;
+            el.className = "p-num";
+            if(userAnswers[i] !== undefined) el.classList.add('answered');
+            if(reviewMarks[i]) el.classList.add('review');
+            if(i === currentIdx) el.classList.add('active');
         });
+        // Auto Save to LocalStorage for Resume
+        const state = { data: quizData, ans: userAnswers, rev: reviewMarks, idx: currentIdx, time: secondsElapsed, name: document.getElementById('active-paper-name').innerText };
+        localStorage.setItem('cbt_resume_' + user.email, JSON.stringify(state));
     }
 
-    function startTimer() {
-        clearInterval(timerInt);
-        timerInt = setInterval(() => {
-            totalSeconds++;
-            const h = Math.floor(totalSeconds / 3600).toString().padStart(2,'0');
-            const m = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2,'0');
-            const s = (totalSeconds % 60).toString().padStart(2,'0');
+    function runTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            secondsElapsed++;
+            const h = Math.floor(secondsElapsed / 3600).toString().padStart(2,'0');
+            const m = Math.floor((secondsElapsed % 3600) / 60).toString().padStart(2,'0');
+            const s = (secondsElapsed % 60).toString().padStart(2,'0');
             document.getElementById('timer').innerText = `${h}:${m}:${s}`;
         }, 1000);
     }
 
-    function confirmExit() { if(confirm("Discard test and go back?")) location.reload(); }
+    function exitQuiz() { if(confirm("टेस्ट बंद करें? आपकी प्रगति सुरक्षित रहेगी।")) location.reload(); }
 
-    function finishTest() {
-        if(!confirm("Are you sure you want to submit?")) return;
-        clearInterval(timerInt);
-        let score = 0;
-        questions.forEach((q, i) => { if(answers[i] === q.c) score++; });
-        alert(`Test Submitted!\nScore: ${score} / ${questions.length}\nTime: ${document.getElementById('timer').innerText}`);
-        location.reload();
+    function submitFinal() {
+        if(!confirm("क्या आप टेस्ट सबमिट करना चाहते हैं?")) return;
+        clearInterval(timerInterval);
+        localStorage.removeItem('cbt_resume_' + user.email);
+        
+        let correct = 0;
+        quizData.forEach((q, i) => { if(userAnswers[i] === q.c) correct++; });
+        
+        // Final Score Logic
+        alert(`SUBMITTED!\nScore: ${correct} / ${quizData.length}\nTime: ${document.getElementById('timer').innerText}`);
+        
+        // Save to Firebase Results
+        db.collection('results').add({
+            user: user.email, name: user.name, 
+            test: document.getElementById('active-paper-name').innerText,
+            score: correct, total: quizData.length, date: new Date()
+        }).then(() => location.reload());
     }
 
-    // --- ADMIN TOOLS ---
-    async function printTest(url, name) {
+    // --- ADMIN & MISC ---
+    function fetchAdminReports() {
+        db.collection('reports').limit(5).get().then(snap => {
+            const list = document.getElementById('reports-list');
+            if(snap.empty) { list.innerHTML = "No issues reported."; return; }
+            let h = `<table class="report-table"><tr><th>Test</th><th>Q#</th><th>Error</th><th>User</th></tr>`;
+            snap.forEach(doc => {
+                const d = doc.data();
+                h += `<tr><td>${d.test}</td><td>${d.qIdx}</td><td>${d.error}</td><td>${d.user}</td></tr>`;
+            });
+            list.innerHTML = h + "</table>";
+        });
+    }
+
+    function reportCurrentQ() {
+        const msg = prompt("इस प्रश्न में क्या गलती है?");
+        if(msg) {
+            db.collection('reports').add({
+                test: document.getElementById('active-test-name').innerText,
+                qIdx: currentIdx + 1, error: msg, user: user.email, time: new Date()
+            }).then(() => alert("रिपोर्ट एडमिन को भेज दी गई है।"));
+        }
+    }
+
+    async function printBooklet(url, title) {
         const res = await fetch(url);
         const data = await res.json();
-        let html = `<div class="print-head"><h1>${name}</h1><p>LDCE Departmental Question Booklet</p></div>`;
-        let key = `<div class="print-key"><h2>Answer Key</h2><div style="display:grid; grid-template-columns: repeat(5,1fr); gap:10px;">`;
+        let h = `<div class="print-head"><h2>${title}</h2><p>LDCE EXAM BOOKLET</p></div>`;
+        let key = `<div class="print-key"><h3>ANSWER KEY</h3><div style="display:grid; grid-template-columns: repeat(5,1fr); gap:10px;">`;
         
         data.forEach((q, i) => {
-            html += `<div class="print-q"><b>Q${i+1}. ${q.q}</b><br><span style="font-family:'Nirmala UI'">${q.h||''}</span>`;
-            html += `<div class="print-opts">${q.o.map((o, idx) => `<div>(${String.fromCharCode(65+idx)}) ${o}</div>`).join('')}</div></div>`;
-            key += `<div>${i+1}. [ ${String.fromCharCode(65+q.c)} ]</div>`;
+            h += `<div class="print-q-block"><b>Q${i+1}. ${q.q}</b><br><small>${q.h||''}</small>`;
+            h += `<div class="print-options">${q.o.map((o,idx)=> `<div>(${String.fromCharCode(65+idx)}) ${o}</div>`).join('')}</div></div>`;
+            key += `<div>Q${i+1}: [ ${String.fromCharCode(65+q.c)} ]</div>`;
         });
 
-        document.getElementById('print-area').innerHTML = html + key + "</div>";
+        document.getElementById('print-area').innerHTML = h + key + "</div>";
         window.print();
         document.getElementById('print-area').innerHTML = "";
     }
 
-    function reportQ() {
-        const msg = prompt("What is wrong with Question " + (qIdx+1) + "?");
-        if(msg) {
-            db.collection('reports').add({
-                test: document.getElementById('active-test-name').innerText,
-                qIdx: qIdx + 1,
-                error: msg,
-                user: userObj.email,
-                time: new Date()
-            }).then(() => alert("Reported to Admin."));
-        }
-    }
+    function setTheme(color) { document.documentElement.style.setProperty('--primary', color); }
+    function handleLogout() { sessionStorage.clear(); auth.signOut(); location.reload(); }
 
-    function changeTheme(color) { document.documentElement.style.setProperty('--primary', color); }
-    function logout() { sessionStorage.clear(); auth.signOut(); location.reload(); }
-
-    // Check existing session
-    const saved = sessionStorage.getItem('ldce_user');
-    if(saved) { userObj = JSON.parse(saved); initPortal(); }
+    // Init Session
+    const savedUser = sessionStorage.getItem('cbt_user');
+    if(savedUser) { user = JSON.parse(savedUser); launchPortal(); }
 </script>
 
 </body>
