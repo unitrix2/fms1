@@ -1,7 +1,18 @@
 [
-  "ssecontractcell@gmail.com",
-  "friend1@gmail.com",
-  "candidate2@gmail.com",
-  "admin.railway@gmail.com",
-  "unitrix2@gmail.com"
+  {
+    "email": "your.admin.email@gmail.com",
+    "access": ["admin"]
+  },
+  {
+    "email": "student1@gmail.com",
+    "access": ["tech-iii"]
+  },
+  {
+    "email": "student2@gmail.com",
+    "access": ["je"]
+  },
+  {
+    "email": "student3@gmail.com",
+    "access": ["je", "tech-iii"]
+  }
 ]
