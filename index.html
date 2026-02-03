@@ -3,223 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indian Railways - JE Mock Test</title>
+    <title>Indian Railways Exam Portal</title>
     
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root { 
             --primary: #b71c1c; 
             --primary-dark: #7f0000;
-            --primary-light: #ffcdd2;
-            --primary-fade: rgba(183, 28, 28, 0.1);
             --secondary: #eceff1; 
             --text: #263238; 
             --correct: #2e7d32; 
             --wrong: #c62828; 
-            --warning: #ff8f00; 
-            --skipped: #78909c; 
-            --header-bg: #fff;
+            --review: #7b1fa2;
+            --skipped: #78909c;
         }
         
-        body { font-family: 'Segoe UI', 'Roboto', sans-serif; margin: 0; background: var(--secondary); color: var(--text); display: flex; flex-direction: column; height: 100vh; overflow: hidden; transition: background 0.3s; }
+        body { font-family: 'Segoe UI', 'Roboto', sans-serif; margin: 0; background: var(--secondary); color: var(--text); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+        /* --- LOGIN STYLES (UNCHANGED) --- */
+        #login-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0d47a1 0%, #000000 100%); z-index: 10000; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        .login-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); padding: 40px; border-radius: 20px; width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.2); }
+        .input-group input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; }
+        .login-btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
         
-        /* --- LOGIN SCREEN --- */
-        #login-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--primary) 0%, #1a237e 100%);
-            display: flex; justify-content: center; align-items: center; z-index: 9000;
-        }
-        .login-box {
-            background: white; padding: 40px; border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); text-align: center; width: 350px;
-        }
-        .google-btn {
-            background: #4285F4; color: white; border: none; padding: 12px 24px;
-            border-radius: 4px; font-size: 16px; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; gap: 10px; width: 100%;
-            transition: background 0.3s; margin-top: 20px;
-        }
-        .google-btn:hover { background: #357ae8; }
-        .error-msg { color: red; margin-top: 15px; font-size: 0.9rem; display: none; }
+        /* --- APP HEADER & LAYOUT --- */
+        #app-content { display: none; height: 100%; flex-direction: column; }
+        header { background: white; padding: 10px 20px; border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .logo-img { width: 50px; }
+        .header-title h2 { margin: 0; color: var(--primary); font-size: 1.4rem; }
+        .user-info { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold; }
+        .logout-btn { background: #ffebee; color: var(--primary); border: 1px solid var(--primary); padding: 5px 10px; border-radius: 5px; cursor: pointer; }
 
-        /* --- APP INTERFACE (Hidden initially) --- */
-        #app-interface { display: none; height: 100%; flex-direction: column; }
+        /* --- TABS --- */
+        .nav-tabs { display: flex; background: #fff; padding: 0 20px; border-bottom: 1px solid #ddd; }
+        .tab-btn { padding: 12px 20px; border: none; background: none; cursor: pointer; font-weight: 600; color: #555; border-bottom: 3px solid transparent; transition: 0.3s; }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .tab-btn:hover { background: #f5f5f5; }
 
-        /* LOADER */
-        #loader { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.9); z-index:9999; justify-content:center; align-items:center; flex-direction:column; }
-        .spinner { width: 50px; height: 50px; border: 5px solid #eee; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* --- MAIN VIEW --- */
+        .main-container { flex: 1; overflow: hidden; position: relative; }
+        .view-section { display: none; height: 100%; overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .view-section.active { display: block; }
 
-        /* HEADER */
-        header { background: var(--header-bg); color: #333; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-bottom: 3px solid var(--primary); z-index: 50; gap: 10px; }
-        .header-left, .header-controls { display: flex; align-items: center; gap: 15px; }
-        .railway-logo { width: 45px; height: 45px; background: url('https://images.seeklogo.com/logo-png/31/1/indian-railways-logo-png_seeklogo-310214.png') no-repeat center center; background-size: contain; flex-shrink: 0; }
-        .title-group h2 { margin: 0; font-size: 1.3rem; color: var(--primary); line-height: 1.2; font-weight: 700; }
-        .title-group p { margin: 0; font-size: 0.75rem; color: #666; font-weight: 500; }
+        /* --- TEST CARDS --- */
+        .category-select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 200px; margin-bottom: 20px; display: none; }
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+        .test-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; transition: 0.2s; border-left: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
+        .test-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
 
-        /* DROPDOWN */
-        .custom-select { position: relative; width: 220px; font-family: 'Segoe UI', sans-serif; }
-        .select-selected { background-color: #f1f8e9; border: 2px solid var(--primary); border-radius: 30px; padding: 6px 35px 6px 15px; color: var(--primary-dark); font-weight: 600; font-size: 0.85rem; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .select-items { position: absolute; background-color: #fff; top: 110%; left: 0; right: 0; z-index: 999; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); overflow-y: auto; max-height: 200px !important; border: 1px solid #eee; display: none; }
-        .select-show { display: block; }
-        .select-items div { padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
-        .select-items div:hover { background-color: var(--primary-fade); color: var(--primary); font-weight: 700; }
+        /* --- QUIZ UI (UNCHANGED) --- */
+        #quiz-ui { display: none; height: 100%; display: flex; gap: 15px; }
+        .q-area { flex: 3; background: white; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .q-header { background: var(--primary); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .q-scroll { flex: 1; padding: 25px; overflow-y: auto; }
+        .q-text { font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; }
+        .q-hindi { color: #555; margin-bottom: 15px; font-family: 'Nirmala UI', sans-serif; }
+        .options label { display: block; padding: 12px; border: 1px solid #ddd; margin-bottom: 8px; border-radius: 5px; cursor: pointer; transition: 0.2s; }
+        .options label:hover { background: #f9f9f9; border-color: #999; }
+        .options input { margin-right: 10px; }
+        .q-footer { padding: 15px; background: #f5f5f5; display: flex; justify-content: space-between; border-top: 1px solid #ddd; }
+        .btn { padding: 8px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: white; }
+        .btn-prev { background: #78909c; } .btn-next { background: var(--primary); } 
+        .btn-review { background: var(--review); } .btn-submit { background: var(--correct); }
+        .palette-area { flex: 1; background: white; border-radius: 10px; padding: 15px; display: flex; flex-direction: column; max-width: 300px; }
+        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; overflow-y: auto; flex: 1; align-content: start; }
+        .p-btn { padding: 8px 0; text-align: center; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+        .p-btn.answered { background: var(--primary); color: white; border-color: var(--primary); }
+        .p-btn.review { background: var(--review); color: white; border-color: var(--review); }
+        .p-btn.current { border: 2px solid #ff9800; }
 
-        /* TOOLS & USER INFO */
-        .tools-group { display: flex; align-items: center; gap: 5px; background: #f5f5f5; padding: 4px 8px; border-radius: 30px; border: 1px solid #ddd; }
-        .timer-display { font-family: 'Courier New', monospace; font-weight: 800; font-size: 1.1rem; color: var(--primary); min-width: 60px; text-align: center; }
-        .tool-btn { background: var(--primary); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
-        .tool-btn:hover { transform: scale(1.1); }
-        .timer-input { width: 35px; padding: 4px; border: 1px solid #ccc; border-radius: 4px; text-align: center; font-size: 0.8rem; }
+        /* --- ADMIN & TABLES --- */
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; font-size: 0.9rem; }
+        th { background: #f5f5f5; color: #333; font-weight: 700; }
+        .admin-panel { display: grid; grid-template-columns: 200px 1fr; gap: 20px; height: 100%; }
+        .admin-sidebar { background: white; padding: 10px; border-radius: 8px; border-right: 1px solid #eee; }
+        .admin-nav-btn { width: 100%; padding: 10px; text-align: left; border: none; background: none; cursor: pointer; border-radius: 5px; margin-bottom: 5px; font-weight: 600; color: #555; }
+        .admin-nav-btn.active { background: var(--primary); color: white; }
+        .admin-content { overflow-y: auto; padding-right: 10px; }
         
-        .user-info { font-size: 0.85rem; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 8px; margin-left: 10px; }
-        .logout-btn { background: #eee; border: none; padding: 4px 8px; cursor: pointer; font-size: 0.75rem; border-radius: 4px; color: #333; }
-
-        /* THEME PANEL */
-        .theme-panel { position: absolute; top: 45px; right: -10px; background: white; padding: 12px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); display: none; grid-template-columns: repeat(4, 1fr); gap: 10px; z-index: 100; border: 1px solid #eee; width: 140px; }
-        .theme-dot { width: 25px; height: 25px; border-radius: 50%; cursor: pointer; border: 2px solid white; box-shadow: 0 0 0 1px #ccc; transition: transform 0.2s; }
-        .theme-dot:hover { transform: scale(1.2); }
-
-        /* LAYOUT */
-        .container { display: flex; flex: 1; overflow: hidden; padding: 15px; gap: 15px; }
-        .q-area { flex: 3; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; }
-        .sidebar { flex: 1; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow-y: auto; max-width: 320px; border-top: 5px solid var(--primary); }
-
-        /* QUIZ */
-        .active-test-banner { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 15px 25px; display: flex; justify-content: space-between; font-weight: 600; }
-        .q-scroll-area { padding: 25px; overflow-y: auto; flex: 1; }
-        .q-meta { margin-bottom: 15px; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
-        .q-idx { font-weight: 700; color: var(--primary); font-size: 1.1rem; background: var(--primary-light); padding: 5px 12px; border-radius: 15px; }
-        .q-text { font-size: 1.25rem; margin-bottom: 10px; font-weight: 600; color: #263238; line-height: 1.4; }
-        .q-hindi { font-size: 1.15rem; margin-bottom: 25px; color: #455a64; font-family: 'Nirmala UI', sans-serif; }
-        .options label { display: flex; align-items: flex-start; padding: 15px; margin-bottom: 12px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: 0.2s; background: #fff; }
-        .options label:hover { background: #fafafa; border-color: var(--primary); }
-        .options input { margin-right: 15px; transform: scale(1.3); flex-shrink: 0; accent-color: var(--primary); }
-        .options input:checked + span { font-weight: 600; color: var(--primary); }
+        .stat-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; border-bottom: 4px solid var(--primary); }
+        .stat-num { font-size: 2rem; font-weight: bold; color: var(--primary); }
         
-        .clear-btn { background: #fff; border: 1px solid #ef5350; color: #ef5350; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; margin-top: 15px; font-weight: 600; }
+        .role-badge { padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; background: #e0e0e0; color: #333; margin-right: 4px; }
+        .role-admin { background: #212121; color: white; }
+        .role-je { background: #1565c0; color: white; }
+        .role-tech { background: #2e7d32; color: white; }
 
-        /* PALETTE */
-        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
-        .p-btn { padding: 8px 0; background: #fff; border: 1px solid #cfd8dc; border-radius: 6px; cursor: pointer; text-align: center; font-weight: 600; }
-        .p-btn.done { background: var(--primary); color: white; border-color: var(--primary); }
-        .p-btn.curr { border: 2px solid var(--warning); transform: scale(1.1); box-shadow: 0 3px 6px rgba(0,0,0,0.15); }
-
-        .footer { padding: 15px 25px; display: flex; justify-content: space-between; border-top: 1px solid #eee; background: #fff; }
-        .btn { padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; color: white; transition: 0.1s; }
-        .btn:active { transform: scale(0.98); }
-        .prev { background: #78909c; } .next { background: var(--primary); } .sub { background: var(--correct); }
-
-        /* RESULT SCREEN */
-        #result { display: none; padding: 0; overflow-y: auto; background: #f0f2f5; position: absolute; top:0; left:0; width:100%; height:100%; z-index: 100; }
-        .res-container { max-width: 1100px; margin: 30px auto; padding: 0 20px 60px 20px; }
-        .res-header { text-align: center; margin-bottom: 30px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        
-        /* TABLE */
-        .table-container { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th { position: sticky; top: 0; background: var(--primary); color: white; padding: 15px; }
-        td { padding: 15px; border-bottom: 1px solid #eee; }
-        .check-btn { 
-            background: transparent; color: #1976d2; border: 1px solid #1976d2; 
-            padding: 5px 10px; border-radius: 15px; cursor: pointer; font-weight: 600; font-size: 0.85rem;
-        }
-        .check-btn:hover { background: #1976d2; color: white; }
-        .badge { padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; color: white; display: inline-block; min-width: 70px; text-align: center; }
-        .bg-cor { background-color: var(--correct); }
-        .bg-wro { background-color: var(--wrong); }
-        .bg-ski { background-color: var(--skipped); }
-
-        @media (max-width: 768px) {
-            header { flex-direction: column; align-items: stretch; }
-            .container { flex-direction: column; }
-            .q-area { flex: none; min-height: 450px; }
-            .sidebar { flex: none; order: 2; margin-top: 10px; }
-            .timer-input { display: none; }
+        /* --- PRINT STYLES --- */
+        @media print {
+            body * { visibility: hidden; }
+            #printable-area, #printable-area * { visibility: visible; }
+            #printable-area { position: absolute; left: 0; top: 0; width: 100%; }
+            .print-q-block { break-inside: avoid; margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 10px; }
+            .print-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid black; }
+            .print-options { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px; font-size: 0.9rem; }
+            .print-key { break-before: page; }
         }
     </style>
 </head>
 <body>
 
-<div id="loader"><div class="spinner"></div><p style="margin-top:15px; font-weight:bold; color:#555;">Processing...</p></div>
-
-<div id="login-screen">
-    <div class="login-box">
-        <h2 style="margin-top:0; color:var(--primary);">JE Exam Portal</h2>
-        <p style="color:#666; margin-bottom:25px;">Departmental Selection (LDCE)</p>
-        <button class="google-btn" onclick="signIn()">Sign in with Google</button>
-        <p id="auth-error" class="error-msg"></p>
+<div id="login-page">
+    <div class="login-card">
+        <img src="https://images.seeklogo.com/logo-png/31/1/indian-railways-logo-png_seeklogo-310214.png" width="80" style="margin-bottom:20px;">
+        <h2 style="color:white; margin:0 0 20px 0;">LDCE Exam Portal</h2>
+        <div class="input-group"><input type="text" id="username" placeholder="Username / PF Number"></div>
+        <div class="input-group"><input type="password" id="password" placeholder="Password"></div>
+        <button class="login-btn" onclick="manualLogin()">Login</button>
+        <div style="color:white; margin:15px 0;">OR</div>
+        <button class="login-btn" style="background:white; color:#333; display:flex; align-items:center; justify-content:center; gap:10px;" onclick="googleLogin()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18"> Google Login
+        </button>
+        <p id="login-msg" style="color:yellow; font-size:0.9rem; margin-top:10px;"></p>
     </div>
 </div>
 
-<div id="app-interface">
+<div id="app-content">
     <header>
-        <div class="header-left">
-            <div class="railway-logo"></div>
-            <div class="title-group"><h2>JE Mock Test</h2><p>Engine</p></div>
+        <div class="logo-section">
+            <img src="https://images.seeklogo.com/logo-png/31/1/indian-railways-logo-png_seeklogo-310214.png" class="logo-img">
+            <div class="header-title"><h2 id="dynamic-header-text">LDCE Exam Portal</h2></div>
         </div>
-        
-        <div class="header-controls">
-            <div class="custom-select" id="custom-select">
-                <div class="select-selected">Loading...</div>
-                <div class="select-items" id="select-items"></div>
-            </div>
-
-            <div class="palette-wrapper" style="position:relative;">
-                <button class="tool-btn" onclick="toggleThemePanel()">🎨</button>
-                <div class="theme-panel" id="theme-panel">
-                    <div class="theme-dot" style="background:#b71c1c;" onclick="setTheme('#b71c1c','#7f0000','#ffcdd2','rgba(183, 28, 28, 0.1)')"></div>
-                    <div class="theme-dot" style="background:#1565c0;" onclick="setTheme('#1565c0','#003c8f','#bbdefb','rgba(21, 101, 192, 0.1)')"></div>
-                    <div class="theme-dot" style="background:#2e7d32;" onclick="setTheme('#2e7d32','#005005','#c8e6c9','rgba(46, 125, 50, 0.1)')"></div>
-                    <div class="theme-dot" style="background:#6a1b9a;" onclick="setTheme('#6a1b9a','#38006b','#e1bee7','rgba(106, 27, 154, 0.1)')"></div>
-                </div>
-            </div>
-            
-            <div class="tools-group">
-                <input type="number" id="manual-timer" class="timer-input" placeholder="Min">
-                <button class="tool-btn" onclick="setCustomTime()">✓</button>
-                <div class="timer-display" id="timer">60:00</div>
-            </div>
-
-            <div class="user-info">
-                <span id="user-name">User</span>
-                <button class="logout-btn" onclick="logout()">Exit</button>
-            </div>
+        <div class="user-info">
+            <span id="user-name-disp">User</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
     </header>
 
-    <div class="container" id="quiz-ui">
-        <div class="q-area">
-            <div class="active-test-banner">
-                <div id="active-test-name">Select a Test</div>
-                <span><span id="q-count">0</span> Qs</span>
-            </div>
-            <div class="q-scroll-area">
-                <div class="q-meta"><span id="q-idx" class="q-idx">Q. 1</span></div>
-                <div id="q-content">Please select a test from the dropdown to start.</div>
-                <button class="clear-btn" onclick="clearResponse()" id="clear-btn" style="display:none;">✕ Clear Selection</button>
-            </div>
-            <div class="footer">
-                <button class="btn prev" onclick="nav(-1)">Previous</button>
-                <button class="btn sub" onclick="finish()">Submit Test</button>
-                <button class="btn next" onclick="nav(1)">Next</button>
-            </div>
-        </div>
-        <div class="sidebar">
-            <h3 style="margin-top:0; border-bottom:2px solid #eee; padding-bottom:10px; color:var(--primary);">Question Palette</h3>
-            <div class="grid" id="palette"></div>
-        </div>
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('home')">Tests</button>
+        <button class="tab-btn" onclick="switchTab('history')">History</button>
+        <button class="tab-btn" onclick="switchTab('leaderboard')">Leaderboard</button>
+        <button class="tab-btn" id="admin-tab" style="display:none; color:#c62828;" onclick="switchTab('admin')">Admin Panel</button>
     </div>
 
-    <div id="result"></div>
+    <div class="main-container">
+        
+        <div id="view-home" class="view-section active">
+            <div style="margin-bottom:20px;">
+                <select id="category-filter" class="category-select" onchange="filterTests()">
+                    <option value="all">Select Category...</option>
+                    <option value="tech-iii">Tech-III (C&W)</option>
+                    <option value="je">JE (C&W)</option>
+                    <option value="adme">ADME</option>
+                </select>
+            </div>
+            <div id="test-list" class="test-grid"></div>
+        </div>
+
+        <div id="view-quiz" class="view-section" style="padding:15px; background:#f0f2f5;">
+            <div id="quiz-ui">
+                <div class="q-area">
+                    <div class="q-header">
+                        <span id="quiz-title" style="font-weight:bold;">Test</span>
+                        <span style="font-family:monospace; font-size:1.2rem;" id="timer">00:00</span>
+                    </div>
+                    <div class="q-scroll">
+                        <div id="question-container"></div>
+                    </div>
+                    <div class="q-footer">
+                        <button class="btn btn-prev" onclick="navQuestion(-1)">Previous</button>
+                        <button class="btn btn-review" onclick="markReview()">Mark for Review</button>
+                        <button class="btn btn-next" onclick="navQuestion(1)">Next</button>
+                        <button class="btn btn-submit" onclick="submitTest()">Submit</button>
+                    </div>
+                </div>
+                <div class="palette-area">
+                    <h4 style="margin-top:0;">Question Palette</h4>
+                    <div class="palette-grid" id="palette"></div>
+                    <button class="btn btn-review" style="margin-top:15px; width:100%; background:#f57c00;" onclick="reportIssue()">⚠️ Report Question</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-result" class="view-section">
+            <div style="max-width:800px; margin:0 auto; background:white; padding:30px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+                <h2 style="color:var(--primary); text-align:center;">Test Result</h2>
+                <div style="display:flex; justify-content:space-around; margin:30px 0; text-align:center;">
+                    <div><h1><span id="res-score">0</span>/<span id="res-total">0</span></h1><p>Score</p></div>
+                    <div><h1 id="res-percent">0%</h1><p>Percentage</p></div>
+                    <div><h1 id="res-time">00:00</h1><p>Time Taken</p></div>
+                </div>
+                <hr>
+                <h3>Answer Key & Explanations</h3>
+                <div id="detailed-analysis"></div>
+                <button class="btn btn-next" style="margin-top:20px;" onclick="switchTab('home')">Back to Home</button>
+            </div>
+        </div>
+
+        <div id="view-history" class="view-section">
+            <h3>Performance Graph</h3>
+            <div style="background:white; padding:15px; border-radius:8px; margin-bottom:20px;">
+                <canvas id="historyChart" style="max-height:250px;"></canvas>
+            </div>
+            <h3>Past Attempts</h3>
+            <div id="history-list"></div>
+        </div>
+
+        <div id="view-leaderboard" class="view-section">
+            <h3>Leaderboard (Top 20)</h3>
+            <table><thead><tr><th>Rank</th><th>Name</th><th>Test</th><th>Score</th><th>Date</th></tr></thead><tbody id="leaderboard-body"></tbody></table>
+        </div>
+
+        <div id="view-admin" class="view-section">
+            <div class="admin-panel">
+                <div class="admin-sidebar">
+                    <button class="admin-nav-btn active" onclick="switchAdminSubTab('dashboard')">Dashboard</button>
+                    <button class="admin-nav-btn" onclick="switchAdminSubTab('access')">Manage Access</button>
+                    <button class="admin-nav-btn" onclick="switchAdminSubTab('tests')">Tests & Booklets</button>
+                    <button class="admin-nav-btn" onclick="switchAdminSubTab('reports')">Reported Issues</button>
+                    <button class="admin-nav-btn" onclick="switchAdminSubTab('results')">Global Results</button>
+                </div>
+                <div class="admin-content">
+                    
+                    <div id="adm-dashboard" class="adm-subview">
+                        <h3>System Overview</h3>
+                        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:20px;">
+                            <div class="stat-card"><div class="stat-num" id="stat-users">0</div><div>Registered Users</div></div>
+                            <div class="stat-card"><div class="stat-num" id="stat-tests">0</div><div>Total Attempts</div></div>
+                            <div class="stat-card"><div class="stat-num" id="stat-reports" style="color:#f57c00">0</div><div>Pending Reports</div></div>
+                        </div>
+                    </div>
+
+                    <div id="adm-access" class="adm-subview" style="display:none;">
+                        <h3>User Access Management</h3>
+                        <div style="background:#f9f9f9; padding:15px; border-radius:8px; margin-bottom:20px; border:1px solid #ddd;">
+                            <h4>Add / Update User Permission</h4>
+                            <input type="text" id="adm-email" placeholder="User Email (e.g. user@gmail.com)" style="padding:8px; width:250px;">
+                            <select id="adm-role" style="padding:8px;">
+                                <option value="tech-iii">Tech-III Only</option>
+                                <option value="je">JE Only</option>
+                                <option value="adme">ADME Only</option>
+                                <option value="je,tech-iii">JE + Tech-III</option>
+                                <option value="admin">Super Admin</option>
+                            </select>
+                            <button class="btn btn-next" onclick="updateUserAccess()">Grant Access</button>
+                        </div>
+                        <h4>Authorized Users List</h4>
+                        <table><thead><tr><th>Email</th><th>Roles</th><th>Action</th></tr></thead><tbody id="access-list-body"></tbody></table>
+                    </div>
+
+                    <div id="adm-tests" class="adm-subview" style="display:none;">
+                        <h3>Generate Offline Booklets</h3>
+                        <select id="adm-pdf-cat" class="category-select" style="display:block;" onchange="loadAdminTestList()">
+                            <option value="tech-iii">Tech-III</option>
+                            <option value="je">JE</option>
+                            <option value="adme">ADME</option>
+                        </select>
+                        <div id="adm-test-grid" style="margin-top:15px;"></div>
+                    </div>
+
+                    <div id="adm-reports" class="adm-subview" style="display:none;">
+                        <h3>Reported Questions</h3>
+                        <table><thead><tr><th>Test</th><th>Q No.</th><th>Issue / Reason</th><th>Reported By</th><th>Action</th></tr></thead><tbody id="reports-body"></tbody></table>
+                    </div>
+
+                    <div id="adm-results" class="adm-subview" style="display:none;">
+                        <h3>All Student Results</h3>
+                        <table><thead><tr><th>Student</th><th>Test Name</th><th>Score</th><th>Date</th></tr></thead><tbody id="global-results-body"></tbody></table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
+<div id="printable-area"></div>
+
 <script>
-    // ============================================
-    // 👇 APNI CONFIGURATION YAHAN BHAREIN 👇
-    // ============================================
+    // --- CONFIGURATION ---
+    const GH_USER = 'unitrix2';
+    const GH_REPO = 'LDCETG3';
+    
+    // --- FIREBASE INIT ---
     const firebaseConfig = {
         apiKey: "AIzaSyCxCLczt1L01qr3DmdvAv_EU3IsWhgxs0w",
         authDomain: "fms1-39dca.firebaseapp.com",
@@ -228,268 +292,430 @@
         messagingSenderId: "46968102286",
         appId: "1:46968102286:web:452d87de53dfcc2028d8df"
     };
-
-    const GH_USERNAME = 'unitrix2';   
-    const GH_REPO = 'fms1';    
-    const FOLDER_PATH = 'tests'; 
-    // ============================================
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+    const db = firebase.firestore();
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    let currentQuestions = [];
-    let qIdx = 0;
-    let answers = {};
-    let time = 3600;
-    let timerInt;
+    // --- STATE ---
+    let currentUser = null;
+    let currentTest = null;
+    let timerInterval = null;
 
-    // --- AUTHENTICATION LOGIC ---
-    function signIn() {
-        auth.signInWithPopup(provider)
-            .then((result) => checkPermission(result.user))
-            .catch((error) => showError(error.message));
+    // --- AUTHENTICATION ---
+    function googleLogin() {
+        auth.signInWithPopup(provider).then(res => handleAuth(res.user.email, 'google'))
+            .catch(e => document.getElementById('login-msg').innerText = e.message);
     }
 
-    function checkPermission(user) {
-        document.getElementById('loader').style.display = 'flex';
-        fetch('allowed_users.json')
-            .then(res => res.json())
-            .then(allowedList => {
-                document.getElementById('loader').style.display = 'none';
-                if (allowedList.includes(user.email)) {
-                    // LOGIN SUCCESS: Show App
-                    document.getElementById('login-screen').style.display = 'none';
-                    document.getElementById('app-interface').style.display = 'flex';
-                    document.getElementById('user-name').innerText = user.displayName.split(' ')[0];
-                    
-                    // 🔥 FIX: Login ke baad Test List Load karein
-                    fetchExams();
-                    setupDropdownListener();
-                } else {
-                    auth.signOut();
-                    showError("Access Denied: " + user.email);
-                }
-            })
-            .catch(err => {
-                document.getElementById('loader').style.display = 'none';
-                showError("Permission file load error.");
-            });
+    async function manualLogin() {
+        const u = document.getElementById('username').value;
+        const p = document.getElementById('password').value;
+        try {
+            const res = await fetch('users.json'); 
+            const users = await res.json();
+            const valid = users.find(user => user.username === u && user.password === p);
+            if(valid) handleAuth(valid, 'manual');
+            else document.getElementById('login-msg').innerText = "Invalid Credentials";
+        } catch(e) { console.error(e); }
+    }
+
+    async function handleAuth(identifier, type) {
+        let email = type === 'google' ? identifier : identifier.username;
+        let name = type === 'google' ? email.split('@')[0] : identifier.name;
+        
+        // CHECK FIRESTORE PERMISSIONS (Priority)
+        const doc = await db.collection('authorized_users').doc(email).get();
+        
+        let roles = [];
+        if (doc.exists) {
+            roles = doc.data().roles;
+        } else {
+            // Fallback to JSON for Legacy/Manual users
+            if(type === 'manual') roles = identifier.access;
+            else {
+                // Check allowed_users.json
+                const res = await fetch('allowed_users.json');
+                const allowed = await res.json();
+                const userObj = allowed.find(u => u.email.toLowerCase() === email.toLowerCase());
+                if(userObj) roles = userObj.access;
+            }
+        }
+
+        if(roles.length > 0) {
+            currentUser = { name, email, roles };
+            sessionStorage.setItem('user', JSON.stringify(currentUser));
+            initApp();
+        } else {
+            auth.signOut();
+            alert("Access Denied. Contact Admin.");
+        }
+    }
+
+    function initApp() {
+        document.getElementById('login-page').style.display = 'none';
+        document.getElementById('app-content').style.display = 'flex';
+        document.getElementById('user-name-disp').innerText = currentUser.name;
+        
+        // Header Text
+        const roleText = currentUser.roles.includes('admin') ? 'ADMIN' : currentUser.roles.map(r=>r.toUpperCase()).join(' / ');
+        document.getElementById('dynamic-header-text').innerText = `LDCE ${roleText} PORTAL`;
+
+        // UI Logic
+        if(currentUser.roles.includes('admin')) {
+            document.getElementById('admin-tab').style.display = 'block';
+            document.getElementById('category-filter').style.display = 'block';
+            // Populate Admin Filter
+            const catSelect = document.getElementById('category-filter');
+            catSelect.innerHTML = `<option value="all">All Tests</option>
+                                   <option value="tech-iii">Tech-III</option>
+                                   <option value="je">JE</option>
+                                   <option value="adme">ADME</option>`;
+        } else if(currentUser.roles.length > 1) {
+            document.getElementById('category-filter').style.display = 'block';
+            const catSelect = document.getElementById('category-filter');
+            catSelect.innerHTML = '<option value="all">Select Category...</option>';
+            currentUser.roles.forEach(r => catSelect.innerHTML += `<option value="${r}">${r.toUpperCase()}</option>`);
+        } else {
+            loadTests(currentUser.roles[0]); // Auto load single role
+        }
+
+        // Resume Test Logic
+        const saved = localStorage.getItem('resume_' + currentUser.email);
+        if(saved) {
+            if(confirm("Incomplete test found. Resume?")) {
+                resumeTest(JSON.parse(saved));
+            } else {
+                localStorage.removeItem('resume_' + currentUser.email);
+            }
+        }
     }
 
     function logout() {
-        auth.signOut().then(() => location.reload());
+        sessionStorage.clear();
+        auth.signOut();
+        location.reload();
     }
 
-    function showError(msg) {
-        const el = document.getElementById('auth-error');
-        el.innerText = msg;
-        el.style.display = 'block';
+    // --- TESTS ---
+    async function filterTests() {
+        const cat = document.getElementById('category-filter').value;
+        if(cat !== 'all') loadTests(cat);
     }
 
-    auth.onAuthStateChanged((user) => {
-        if (user) checkPermission(user);
-    });
-
-    // --- DROPDOWN & FETCH LOGIC (FIXED) ---
-    async function fetchExams() {
-        document.querySelector(".select-selected").innerText = "Loading Tests...";
-        let path = FOLDER_PATH ? `/${FOLDER_PATH}` : '';
-        const apiUrl = `https://api.github.com/repos/${GH_USERNAME}/${GH_REPO}/contents${path}`;
-        
+    async function loadTests(category) {
+        const grid = document.getElementById('test-list');
+        grid.innerHTML = 'Loading...';
         try {
-            const res = await fetch(apiUrl);
+            const res = await fetch(`https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/tests/${category}`);
             const files = await res.json();
-            const tests = files.filter(f => f.name.endsWith('.json'));
-            
-            const list = document.getElementById("select-items");
-            list.innerHTML = "";
-
-            if(tests.length > 0) {
-                document.querySelector(".select-selected").innerText = "Select a Test";
-                tests.forEach(test => {
-                    const div = document.createElement("div");
-                    div.innerText = test.name.replace('.json','').replace(/_/g,' ').toUpperCase();
-                    div.onclick = () => {
-                        document.getElementById("select-items").classList.remove("select-show");
-                        if(confirm("Start " + div.innerText + "?")) {
-                            loadExam(test.download_url, div.innerText);
-                        }
-                    };
-                    list.appendChild(div);
-                });
-            } else {
-                document.querySelector(".select-selected").innerText = "No Tests";
-            }
-        } catch(e) {
-            document.querySelector(".select-selected").innerText = "Error Loading";
-        }
+            grid.innerHTML = '';
+            files.filter(f => f.name.endsWith('.json')).forEach(f => {
+                const name = f.name.replace('.json', '').replace(/_/g, ' ').toUpperCase();
+                grid.innerHTML += `<div class="test-card" onclick="startTest('${f.download_url}','${name}')">
+                    <b>${name}</b> <span style="font-size:0.8rem; color:#666;">Start ➔</span>
+                </div>`;
+            });
+        } catch(e) { grid.innerHTML = 'No tests found.'; }
     }
 
-    function setupDropdownListener() {
-        const selected = document.querySelector(".select-selected");
-        const items = document.getElementById("select-items");
+    // --- QUIZ ENGINE ---
+    async function startTest(url, name) {
+        const res = await fetch(url);
+        const data = await res.json();
+        currentTest = { data, answers: {}, review: {}, name, time: 0, idx: 0 };
+        openQuiz();
+    }
+
+    function resumeTest(saved) {
+        currentTest = saved;
+        openQuiz();
+    }
+
+    function openQuiz() {
+        switchTab('quiz');
+        document.getElementById('quiz-title').innerText = currentTest.name;
+        loadQuestion(currentTest.idx);
+        renderPalette();
         
-        // Remove old listeners (cloning trick)
-        const newSelected = selected.cloneNode(true);
-        selected.parentNode.replaceChild(newSelected, selected);
-        
-        newSelected.addEventListener("click", (e) => {
-            e.stopPropagation();
-            items.classList.toggle("select-show");
-        });
-
-        window.addEventListener("click", () => items.classList.remove("select-show"));
-    }
-
-    async function loadExam(url, name) {
-        document.getElementById('loader').style.display = 'flex';
-        try {
-            const res = await fetch(url);
-            currentQuestions = await res.json();
-            document.getElementById('loader').style.display = 'none';
-            
-            qIdx = 0; answers = {}; time = 3600;
-            document.getElementById('active-test-name').innerText = name;
-            document.getElementById('q-count').innerText = currentQuestions.length;
-            document.getElementById('result').style.display = 'none';
-            document.getElementById('quiz-ui').style.display = 'flex';
-            
-            renderQ(); renderPal(); startTimer();
-        } catch(e) {
-            document.getElementById('loader').style.display = 'none';
-            alert("Error loading questions.");
-        }
-    }
-
-    // --- QUIZ FUNCTIONS (RESTORED FROM ORIGINAL) ---
-    function renderQ() {
-        if(!currentQuestions.length) return;
-        let q = currentQuestions[qIdx];
-        document.getElementById('q-idx').innerText = `Q. ${qIdx+1}`;
-        
-        let html = `<div class="q-text">${q.q}</div><div class="q-hindi">${q.h||''}</div><div class="options">`;
-        q.o.forEach((opt, i) => {
-            html += `<label><input type="radio" name="o" onclick="save(${i})" ${answers[qIdx]===i?'checked':''}> <span>${String.fromCharCode(65+i)}) ${opt}</span></label>`;
-        });
-        document.getElementById('q-content').innerHTML = html + '</div>';
-        document.getElementById('clear-btn').style.display = answers[qIdx]!==undefined ? 'inline-flex' : 'none';
-        updPal();
-    }
-
-    function save(opt) { answers[qIdx] = opt; renderQ(); }
-    function clearResponse() { delete answers[qIdx]; renderQ(); }
-    function nav(d) { if(qIdx+d >= 0 && qIdx+d < currentQuestions.length) { qIdx+=d; renderQ(); } }
-    
-    function renderPal() {
-        const p = document.getElementById('palette'); p.innerHTML = '';
-        currentQuestions.forEach((_,i) => {
-            const b = document.createElement('div');
-            b.className = 'p-btn'; b.innerText = i+1; b.id = `p-${i}`;
-            b.onclick = () => { qIdx=i; renderQ(); };
-            p.appendChild(b);
-        });
-    }
-    
-    function updPal() {
-        currentQuestions.forEach((_,i) => {
-            const el = document.getElementById(`p-${i}`);
-            el.className = `p-btn ${answers[i]!==undefined?'done':''} ${i===qIdx?'curr':''}`;
-        });
-    }
-
-    // --- THEME & TIMER (RESTORED) ---
-    function toggleThemePanel() { document.getElementById('theme-panel').style.display = 'grid'; }
-    document.addEventListener('click', (e) => {
-        if (!document.getElementById('theme-panel').contains(e.target) && !e.target.matches('.tool-btn')) 
-            document.getElementById('theme-panel').style.display = 'none';
-    });
-
-    function setTheme(p,d,l,f) {
-        document.documentElement.style.setProperty('--primary', p);
-        document.documentElement.style.setProperty('--primary-dark', d);
-        document.documentElement.style.setProperty('--primary-light', l);
-        document.documentElement.style.setProperty('--primary-fade', f);
-    }
-    
-    function setCustomTime() {
-        const v = document.getElementById('manual-timer').value;
-        if(v) { time = v*60; clearInterval(timerInt); startTimer(); }
-    }
-    
-    function startTimer() {
-        clearInterval(timerInt);
-        timerInt = setInterval(() => {
-            time--;
-            let m = Math.floor(time/60); let s = time%60;
-            document.getElementById('timer').innerText = `${m}:${s<10?'0':''}${s}`;
-            if(time<=0) finish();
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            currentTest.time++;
+            const m = Math.floor(currentTest.time / 60).toString().padStart(2,'0');
+            const s = (currentTest.time % 60).toString().padStart(2,'0');
+            document.getElementById('timer').innerText = `${m}:${s}`;
+            localStorage.setItem('resume_' + currentUser.email, JSON.stringify(currentTest));
         }, 1000);
     }
 
-    // --- RESULT & SEARCH (RESTORED) ---
-    function finish() {
-        if(!confirm("Submit Test?")) return;
-        clearInterval(timerInt);
-        document.getElementById('quiz-ui').style.display = 'none';
-        
-        let correct=0, wrong=0, attempt=0;
-        let rows = '';
-        
-        currentQuestions.forEach((q, i) => {
-            let u = answers[i];
-            let isAttempted = u !== undefined;
-            let isCorrect = isAttempted && u === q.c;
-            
-            if(isAttempted) { attempt++; if(isCorrect) correct++; else wrong++; }
-
-            let status = isCorrect ? '<span class="badge bg-cor">Correct</span>' : 
-                         (isAttempted ? '<span class="badge bg-wro">Wrong</span>' : '<span class="badge bg-ski">Skipped</span>');
-
-            rows += `<tr style="background:${isCorrect?'#f1f8e9':(isAttempted?'#ffebee':'white')}">
-                <td><b>${i+1}</b></td>
-                <td><div style="font-weight:600">${q.q}</div><div style="font-size:0.9em;color:#666">${q.h||''}</div></td>
-                <td>${isAttempted ? String.fromCharCode(65+u) : '-'}</td>
-                <td>${String.fromCharCode(65+q.c)}</td>
-                <td>${status}</td>
-                <td><button class="check-btn" onclick="openGoogleSearch(${i})">🔍 Check</button></td>
-            </tr>`;
+    function loadQuestion(i) {
+        if(i < 0 || i >= currentTest.data.length) return;
+        currentTest.idx = i;
+        const q = currentTest.data[i];
+        let h = `<div class="q-text">Q${i+1}. ${q.q}</div>`;
+        if(q.h) h += `<div class="q-hindi">${q.h}</div>`;
+        h += `<div class="options">`;
+        q.o.forEach((opt, idx) => {
+            const chk = currentTest.answers[i] === idx ? 'checked' : '';
+            h += `<label><input type="radio" name="o" onclick="saveAns(${i},${idx})" ${chk}> ${opt}</label>`;
         });
-
-        let marks = (correct - (wrong/3)).toFixed(2);
-        
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('result').innerHTML = `
-            <div class="res-container">
-                <div class="res-header">
-                    <h1>Score: ${marks} / 100</h1>
-                    <div style="font-size:1.1rem; margin-bottom:15px;">Correct: <b style="color:green">${correct}</b> | Wrong: <b style="color:red">${wrong}</b></div>
-                </div>
-                <div class="table-container">
-                    <table>
-                        <thead><tr><th>#</th><th>Question</th><th>You</th><th>Key</th><th>Result</th><th>Verify</th></tr></thead>
-                        <tbody>${rows}</tbody>
-                    </table>
-                </div>
-                <div style="text-align:center; margin-top:30px;"><button class="btn next" onclick="location.reload()">Take Another Test</button></div>
-            </div>
-        `;
+        h += `</div>`;
+        document.getElementById('question-container').innerHTML = h;
+        updatePalette();
     }
 
-    function openGoogleSearch(index) {
-        const q = currentQuestions[index];
-        let qText = q.q.split(" / ")[0].trim(); 
-        let opts = "";
-        if(qText.length < 150 && q.o) {
-            opts = q.o.map(o => o.split(" / ")[0].trim())
-                      .filter(o => !o.toLowerCase().startsWith('none') && !o.toLowerCase().startsWith('all'))
-                      .join(" ");
+    function saveAns(qIdx, oIdx) {
+        currentTest.answers[qIdx] = oIdx;
+        updatePalette();
+    }
+
+    function markReview() {
+        currentTest.review[currentTest.idx] = !currentTest.review[currentTest.idx];
+        updatePalette();
+    }
+
+    function navQuestion(d) { loadQuestion(currentTest.idx + d); }
+
+    function renderPalette() {
+        const p = document.getElementById('palette');
+        p.innerHTML = '';
+        currentTest.data.forEach((_, i) => {
+            p.innerHTML += `<div id="p-${i}" class="p-btn" onclick="loadQuestion(${i})">${i+1}</div>`;
+        });
+        updatePalette();
+    }
+
+    function updatePalette() {
+        currentTest.data.forEach((_, i) => {
+            const btn = document.getElementById(`p-${i}`);
+            btn.className = 'p-btn';
+            if(currentTest.answers[i] !== undefined) btn.classList.add('answered');
+            if(currentTest.review[i]) btn.classList.add('review');
+            if(i === currentTest.idx) btn.classList.add('current');
+        });
+    }
+
+    function submitTest() {
+        if(!confirm("Submit Test?")) return;
+        clearInterval(timerInterval);
+        localStorage.removeItem('resume_' + currentUser.email);
+        
+        let score = 0;
+        let html = '';
+        currentTest.data.forEach((q, i) => {
+            const u = currentTest.answers[i];
+            const isCor = u === q.c;
+            if(isCor) score++;
+            const col = isCor ? 'green' : (u!==undefined ? 'red' : 'orange');
+            const status = isCor ? 'Correct' : (u!==undefined ? 'Wrong' : 'Skipped');
+            
+            html += `<div style="padding:10px; border-bottom:1px solid #eee;">
+                <p><b>Q${i+1}</b> <span style="color:${col}">(${status})</span> ${q.q}</p>
+                <p style="color:#666">${q.h||''}</p>
+                <p>Correct: <b>${q.o[q.c]}</b></p>
+                ${u!==undefined && !isCor ? `<p>You: ${q.o[u]}</p>` : ''}
+                ${q.exp ? `<p style="background:#f9f9f9; padding:5px;">💡 ${q.exp}</p>` : ''}
+            </div>`;
+        });
+
+        // Save Result
+        db.collection('results').add({
+            userEmail: currentUser.email,
+            userName: currentUser.name,
+            testName: currentTest.name,
+            score: score,
+            total: currentTest.data.length,
+            time: document.getElementById('timer').innerText,
+            date: new Date().toISOString()
+        });
+
+        document.getElementById('res-score').innerText = score;
+        document.getElementById('res-total').innerText = currentTest.data.length;
+        document.getElementById('res-percent').innerText = ((score/currentTest.data.length)*100).toFixed(1) + '%';
+        document.getElementById('res-time').innerText = document.getElementById('timer').innerText;
+        document.getElementById('detailed-analysis').innerHTML = html;
+        switchTab('result');
+    }
+
+    function reportIssue() {
+        const reason = prompt("What is wrong with this question?");
+        if(reason) {
+            db.collection('corrections').add({
+                test: currentTest.name,
+                qNum: currentTest.idx + 1,
+                reason: reason,
+                user: currentUser.email,
+                time: new Date().toISOString()
+            });
+            alert("Report Submitted!");
         }
-        let query = `${qText} ${opts} answer Indian Railways`;
-        const w = 600, h = 700;
-        const left = (screen.width/2)-(w/2), top = (screen.height/2)-(h/2);
-        window.open('https://www.google.com/search?q='+encodeURIComponent(query), 'Verify', `width=${w},height=${h},top=${top},left=${left}`);
+    }
+
+    // --- NAVIGATION ---
+    function switchTab(t) {
+        document.querySelectorAll('.view-section').forEach(e => e.classList.remove('active'));
+        document.getElementById('view-'+t).classList.add('active');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        // Highlighting logic can be refined
+        if(t==='history') loadHistory();
+        if(t==='leaderboard') loadLeaderboard();
+        if(t==='admin') loadAdminStats();
+    }
+
+    // --- HISTORY & STATS ---
+    function loadHistory() {
+        db.collection('results').where('userEmail', '==', currentUser.email).orderBy('date', 'desc').get().then(snap => {
+            const list = document.getElementById('history-list');
+            list.innerHTML = '';
+            const labels = [], data = [];
+            snap.forEach(doc => {
+                const r = doc.data();
+                const d = new Date(r.date).toLocaleDateString();
+                list.innerHTML += `<div style="padding:10px; border-bottom:1px solid #eee; display:flex; justify-content:space-between;">
+                    <span>${r.testName}</span> <span><b>${r.score}/${r.total}</b> <small>${d}</small></span>
+                </div>`;
+                labels.push(d);
+                data.push((r.score/r.total)*100);
+            });
+            
+            new Chart(document.getElementById('historyChart'), {
+                type: 'line',
+                data: { labels: labels.reverse(), datasets: [{ label: 'Score %', data: data.reverse(), borderColor: '#b71c1c' }] }
+            });
+        });
+    }
+
+    function loadLeaderboard() {
+        db.collection('results').orderBy('score', 'desc').limit(20).get().then(snap => {
+            const b = document.getElementById('leaderboard-body');
+            b.innerHTML = '';
+            let r = 1;
+            snap.forEach(doc => {
+                const d = doc.data();
+                b.innerHTML += `<tr><td>#${r++}</td><td>${d.userName}</td><td>${d.testName}</td><td>${d.score}/${d.total}</td><td>${new Date(d.date).toLocaleDateString()}</td></tr>`;
+            });
+        });
+    }
+
+    // --- ADMIN PANEL LOGIC ---
+    function switchAdminSubTab(tab) {
+        document.querySelectorAll('.adm-subview').forEach(e => e.style.display = 'none');
+        document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('adm-'+tab).style.display = 'block';
+        event.target.classList.add('active');
+        
+        if(tab === 'dashboard') loadAdminStats();
+        if(tab === 'access') loadAccessList();
+        if(tab === 'reports') loadReports();
+        if(tab === 'results') loadGlobalResults();
+    }
+
+    function loadAdminStats() {
+        // Simple counts (In real app, use aggregation queries or counters)
+        db.collection('authorized_users').get().then(s => document.getElementById('stat-users').innerText = s.size);
+        db.collection('results').get().then(s => document.getElementById('stat-tests').innerText = s.size);
+        db.collection('corrections').get().then(s => document.getElementById('stat-reports').innerText = s.size);
+    }
+
+    function updateUserAccess() {
+        const email = document.getElementById('adm-email').value.trim();
+        const roleVal = document.getElementById('adm-role').value;
+        const roles = roleVal.includes(',') ? roleVal.split(',') : [roleVal];
+        
+        if(email) {
+            db.collection('authorized_users').doc(email).set({ roles: roles, updated: new Date() })
+            .then(() => { alert("User Access Updated"); loadAccessList(); });
+        }
+    }
+
+    function loadAccessList() {
+        db.collection('authorized_users').get().then(snap => {
+            const b = document.getElementById('access-list-body');
+            b.innerHTML = '';
+            snap.forEach(doc => {
+                const d = doc.data();
+                let badges = d.roles.map(r => {
+                    let cls = r==='admin'?'role-admin':(r==='je'?'role-je':'role-tech');
+                    return `<span class="role-badge ${cls}">${r.toUpperCase()}</span>`;
+                }).join('');
+                b.innerHTML += `<tr><td>${doc.id}</td><td>${badges}</td><td><button onclick="deleteUser('${doc.id}')" style="color:red;border:none;cursor:pointer;">Remove</button></td></tr>`;
+            });
+        });
+    }
+    
+    function deleteUser(id) {
+        if(confirm("Remove access?")) db.collection('authorized_users').doc(id).delete().then(loadAccessList);
+    }
+
+    function loadReports() {
+        db.collection('corrections').orderBy('time', 'desc').get().then(snap => {
+            const b = document.getElementById('reports-body');
+            b.innerHTML = '';
+            snap.forEach(doc => {
+                const d = doc.data();
+                b.innerHTML += `<tr><td>${d.test}</td><td>${d.qNum}</td><td>${d.reason}</td><td>${d.user}</td><td><button onclick="resolveReport('${doc.id}')">Resolve</button></td></tr>`;
+            });
+        });
+    }
+
+    function resolveReport(id) {
+        db.collection('corrections').doc(id).delete().then(loadReports);
+    }
+
+    function loadGlobalResults() {
+        db.collection('results').orderBy('date', 'desc').limit(50).get().then(snap => {
+            const b = document.getElementById('global-results-body');
+            b.innerHTML = '';
+            snap.forEach(doc => {
+                const d = doc.data();
+                b.innerHTML += `<tr><td>${d.userName}<br><small>${d.userEmail}</small></td><td>${d.testName}</td><td>${d.score}/${d.total}</td><td>${new Date(d.date).toLocaleString()}</td></tr>`;
+            });
+        });
+    }
+
+    // --- PDF GENERATION ---
+    async function loadAdminTestList() {
+        const cat = document.getElementById('adm-pdf-cat').value;
+        const div = document.getElementById('adm-test-grid');
+        div.innerHTML = 'Loading...';
+        const res = await fetch(`https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/tests/${cat}`);
+        const files = await res.json();
+        div.innerHTML = '';
+        files.filter(f => f.name.endsWith('.json')).forEach(f => {
+            const name = f.name.replace('.json', '').replace(/_/g, ' ').toUpperCase();
+            div.innerHTML += `<div style="background:#fff; padding:10px; border:1px solid #ddd; display:flex; justify-content:space-between; margin-bottom:5px;">
+                <span>${name}</span>
+                <button style="background:var(--primary); color:white; border:none; padding:5px 10px; cursor:pointer;" onclick="printBooklet('${f.download_url}', '${name}')">🖨️ Print Booklet</button>
+            </div>`;
+        });
+    }
+
+    async function printBooklet(url, title) {
+        const res = await fetch(url);
+        const data = await res.json();
+        let html = `<div class="print-header"><h1>${title}</h1><p>Questions: ${data.length}</p></div>`;
+        let key = `<div class="print-key"><h2 style="text-align:center">Answer Key</h2><div style="display:grid; grid-template-columns: repeat(5,1fr); font-size:0.8rem;">`;
+        
+        data.forEach((q, i) => {
+            html += `<div class="print-q-block"><div><b>Q${i+1}.</b> ${q.q}</div>`;
+            if(q.h) html += `<div style="font-family:'Nirmala UI';">${q.h}</div>`;
+            html += `<div class="print-options">
+                ${q.o.map((opt, idx) => `<div>(${String.fromCharCode(65+idx)}) ${opt}</div>`).join('')}
+            </div></div>`;
+            key += `<div>${i+1}. <b>${String.fromCharCode(65+q.c)}</b></div>`;
+        });
+        key += `</div></div>`;
+        
+        const area = document.getElementById('printable-area');
+        area.innerHTML = html + key;
+        window.print();
+        setTimeout(() => area.innerHTML = '', 1000);
+    }
+
+    // CHECK SESSION
+    if(sessionStorage.getItem('user')) {
+        currentUser = JSON.parse(sessionStorage.getItem('user'));
+        initApp();
     }
 </script>
 
